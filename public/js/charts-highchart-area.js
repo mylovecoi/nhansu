@@ -1,5 +1,4 @@
 $(function () {
-
     /* Basic area */
     $('#basic-area').highcharts({
         chart: {
