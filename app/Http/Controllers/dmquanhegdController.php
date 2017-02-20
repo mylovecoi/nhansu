@@ -11,7 +11,7 @@ class dmquanhegdController extends Controller
     public function index(){
         if (Session::has('admin')) {
             $m_pb=dmquanhegd::all();
-            return view('hethong.danhmuc.quanhegd.index')
+            return view('system.danhmuc.quanhegd.index')
                 ->with('model',$m_pb)
                 ->with('pageTitle','Danh mục dân tộc');
         } else
@@ -60,7 +60,7 @@ class dmquanhegdController extends Controller
         if (Session::has('admin')) {
             $model = dmquanhegd::findOrFail($id);
             $model->delete();
-            return redirect('/danhmuc/quanhegd/index');
+            return redirect('/danh_muc/quan_he_gd/index');
         }else
             return view('errors.notlogin');
     }

@@ -63,7 +63,7 @@ class hosotailieuController extends Controller
         $model->macanbo = $inputs['macanbo'];
         $model->tentailieu = $inputs['tentailieu'];
         $model->phanloai = $inputs['phanloai'];
-        $model->ngaybangiao = $inputs['ngaybangiao']==''?NULL:$inputs['ngaybangiao'];
+        $model->ngaybangiao = getDateTime($inputs['ngaybangiao']);
         $model->nguoinhan = $inputs['nguoinhan'];
         $model->ghichu = $inputs['ghichu'];
         $model->save();
@@ -91,7 +91,7 @@ class hosotailieuController extends Controller
 
         $model->tentailieu = $inputs['tentailieu'];
         $model->phanloai = $inputs['phanloai'];
-        $model->ngaybangiao = $inputs['ngaybangiao']==''?NULL:$inputs['ngaybangiao'];
+        $model->ngaybangiao = getDateTime($inputs['ngaybangiao']);
         $model->nguoinhan = $inputs['nguoinhan'];
         $model->ghichu = $inputs['ghichu'];
 

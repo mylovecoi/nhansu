@@ -11,7 +11,7 @@ class dmphongbanController extends Controller
     public function index(){
         if (Session::has('admin')) {
             $m_pb=dmphongban::orderby('sapxep')->get();
-            return view('hethong.danhmuc.phongban.index')
+            return view('system.danhmuc.phongban.index')
                 ->with('model',$m_pb)
                 ->with('pageTitle','Danh mục phòng ban');
         } else
@@ -61,7 +61,7 @@ class dmphongbanController extends Controller
         if (Session::has('admin')) {
             $model = dmphongban::findOrFail($id);
             $model->delete();
-            return redirect('/danhmuc/phongban/index');
+            return redirect('/danh_muc/phong_ban/index');
         }else
             return view('errors.notlogin');
     }

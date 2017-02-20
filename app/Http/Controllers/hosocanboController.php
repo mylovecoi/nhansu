@@ -112,14 +112,14 @@ class hosocanboController extends Controller
             $model->tencanbo = $insert['tencanbo'];
             $model->tenkhac = $insert['tenkhac'];
             $model->macongchuc = $insert['macongchuc'];
-            $model->ngaysinh = $insert['ngaysinh'];
+            $model->ngaysinh = getDateTime($insert['ngaysinh']);
             $model->gioitinh = $insert['gioitinh'];
             $model->dantoc = $insert['dantoc'];
             $model->tongiao = $insert['tongiao'];
             $model->sodt = $insert['sodt'];
             $model->email = $insert['email'];
             $model->socmnd = $insert['socmnd'];
-            $model->ngaycap = $insert['ngaycap'];
+            $model->ngaycap = getDateTime($insert['ngaycap']);
             $model->noicap = $insert['noicap'];
             $model->nsxa = $insert['nsxa'];
             $model->nshuyen = $insert['nshuyen'];
@@ -129,14 +129,14 @@ class hosocanboController extends Controller
             $model->qqtinh = $insert['qqtinh'];
             $model->noio = $insert['noio'];
             $model->hktt = $insert['hktt'];
-            $model->ngaytd = $insert['ngaytd'];
+            $model->ngaytd = getDateTime($insert['ngaytd']);
             $model->cqtd = $insert['cqtd'];
             $model->httd = $insert['httd'];
             $model->lvtd = $insert['lvtd'];
             $model->cvcn = $insert['cvcn'];
             $model->stct = $insert['stct'];
-            $model->ngaybc = $insert['ngaybc'];
-            $model->ngayvao = $insert['ngayvao'];
+            $model->ngaybc = getDateTime($insert['ngaybc']);
+            $model->ngayvao = getDateTime($insert['ngayvao']);
             $model->sunghiep = $insert['sunghiep'];
             $model->lvhd = $insert['lvhd'];
 
@@ -155,8 +155,8 @@ class hosocanboController extends Controller
             $model->pthuong = $insert['pthuong'];
             $model->heso = $insert['heso'];
             $model->vuotkhung = $insert['vuotkhung'];
-            $model->ngaytu = $insert['ngaytu'];
-            $model->ngayden = $insert['ngayden'];
+            $model->ngaytu = getDateTime($insert['ngaytu']);
+            $model->ngayden = getDateTime($insert['ngayden']);
             $model->pccv = $insert['pccv'];
             $model->pctnn = $insert['pctnn'];
             $model->pcvk = $insert['pcvk'];
@@ -173,10 +173,10 @@ class hosocanboController extends Controller
             $model->soBHXH = $insert['soBHXH'];
             $model->sotk = $insert['sotk'];
             $model->tennganhang = $insert['tennganhang'];
-            $model->ngayctctxh = $insert['ngayctctxh'];
+            $model->ngayctctxh = getDateTime($insert['ngayctctxh']);
             $model->cvtcxh = $insert['cvtcxh'];
-            $model->ngayvd = $insert['ngayvd'];
-            $model->ngayvdct = $insert['ngayvdct'];
+            $model->ngayvd = getDateTime($insert['ngayvd']);
+            $model->ngayvdct = getDateTime($insert['ngayvdct']);
             $model->noikn = $insert['noikn'];
             if($insert['macvd'] != 'all'){
                 $model->macvd = $insert['macvd'];
@@ -198,7 +198,7 @@ class hosocanboController extends Controller
                $m_hsct->save();
            }
 
-            return redirect('/nghiepvu/hoso');
+            return redirect('nghiep_vu/ho_so/danh_sach');
         }else
             return view('errors.notlogin');
     }
@@ -265,14 +265,14 @@ class hosocanboController extends Controller
             $model->tencanbo = $update['tencanbo'];
             $model->tenkhac = $update['tenkhac'];
             $model->macongchuc = $update['macongchuc'];
-            $model->ngaysinh = $update['ngaysinh'];
+            $model->ngaysinh = getDateTime($update['ngaysinh']);
             $model->gioitinh = $update['gioitinh'];
             $model->dantoc = $update['dantoc'];
             $model->tongiao = $update['tongiao'];
             $model->sodt = $update['sodt'];
             $model->email = $update['email'];
             $model->socmnd = $update['socmnd'];
-            $model->ngaycap = $update['ngaycap'];
+            $model->ngaycap = getDateTime($update['ngaycap']);
             $model->noicap = $update['noicap'];
             $model->nsxa = $update['nsxa'];
             $model->nshuyen = $update['nshuyen'];
@@ -282,14 +282,14 @@ class hosocanboController extends Controller
             $model->qqtinh = $update['qqtinh'];
             $model->noio = $update['noio'];
             $model->hktt = $update['hktt'];
-            $model->ngaytd = $update['ngaytd'];
+            $model->ngaytd = getDateTime($update['ngaytd']);
             $model->cqtd = $update['cqtd'];
             $model->httd = $update['httd'];
             $model->lvtd = $update['lvtd'];
             $model->cvcn = $update['cvcn'];
             $model->stct = $update['stct'];
-            $model->ngaybc = $update['ngaybc'];
-            $model->ngayvao = $update['ngayvao'];
+            $model->ngaybc = getDateTime($update['ngaybc']);
+            $model->ngayvao = getDateTime($update['ngayvao']);
             $model->sunghiep = $update['sunghiep'];
             $model->lvhd = $update['lvhd'];
 
@@ -308,8 +308,8 @@ class hosocanboController extends Controller
             $model->pthuong = $update['pthuong'];
             $model->heso = $update['heso'];
             $model->vuotkhung = $update['vuotkhung'];
-            $model->ngaytu = $update['ngaytu'];
-            $model->ngayden = $update['ngayden'];
+            $model->ngaytu = getDateTime($update['ngaytu']);
+            $model->ngayden = getDateTime($update['ngayden']);
             $model->pccv = $update['pccv'];
             $model->pctnn = $update['pctnn'];
             $model->pcvk = $update['pcvk'];
@@ -326,10 +326,10 @@ class hosocanboController extends Controller
             $model->soBHXH = $update['soBHXH'];
             $model->sotk = $update['sotk'];
             $model->tennganhang = $update['tennganhang'];
-            $model->ngayctctxh = $update['ngayctctxh'];
+            $model->ngayctctxh = getDateTime($update['ngayctctxh']);
             $model->cvtcxh = $update['cvtcxh'];
-            $model->ngayvd = $update['ngayvd'];
-            $model->ngayvdct = $update['ngayvdct'];
+            $model->ngayvd = getDateTime($update['ngayvd']);
+            $model->ngayvdct = getDateTime($update['ngayvdct']);
             $model->noikn = $update['noikn'];
             if($update['macvd']!='all'){
                 $model->macvd = $update['macvd'];
@@ -349,7 +349,7 @@ class hosocanboController extends Controller
                 $m_hsct->save();
             }
 
-            return redirect('/nghiepvu/hoso');
+            return redirect('nghiep_vu/ho_so/danh_sach');
         }else
             return view('errors.notlogin');
     }
@@ -357,14 +357,11 @@ class hosocanboController extends Controller
     //<editor-fold desc="Tra cứu">
     function search(){
         if (Session::has('admin')) {
-
             $m_pb=dmphongban::all('mapb','tenpb');
             $m_dt=dmdantoc::all('dantoc');
             $m_cvcq=dmchucvucq::all('tencv', 'macvcq');
 
-            //dd($m_hs);
-
-            return view('tracuu.hosocanbo.index')
+            return view('search.hosocanbo.index')
                 ->with('m_pb',$m_pb)
                 ->with('m_cvcq',$m_cvcq)
                 ->with('m_dt',$m_dt)
@@ -375,7 +372,7 @@ class hosocanboController extends Controller
 
     function result(Request $request){
         if (Session::has('admin')) {
-            $_sql="select hosocanbo.id,hosocanbo.macanbo,hosocanbo.tencanbo,hosocanbo.anh,hosocanbo.macvcq,hosocanbo.mapb,hosocanbo.gioitinh,dmchucvucq.sapxep
+            $_sql="select hosocanbo.id,hosocanbo.macanbo,hosocanbo.tencanbo,hosocanbo.anh,hosocanbo.macvcq,hosocanbo.mapb,hosocanbo.gioitinh,dmchucvucq.sapxep,hosocanbo.ngaysinh
                    from hosocanbo, dmchucvucq, hosotinhtrangct
                    Where hosocanbo.macanbo=hosotinhtrangct.macanbo and hosocanbo.macvcq=dmchucvucq.macvcq and
                       hosotinhtrangct.hientai='1' and hosotinhtrangct.phanloaict='Đang công tác'";
@@ -394,9 +391,9 @@ class hosocanboController extends Controller
                 $hs->tencvcq=getInfoChucVuCQ($hs,$m_cvcq);
             }
 
-            return view('tracuu.hosocanbo.result')
+            return view('search.hosocanbo.result')
                 ->with('model',$model)
-                ->with('pageTitle','Két quả tra cứu hồ sơ cán bộ');
+                ->with('pageTitle','Kết quả tra cứu hồ sơ cán bộ');
         } else
             return view('errors.notlogin');
     }
@@ -441,7 +438,7 @@ class hosocanboController extends Controller
 
             $m_donvi=dmdonvi::where('madv',session('admin')->maxa)->first();
             //dd($model);
-            return view('baocao.QD02.soyeulylich')
+            return view('reports.QD02.soyeulylich')
                 ->with('model',$model)
                 ->with('m_llvt',$m_llvt)
                 ->with('m_daotao',$m_daotao)
@@ -473,7 +470,7 @@ class hosocanboController extends Controller
 
             $m_donvi=dmdonvi::where('madv',session('admin')->maxa)->first();
             //dd($m_congtac);
-            return view('baocao.QD02.tomtattieusu')
+            return view('reports.QD02.tomtattieusu')
                 ->with('model',$model)
                 ->with('m_llvt',$m_llvt)
                 ->with('m_congtac',$m_congtac)
@@ -513,7 +510,7 @@ class hosocanboController extends Controller
             $m_donvi->ngaytu=$ngaytu;
             $m_donvi->ngayden=$ngayden;
             //dd($model);
-            return view('baocao.QD02.bosunglylich')
+            return view('reports.QD02.bosunglylich')
                 ->with('model',$model)
                 ->with('m_cv',$m_cv)
                 ->with('m_daotao',$m_daotao)
@@ -524,5 +521,4 @@ class hosocanboController extends Controller
         } else
             return view('errors.notlogin');
     }
-
 }

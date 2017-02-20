@@ -11,7 +11,7 @@ class dmchucvudController extends Controller
     public function index(){
         if (Session::has('admin')) {
             $m_pb=dmchucvud::orderby('sapxep')->get();
-            return view('hethong.danhmuc.chucvud.index')
+            return view('system.danhmuc.chucvud.index')
                 ->with('model',$m_pb)
                 ->with('pageTitle','Danh mục chức vụ');
         } else
@@ -61,7 +61,7 @@ class dmchucvudController extends Controller
         if (Session::has('admin')) {
             $model = dmchucvud::findOrFail($id);
             $model->delete();
-            return redirect('/danhmuc/chucvud/index');
+            return redirect('/danh_muc/chuc_vu_d/index');
         }else
             return view('errors.notlogin');
     }

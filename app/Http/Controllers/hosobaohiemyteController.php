@@ -59,9 +59,9 @@ class hosobaohiemyteController extends Controller
         $model = new hosobaohiemyte();
 
         $model->macanbo = $inputs['macanbo'];
-        $model->ngaytu = $inputs['ngaytu']==''?NULL:$inputs['ngaytu'];
-        $model->ngayden = $inputs['ngayden']==''?NULL:$inputs['ngayden'];
-        $model->ngaylinhthe = $inputs['ngaylinhthe']==''?NULL:$inputs['ngaylinhthe'];
+        $model->ngaytu = getDateTime($inputs['ngaytu']);
+        $model->ngayden = getDateTime($inputs['ngayden']);
+        $model->ngaylinhthe = getDateTime($inputs['ngaylinhthe']);
         $model->noidangky = $inputs['noidangky'];
         $model->sothebh = $inputs['sothebh'];
 
@@ -88,9 +88,9 @@ class hosobaohiemyteController extends Controller
         $inputs = $request->all();
         $model = hosobaohiemyte::find($inputs['id']);
 
-        $model->ngaytu = $inputs['ngaytu']==''?NULL:$inputs['ngaytu'];
-        $model->ngayden = $inputs['ngayden']==''?NULL:$inputs['ngayden'];
-        $model->ngaylinhthe = $inputs['ngaylinhthe']==''?NULL:$inputs['ngaylinhthe'];
+        $model->ngaytu = getDateTime($inputs['ngaytu']);
+        $model->ngayden = getDateTime($inputs['ngayden']);
+        $model->ngaylinhthe = getDateTime($inputs['ngaylinhthe']);
         $model->noidangky = $inputs['noidangky'];
         $model->sothebh = $inputs['sothebh'];
 

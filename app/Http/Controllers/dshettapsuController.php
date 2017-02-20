@@ -17,13 +17,9 @@ class dshettapsuController extends Controller
     function index(){
         if (Session::has('admin')) {
             $model = dshettapsu::where('madv',session('admin')->maxa)->get();
-            //xem có nên làm giao diện cấp tỉnh, huyện
-            if(session('admin')->level=="T" || session('admin')->level=="H"){
-                //Có thể thêm combo chọn đơn vị
-            }
-
-            return view('quanly.hetts.index')
-                ->with('furl','/chucnang/hetts/')
+            return view('manage.hetts.index')
+                ->with('furl','/chuc_nang/het_tap_su/')
+                ->with('furl_ajax','/ajax/het_tap_su/')
                 ->with('model',$model)
                 ->with('pageTitle','Danh sách xét hết tập sự');
         } else
@@ -72,7 +68,7 @@ class dshettapsuController extends Controller
             $m_tt->save();
         }
 
-        $result['message'] = '/chucnang/hetts/danhsach/'.$mahts;
+        $result['message'] = '/chuc_nang/het_tap_su/maso='.$mahts;
         $result['status'] = 'success';
         die(json_encode($result));
     }
@@ -117,8 +113,8 @@ class dshettapsuController extends Controller
             foreach($model as $hs){
                 $hs->tencv=getInfoChucVuCQ($hs,$dmchucvucq);
             }
-            return view('quanly.hetts.hetts')
-                ->with('furl','/chucnang/hetts/')
+            return view('manage.hetts.hetts')
+                ->with('furl','/chuc_nang/het_tap_su/')
                 ->with('model',$model)
                 ->with('pageTitle','Chi tiết danh sách xét hết tập sự');
         } else

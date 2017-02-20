@@ -8,78 +8,69 @@
         ?>
 @extends('main')
 
-@section('custom-script')
-    <link href="{{url('vendors/select2/css/select2.min.css')}}" rel="stylesheet" />
-    <script src="{{url('vendors/select2/js/select2.min.js')}}"></script>
+@section('custom-style')
+    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
 @stop
 
-@section('script')
-    <script src="{{url('bower_components/datatables/media/js/jquery.dataTables.js')}}"></script>
-    <script src="{{url('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.js')}}"></script>
-    <script src="{{url('bower_components/datatables-responsive/js/dataTables.responsive.js')}}"></script>
+@section('custom-script')
+    <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
+
+    <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
     <script>
-        $(document).ready(function() {
-            $('#table_id').DataTable({
-                responsive: true,
-                iDisplayLength: 25
-            });
+        jQuery(document).ready(function() {
+            TableManaged.init();
         });
-       $('#cbmacb').select2();
     </script>
 @stop
 
 @section('content')
-    <div class="page-content">
-        <div class="col-lg-12">
-            <div class="row">
-                <form>
-                    <div class="portlet box">
-                        <div class="portlet-header">
-                            <div class="caption">
-                                <b>CHI TIẾT BẢNG LƯƠNG THÁNG {{$m_bl->thang}} NĂM {{$m_bl->nam}}</b>
-                            </div>
-                            <div class="actions">
-
-                            </div>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="dataTables_wrapper">
-                                <table id="table_id" class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th style="width: 5%">STT</th>
-                                        <th style="width: 15%">Mã công chức</th>
-                                        <th style="width: 20%">Họ tên</th>
-                                        <th style="width: 15%">Chức vụ</th>
-                                        <th style="width: 15%">Mã ngạch</th>
-                                        <th style="width: 15%">Thực lĩnh</th>
-                                        <th>Thao tác</th>
-                                    </tr>
-                                    </thead>
-                                    <?php $stt =0;?>
-                                    <tbody>
-                                        @if(isset($model))
-                                            @foreach($model as $ct)
-                                                <tr>
-                                                    <td class="text-center">{{++$stt}}</td>
-                                                    <td>{{$ct->masoms}}</td>
-                                                    <td>{{$ct->tencanbo}}</td>
-                                                    <td>{{$ct->tencv}}</td>
-                                                    <td>{{$ct->msngbac}}</td>
-                                                    <td>{{number_format($ct->luongtn)}}</td>
-                                                    <td>
-                                                        <a href="{{url($furl.'chitiet/'.$ct->id)}}" class="btn btn-info btn-xs mbs">
-                                                            <i class="fa fa-edit"></i>&nbsp; Chi tiết</a>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        CHI TIẾT BẢNG LƯƠNG THÁNG {{$m_bl->thang}} NĂM {{$m_bl->nam}}
                     </div>
-                </form>
+                </div>
+                <div class="portlet-body form-horizontal">
+                    <table id="sample_3" class="table table-hover table-striped table-bordered" style="min-height: 230px">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 5%">STT</th>
+                                <th class="text-center">Mã công chức</th>
+                                <th class="text-center">Họ tên</th>
+                                <th class="text-center">Phòng ban</th>
+                                <th class="text-center">Chức vụ</th>
+                                <th class="text-center">Mã ngạch</th>
+                                <th class="text-center">Thực lĩnh</th>
+                                <th class="text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        @if(isset($model))
+                            @foreach($model as $key=>$value)
+                                <tr>
+                                    <td class="text-center">{{$key+1}}</td>
+                                    <td>{{$value->masoms}}</td>
+                                    <td>{{$value->tencanbo}}</td>
+                                    <td>{{'PB'}}</td>
+                                    <td>{{$value->tencv}}</td>
+                                    <td>{{$value->msngbac}}</td>
+                                    <td>{{number_format($value->luongtn)}}</td>
+                                    <td>
+                                        <a href="{{url($furl.'maso='.$value->mabl.'/id='.$value->id)}}" class="btn btn-info btn-xs mbs">
+                                            <i class="fa fa-edit"></i>&nbsp; Chi tiết</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

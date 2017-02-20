@@ -10,43 +10,19 @@ use Illuminate\Support\Facades\Session;
 
 class hosocongtacnnController extends Controller
 {
-    function index(){
-        if (Session::has('admin')) {
-            //xem có nên làm giao diện cấp tỉnh, huyện
-            if(session('admin')->level=="T" || session('admin')->level=="H"){
-                //Có thể thêm combo chọn đơn vị
-            }else{
-                $m_pb=getPhongBanX();
-                $m_cb=getCanBoX();
-            }
-
-            return view('quanly.congtacnn.index')
-                ->with('furl','/nghiepvu/quatrinh/ctnn/')
-                ->with('m_pb',$m_pb)
-                ->with('m_cb',$m_cb)
-                ->with('pageTitle','Danh sách quá trình công tác nước ngoài');
-        } else
-            return view('errors.notlogin');
-    }
-
-    function show($macanbo){
+    function index($macanbo){
         if (Session::has('admin')) {
             $model = hosocongtacnn::where('macanbo',$macanbo)->get();
+            $m_pb=getPhongBanX();
+            $m_cb=getCanBoX();
 
-            //xem có nên làm giao diện cấp tỉnh, huyện
-            if(session('admin')->level=="T" || session('admin')->level=="H"){
-                //Có thể thêm combo chọn đơn vị
-            }else{
-                $m_pb=getPhongBanX();
-                $m_cb=getCanBoX();
-            }
-
-            return view('quanly.congtacnn.index')
-                ->with('furl','/nghiepvu/quatrinh/ctnn/')
+            return view('manage.congtacnn.index')
+                ->with('furl','/nghiep_vu/qua_trinh/cong_tac_nn/')
+                ->with('furl_ajax','/ajax/cong_tac_nuoc_ngoai/')
+                ->with('model',$model)
                 ->with('macanbo',$macanbo)
                 ->with('m_pb',$m_pb)
                 ->with('m_cb',$m_cb)
-                ->with('model',$model)
                 ->with('pageTitle','Danh sách quá trình công tác nước ngoài');
         } else
             return view('errors.notlogin');
@@ -69,8 +45,8 @@ class hosocongtacnnController extends Controller
         $model = new hosocongtacnn();
 
         $model->macanbo = $inputs['macanbo'];
-        $model->ngaytu  = $inputs['ngaytu'];
-        $model->ngayden  = $inputs['ngayden'];
+        $model->ngaytu  = getDateTime($inputs['ngaytu']);
+        $model->ngayden  = getDateTime($inputs['ngayden']);
         $model->noidung  = $inputs['noidung'];
         $model->doandi  = $inputs['doandi'];
         $model->kinhphi  =getDbl($inputs['kinhphi']);
@@ -100,8 +76,8 @@ class hosocongtacnnController extends Controller
         $inputs = $request->all();
         $model = hosocongtacnn::find($inputs['id']);
 
-        $model->ngaytu  = $inputs['ngaytu'];
-        $model->ngayden  = $inputs['ngayden'];
+        $model->ngaytu  = getDateTime($inputs['ngaytu']);
+        $model->ngayden  = getDateTime($inputs['ngayden']);
         $model->noidung  = $inputs['noidung'];
         $model->doandi  = $inputs['doandi'];
         $model->kinhphi  =getDbl($inputs['kinhphi']);
@@ -120,7 +96,7 @@ class hosocongtacnnController extends Controller
             $model = hosocongtacnn::find($id);
             $macanbo = $model->macanbo;
             $model->delete();
-            return redirect('/nghiepvu/quatrinh/ctnn/'.$macanbo);
+            return redirect('/nghiep_vu/qua_trinh/cong_tac_nn/maso='.$macanbo);
         } else
             return view('errors.notlogin');
     }

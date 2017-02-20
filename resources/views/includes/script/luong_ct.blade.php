@@ -25,11 +25,11 @@
         }
     }
 
-    function edit(e, id){
+    function edit(id){
         //var tr = $(e).closest('tr');
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         var kq = $.ajax({
-            url: '/ajax/getluong',
+            url: '{{$furl_ajax}}' + 'get',
             type: 'GET',
             data: {
                 _token: CSRF_TOKEN,
@@ -41,7 +41,7 @@
                 $('#chitiet-modal').modal('show');
             },
             error: function (message) {
-                alert('Lỗi: '+ message);
+                toastr.error(message,'Lỗi!');
             }
         });
 
@@ -75,7 +75,7 @@
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             if(id==0){//Thêm mới
                 $.ajax({
-                    url: '/ajax/addluong',
+                    url: '{{$furl_ajax}}' + 'add',
                     type: 'GET',
                     data: {
                         _token: CSRF_TOKEN,
@@ -95,12 +95,12 @@
                         }
                     },
                     error: function(message){
-                        alert(message);
+                        toastr.error(message,'Lỗi!');
                     }
                 });
             }else{//Cập nhật
                 $.ajax({
-                    url: '/ajax/updateluong',
+                    url: '{{$furl_ajax}}' + 'update',
                     type: 'GET',
                     data: {
                         _token: CSRF_TOKEN,
@@ -120,7 +120,7 @@
                         }
                     },
                     error: function(message){
-                        alert(message);
+                        toastr.error(message,'Lỗi!');
                     }
                 });
             }

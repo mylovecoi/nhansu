@@ -9,38 +9,15 @@ use Illuminate\Http\Request;
 
 class hosokyluatController extends Controller
 {
-    function index(){
-        if (Session::has('admin')) {
-            //xem có nên làm giao diện cấp tỉnh, huyện
-            if(session('admin')->level=="T" || session('admin')->level=="H"){
-                //Có thể thêm combo chọn đơn vị
-            }else{
-                $m_pb=getPhongBanX();
-                $m_cb=getCanBoX();
-            }
-
-            return view('quanly.kyluat.index')
-                ->with('furl','/nghiepvu/danhgia/kyluat/')
-                ->with('m_pb',$m_pb)
-                ->with('m_cb',$m_cb)
-                ->with('pageTitle','Danh sách hồ sơ kỷ luật');
-        } else
-            return view('errors.notlogin');
-    }
-
-    function show($macanbo){
+    function index($macanbo){
         if (Session::has('admin')) {
             $model = hosokyluat::where('macanbo',$macanbo)->get();
-            //xem có nên làm giao diện cấp tỉnh, huyện
-            if(session('admin')->level=="T" || session('admin')->level=="H"){
-                //Có thể thêm combo chọn đơn vị
-            }else{
-                $m_pb=getPhongBanX();
-                $m_cb=getCanBoX();
-            }
+            $m_pb=getPhongBanX();
+            $m_cb=getCanBoX();
 
-            return view('quanly.kyluat.index')
-                ->with('furl','/nghiepvu/danhgia/kyluat/')
+            return view('manage.kyluat.index')
+                ->with('furl','/nghiep_vu/danh_gia/ky_luat/')
+                ->with('furl_ajax','/ajax/ky_luat/')
                 ->with('macanbo',$macanbo)
                 ->with('m_pb',$m_pb)
                 ->with('m_cb',$m_cb)
@@ -67,7 +44,7 @@ class hosokyluatController extends Controller
         $model = new hosokyluat();
 
         $model->macanbo = $inputs['macanbo'];
-        $model->ngaythang  = $inputs['ngaythang'];
+        $model->ngaythang  = getDateTime($inputs['ngaythang']);
         $model->hinhthuc  = $inputs['hinhthuc'];
         $model->noidung  = $inputs['noidung'];
         $model->capqd  = $inputs['capqd'];
@@ -95,7 +72,7 @@ class hosokyluatController extends Controller
         $inputs = $request->all();
         $model = hosokyluat::find($inputs['id']);
 
-        $model->ngaythang  = $inputs['ngaythang'];
+        $model->ngaythang  = getDateTime($inputs['ngaythang']);
         $model->hinhthuc  = $inputs['hinhthuc'];
         $model->noidung  = $inputs['noidung'];
         $model->capqd  = $inputs['capqd'];
@@ -112,7 +89,7 @@ class hosokyluatController extends Controller
             $model = hosokyluat::find($id);
             $macanbo = $model->macanbo;
             $model->delete();
-            return redirect('/nghiepvu/danhgia/khenthuong/'.$macanbo);
+            return redirect('/nghiep_vu/danh_gia/khen_thuong/maso='.$macanbo);
         } else
             return view('errors.notlogin');
     }

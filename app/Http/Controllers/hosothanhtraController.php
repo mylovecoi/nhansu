@@ -9,38 +9,15 @@ use Illuminate\Http\Request;
 
 class hosothanhtraController extends Controller
 {
-    function index(){
-        if (Session::has('admin')) {
-            //xem có nên làm giao diện cấp tỉnh, huyện
-            if(session('admin')->level=="T" || session('admin')->level=="H"){
-                //Có thể thêm combo chọn đơn vị
-            }else{
-                $m_pb=getPhongBanX();
-                $m_cb=getCanBoX();
-            }
-
-            return view('quanly.thanhtra.index')
-                ->with('furl','/nghiepvu/danhgia/thanhtra/')
-                ->with('m_pb',$m_pb)
-                ->with('m_cb',$m_cb)
-                ->with('pageTitle','Danh sách hồ sơ thanh tra');
-        } else
-            return view('errors.notlogin');
-    }
-
-    function show($macanbo){
+    function index($macanbo){
         if (Session::has('admin')) {
             $model = hosothanhtra::where('macanbo',$macanbo)->get();
-            //xem có nên làm giao diện cấp tỉnh, huyện
-            if(session('admin')->level=="T" || session('admin')->level=="H"){
-                //Có thể thêm combo chọn đơn vị
-            }else{
                 $m_pb=getPhongBanX();
                 $m_cb=getCanBoX();
-            }
 
-            return view('quanly.thanhtra.index')
-                ->with('furl','/nghiepvu/danhgia/thanhtra/')
+            return view('manage.thanhtra.index')
+                ->with('furl','/nghiep_vu/danh_gia/thanh_tra/')
+                ->with('furl_ajax','/ajax/thanh_tra/')
                 ->with('macanbo',$macanbo)
                 ->with('m_pb',$m_pb)
                 ->with('m_cb',$m_cb)
@@ -67,7 +44,7 @@ class hosothanhtraController extends Controller
         $model = new hosothanhtra();
 
         $model->macanbo = $inputs['macanbo'];
-        $model->ngaythang  = $inputs['ngaythang'];
+        $model->ngaythang  = getDateTime($inputs['ngaythang']);
         $model->xeploai  = $inputs['xeploai'];
         $model->noidung  = $inputs['noidung'];
         $model->ketluan  = $inputs['ketluan'];
@@ -96,7 +73,7 @@ class hosothanhtraController extends Controller
         $inputs = $request->all();
         $model = hosothanhtra::find($inputs['id']);
 
-        $model->ngaythang  = $inputs['ngaythang'];
+        $model->ngaythang  = getDateTime($inputs['ngaythang']);
         $model->xeploai  = $inputs['xeploai'];
         $model->noidung  = $inputs['noidung'];
         $model->ketluan  = $inputs['ketluan'];
@@ -114,7 +91,7 @@ class hosothanhtraController extends Controller
             $model = hosothanhtra::find($id);
             $macanbo = $model->macanbo;
             $model->delete();
-            return redirect('/nghiepvu/danhgia/thanhtra/'.$macanbo);
+            return redirect('/nghiep_vu/danh_gia/thanh_tra/maso='.$macanbo);
         } else
             return view('errors.notlogin');
     }

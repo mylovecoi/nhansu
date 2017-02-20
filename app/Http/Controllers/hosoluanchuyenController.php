@@ -20,7 +20,6 @@ class hosoluanchuyenController extends Controller
             $model = hosoluanchuyen::where('macanbo',$macanbo)->get();
             $m_pb=getPhongBanX();
             $m_cb=getCanBoX();
-            $m_dvm=dmdonvi::where('madv','<>',session('admin')->maxa)->get();
 
             $m_pbm=dmphongban::all('mapb','tenpb')->toArray();
             $m_cvm=dmchucvucq::all('tencv', 'macvcq')->toArray();
@@ -79,11 +78,11 @@ class hosoluanchuyenController extends Controller
 
         $model->madv = $inputs['donvi'];
         $model->macanbo = $inputs['macanbo'];
-        $model->ngaylc = $inputs['ngaylc']==''?NULL:$inputs['ngaylc'];
+        $model->ngaylc = getDateTime($inputs['ngaylc']);
         $model->mapb = $inputs['phongban'];
         $model->macvcq = $inputs['chucvu'];
         $model->soqd = $inputs['soqd'];
-        $model->ngayqd = $inputs['ngayqd']==''?NULL:$inputs['ngayqd'];
+        $model->ngayqd = getDateTime($inputs['ngayqd']);
         $model->nguoiky = $inputs['nguoiky'];
 
         if($model->save()){
@@ -115,12 +114,12 @@ class hosoluanchuyenController extends Controller
         $inputs = $request->all();
         $model = hosoluanchuyen::find($inputs['id']);
 
-        $model->ngaylc = $inputs['ngaylc']==''?NULL:$inputs['ngaylc'];
+        $model->ngaylc = getDateTime($inputs['ngaylc']);
         $model->madv = $inputs['donvi'];
         $model->mapb = $inputs['phongban'];
         $model->macvcq = $inputs['chucvu'];
         $model->soqd = $inputs['soqd'];
-        $model->ngayqd = $inputs['ngayqd']==''?NULL:$inputs['ngayqd'];
+        $model->ngayqd = getDateTime($inputs['ngayqd']);
         $model->nguoiky = $inputs['nguoiky'];
 
         if($model->save()){

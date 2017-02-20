@@ -111,20 +111,19 @@ function getPermissionDefault($level) {
     return json_encode($roles[$level]);
 }
 
-
 function getDayVn($date) {
-    if($date != null || $date != ''|| $date != '0000-00-00')
-        $newday = date('d/m/Y',strtotime($date));
-    else
-        $newday='';
-    return $newday;
+    if ($date == NULL || $date == null || $date == '' || $date == '0000-00-00') {
+        return '';
+    } else {
+        return date('d/m/Y', strtotime($date));
+    }
 }
+
 function getDateTime($date) {
-    if($date != null)
-        $newday = date('d/m/Y H:i:s',strtotime($date));
+    if($date != '')
+        return $date;
     else
-        $newday='';
-    return $newday;
+        return NULL;
 }
 
 function getDbl($obj) {
@@ -132,23 +131,22 @@ function getDbl($obj) {
     $obj=str_replace('.','',$obj);
     if(is_numeric($obj)){
         return $obj;
-    }else
+    }else {
         return 0;
+    }
 }
 
 function can($module = null, $action = null)
 {
     $permission = !empty(session('admin')->permission) ? session('admin')->permission : getPermissionDefault(session('admin')->level);
     $permission = json_decode($permission, true);
-
     //check permission
     if(isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
         return true;
-    }else
+    }else{
         return false;
-
+    }
 }
-
 
 function canGeneral($module = null, $action =null)
 {
@@ -171,7 +169,6 @@ function canDvCc($module = null, $action = null)
         return true;
     }else
         return false;
-
 }
 
 function canDV($perm=null,$module = null, $action = null){
@@ -196,7 +193,7 @@ function getDouble($str)
     $str = str_replace(',','',$str);
     $str = str_replace('.','',$str);
     //if (is_double($str))
-        $sKQ = $str;
+    $sKQ = $str;
     return floatval($sKQ);
 }
 
@@ -220,7 +217,6 @@ function canshow($module = null, $action = null)
         return true;
     }else
         return false;
-
 }
 
 function chuyenkhongdau($str)
@@ -296,5 +292,27 @@ function getPhanTram2($giatri, $thaydoi){
         return '';
     }
     return round(($thaydoi/$giatri)*100,2).'%';
+}
+
+function getConditions($inputs, $exists, $table)
+{
+    $b_dk = false;
+    $s_sql = '';
+    if(!is_array($inputs)) return $s_sql;
+
+    foreach ($inputs as $key => $value) {
+        if (in_array($key,$exists) || $value == '') continue;
+        if ($b_dk) {
+            $s_sql .= ' and ';
+        }
+        if (strtotime($value)) {
+            if($key=='tungay'){$s_sql .= $table.'.'.$key . ">='" . $value . "'";}
+            else{$s_sql .= $table.'.'.$key . "<='" . $value . "'";}
+        } else {
+            $s_sql .= $table.'.'.$key . "='" . $value . "'";
+        }
+        $b_dk = true;
+    }
+    return $s_sql;
 }
 ?>

@@ -17,13 +17,10 @@ class dshuutriController extends Controller
     function index(){
         if (Session::has('admin')) {
             $model = dshuutri::where('madv',session('admin')->maxa)->get();
-            //xem có nên làm giao diện cấp tỉnh, huyện
-            if(session('admin')->level=="T" || session('admin')->level=="H"){
-                //Có thể thêm combo chọn đơn vị
-            }
 
-            return view('quanly.huutri.index')
-                ->with('furl','/chucnang/huutri/')
+            return view('manage.huutri.index')
+                ->with('furl','/chuc_nang/huu_tri/')
+                ->with('furl_ajax','/ajax/huu_tri/')
                 ->with('model',$model)
                 ->with('pageTitle','Danh sách hưu trí');
         } else
@@ -54,7 +51,6 @@ class dshuutriController extends Controller
         $model->save();
 
         $grn=getGeneralConfigs();
-
         $tuoinu=(new Carbon($inputs['ngayxet']))->addYears(-$grn['tuoinu']);
         $m_cbnu=DB::table('hosocanbo')
             ->join('hosotinhtrangct', 'hosotinhtrangct.macanbo', '=', 'hosocanbo.macanbo')
@@ -93,7 +89,7 @@ class dshuutriController extends Controller
             $m_tt->save();
         }
 
-        $result['message'] = '/chucnang/huutri/danhsach/'.$maht;
+        $result['message'] = '/chuc_nang/huu_tri/maso='.$maht;
         $result['status'] = 'success';
         die(json_encode($result));
     }
@@ -138,8 +134,8 @@ class dshuutriController extends Controller
             foreach($model as $hs){
                 $hs->tencv=getInfoChucVuCQ($hs,$dmchucvucq);
             }
-            return view('quanly.huutri.huutri')
-                ->with('furl','/chucnang/huutri/')
+            return view('manage.huutri.huutri')
+                ->with('furl','/chuc_nang/huu_tri/')
                 ->with('model',$model)
                 ->with('pageTitle','Chi tiết danh sách xét hưu trí');
         } else
@@ -154,7 +150,7 @@ class dshuutriController extends Controller
             DB::table('hosotinhtrangct')
                 ->wherein('macanbo', $m_hs)->update(['hientai' => 1]);
             $model->delete();
-            return redirect('/chucnang/huutri/');
+            return redirect('/chuc_nang/huu_tri/danh_sach');
         } else
             return view('errors.notlogin');
     }

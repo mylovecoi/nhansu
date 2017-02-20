@@ -8,78 +8,68 @@
         ?>
 @extends('main')
 
-@section('custom-script')
-    <link href="{{url('vendors/select2/css/select2.min.css')}}" rel="stylesheet" />
-    <script src="{{url('vendors/select2/js/select2.min.js')}}"></script>
+@section('custom-style')
+    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
 @stop
 
-@section('script')
-    <script src="{{url('bower_components/datatables/media/js/jquery.dataTables.js')}}"></script>
-    <script src="{{url('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.js')}}"></script>
-    <script src="{{url('bower_components/datatables-responsive/js/dataTables.responsive.js')}}"></script>
+@section('custom-script')
+    <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
+
+    <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
     <script>
-        $(document).ready(function() {
-            $('#table_id').DataTable({
-                responsive: true,
-                iDisplayLength: 25
-            });
+        jQuery(document).ready(function() {
+            TableManaged.init();
         });
-        $('#cbmacb').select2();
     </script>
 @stop
 
 @section('content')
-    <div class="page-content">
-        <div class="col-lg-12">
-            <div class="row">
-                <form>
-                    <div class="portlet box">
-                        <div class="portlet-header">
-                            <div class="caption">
-                                <b>DANH SÁCH QUÁ TRÌNH HƯỞNG LƯƠNG CỦA CÁN BỘ</b>
-                            </div>
-                            <div class="actions">
-                                @include('includes.crumbs.bt_add')
-                            </div>
-                        </div>
-                        <div class="portlet-body">
-                            @include('includes.crumbs.cb_canbo')
-                            <div class="dataTables_wrapper">
-                                <table id="table_id" class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center" style="width: 5%">STT</th>
-                                        <th class="text-center" style="width: 15%">Từ ngày</th>
-                                        <th class="text-center" style="width: 15%">Đến ngày</th>
-                                        <th class="text-center" style="width: 15%">Mã ngạch</th>
-                                        <th class="text-center" style="width: 10%">Bậc</th>
-                                        <th class="text-center" style="width: 10%">Hệ số</th>
-                                        <th class="text-center" style="width: 10%">Vượt khung</th>
-                                        <th>Thao tác</th>
-                                    </tr>
-                                    </thead>
-                                    <?php $stt =0;?>
-                                    <tbody>
-                                    @if(isset($model))
-                                        @foreach($model as $ct)
-                                            <tr>
-                                                <td class="text-center">{{++$stt}}</td>
-                                                <td name="ngaytu">{{getDayVn($ct->ngaytu)}}</td>
-                                                <td name="ngayden">{{getDayVn($ct->ngayden)}}</td>
-                                                <td name="msngbac">{{$ct->msngbac}}</td>
-                                                <td name="bac">{{$ct->bac}}</td>
-                                                <td name="heso">{{$ct->heso}}</td>
-                                                <td name="vuotkhung">{{$ct->vuotkhung}}</td>
-                                                @include('includes.crumbs.bt_editdel')
-                                            </tr>
-                                        @endforeach
-                                    @endif
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        DANH SÁCH QUÁ TRÌNH HƯỞNG LƯƠNG CỦA CÁN BỘ
                     </div>
-                </form>
+                    @include('includes.crumbs.bt_add')
+                </div>
+
+                <div class="portlet-body form-horizontal">
+                    @include('includes.crumbs.cb_canbo')
+                    <table id="sample_3" class="table table-hover table-striped table-bordered" style="min-height: 230px">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 5%">STT</th>
+                                <th class="text-center">Từ ngày</th>
+                                <th class="text-center">Đến ngày</th>
+                                <th class="text-center">Mã ngạch</th>
+                                <th class="text-center">Bậc</th>
+                                <th class="text-center">Hệ số</th>
+                                <th class="text-center">Vượt khung</th>
+                                <th class="text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @if(isset($model))
+                            @foreach($model as $key=>$value)
+                                <tr>
+                                    <td class="text-center">{{$key+1}}</td>
+                                    <td>{{getDayVn($value->ngaytu)}}</td>
+                                    <td>{{getDayVn($value->ngayden)}}</td>
+                                    <td>{{$value->msngbac}}</td>
+                                    <td>{{$value->bac}}</td>
+                                    <td>{{$value->heso}}</td>
+                                    <td>{{$value->vuotkhung}}</td>
+                                    @include('includes.crumbs.bt_editdel')
+                                </tr>
+                            @endforeach
+                        @endif
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -108,14 +98,13 @@
         }
 
         function getInfo(){
-            window.location.href = '{{$furl}}'+$('#cbmacb').val();
+            window.location.href = '{{$furl}}'+'maso='+$('#cbmacb').val();
         }
 
-        function edit(e, id){
-            //var tr = $(e).closest('tr');
+        function edit(id) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             var kq = $.ajax({
-                url: '/ajax/getluong',
+                url: '{{$furl_ajax}}' + 'get',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -161,7 +150,7 @@
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 if(id==0){//Thêm mới
                     $.ajax({
-                        url: '/ajax/addluong',
+                        url: '{{$furl_ajax}}' + 'add',
                         type: 'GET',
                         data: {
                             _token: CSRF_TOKEN,
@@ -186,7 +175,7 @@
                     });
                 }else{//Cập nhật
                     $.ajax({
-                        url: '/ajax/updateluong',
+                        url: '{{$furl_ajax}}' + 'update',
                         type: 'GET',
                         data: {
                             _token: CSRF_TOKEN,

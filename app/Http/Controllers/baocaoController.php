@@ -17,8 +17,8 @@ class baocaoController extends Controller
     //<editor-fold desc="Mẫu báo cáo đơn vị">
     function donvi() {
         if (Session::has('admin')) {
-            return view('baocao.donvi.index')
-                ->with('furl','/baocao/donvi/')
+            return view('reports.donvi.index')
+                ->with('furl','/bao_cao/don_vi/')
                 ->with('pageTitle','Báo cáo số lượng, chất lượng cán bộ');
         } else
             return view('errors.notlogin');
@@ -55,7 +55,7 @@ class baocaoController extends Controller
             $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
             //dd($model);
 
-            return view('baocao.donvi.BcSLCBm1')
+            return view('reports.donvi.BcSLCBm1')
                 ->with('m_pb',$m_pb)
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
@@ -115,7 +115,7 @@ class baocaoController extends Controller
             $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
             //dd($model);
 
-            return view('baocao.donvi.BcSLCBm2')
+            return view('reports.donvi.BcSLCBm2')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)
@@ -161,7 +161,7 @@ class baocaoController extends Controller
             $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
             //dd($model);
 
-            return view('baocao.donvi.BcSLCBm3')
+            return view('reports.donvi.BcSLCBm3')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)
@@ -235,7 +235,7 @@ class baocaoController extends Controller
             $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
             //dd($model);
 
-            return view('baocao.donvi.BcCLDangVien')
+            return view('reports.donvi.BcCLDangVien')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)
@@ -249,8 +249,8 @@ class baocaoController extends Controller
     function mauchuan() {
         if (Session::has('admin')) {
             $m_pb=dmphongban::select('mapb','tenpb')->orderby('sapxep')->get();
-            return view('baocao.mauchuan.index')
-                ->with('furl','/baocao/mauchuan/')
+            return view('reports.mauchuan.index')
+                ->with('furl','/bao_cao/mau_chuan/')
                 ->with('m_pb',$m_pb)
                 ->with('pageTitle','Báo cáo theo thông tư, quyết định');
         } else
@@ -285,7 +285,7 @@ class baocaoController extends Controller
             $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
             //dd($model);
 
-            return view('baocao.mauchuan.BcDSTuyenDungTT08')
+            return view('reports.mauchuan.BcDSTuyenDungTT08')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)
@@ -331,7 +331,7 @@ class baocaoController extends Controller
             $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
             //dd($model);
 
-            return view('baocao.mauchuan.BcDSTuyenDungTT10')
+            return view('reports.mauchuan.BcDSTuyenDungTT10')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)
@@ -364,7 +364,7 @@ class baocaoController extends Controller
             $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
             //dd($model);
 
-            return view('baocao.mauchuan.BcDSCC')
+            return view('reports.mauchuan.BcDSCC')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)
@@ -394,7 +394,7 @@ class baocaoController extends Controller
             $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
             //dd($model);
 
-            return view('baocao.mauchuan.BcDSVC')
+            return view('reports.mauchuan.BcDSVC')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)
@@ -481,7 +481,7 @@ class baocaoController extends Controller
             $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
             //dd($model);
 
-            return view('baocao.mauchuan.BcSLCLCC')
+            return view('reports.mauchuan.BcSLCLCC')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)
@@ -568,7 +568,7 @@ class baocaoController extends Controller
             $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
             //dd($model);
 
-            return view('baocao.mauchuan.BcSLCLVC')
+            return view('reports.mauchuan.BcSLCLVC')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)
@@ -601,7 +601,7 @@ class baocaoController extends Controller
             $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
             //dd($model);
 
-            return view('baocao.mauchuan.BcDSCCCVCC')
+            return view('reports.mauchuan.BcDSCCCVCC')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)
@@ -634,7 +634,7 @@ class baocaoController extends Controller
             $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
             //dd($model);
 
-            return view('baocao.mauchuan.BcDSVCCVCC')
+            return view('reports.mauchuan.BcDSVCCVCC')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)

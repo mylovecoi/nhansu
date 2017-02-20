@@ -59,10 +59,10 @@ class hosochucvuController extends Controller
         $model->macanbo = $inputs['macanbo'];
         $model->mapb = $inputs['mapb'];
         $model->macvcq = $inputs['macvcq'];
-        $model->ngaytu = $inputs['ngaytu']==''?NULL:$inputs['ngaytu'];
-        $model->ngayden = $inputs['ngayden']==''?NULL:$inputs['ngayden'];
+        $model->ngaytu = getDateTime($inputs['ngaytu']);
+        $model->ngayden = getDateTime($inputs['ngayden']);
         $model->soqd = $inputs['soqd'];
-        $model->ngayqd = $inputs['ngayqd']==''?NULL:$inputs['ngayqd'];
+        $model->ngayqd = getDateTime($inputs['ngayqd']);
         $model->nguoiky = $inputs['nguoiky'];
 
         if($model->save()){
@@ -95,10 +95,10 @@ class hosochucvuController extends Controller
 
         $model->mapb = $inputs['mapb'];
         $model->macvcq = $inputs['macvcq'];
-        $model->ngaytu = $inputs['ngaytu']==''?NULL:$inputs['ngaytu'];
-        $model->ngayden = $inputs['ngayden']==''?NULL:$inputs['ngayden'];
+        $model->ngaytu = getDateTime($inputs['ngaytu']);
+        $model->ngayden = getDateTime($inputs['ngayden']);
         $model->soqd = $inputs['soqd'];
-        $model->ngayqd = $inputs['ngayqd']==''?NULL:$inputs['ngayqd'];
+        $model->ngayqd = getDateTime($inputs['ngayqd']);
         $model->nguoiky = $inputs['nguoiky'];
 
         if($model->save()){

@@ -80,7 +80,7 @@
 <!-- BEGIN BODY -->
 <body class="page page-header-fixed page-footer-fixed page-sidebar-fixed page-sidebar-closed-hide-logo page-sidebar-closed-hide-logo">
 <!-- BEGIN HEADER -->
-<div class="page-header md-shadow-z-1-i navbar navbar-fixed-top">
+<div class="page-header navbar navbar-fixed-top">
 	<!-- BEGIN HEADER INNER -->
 	<div class="page-header-inner">
 		<!-- BEGIN LOGO -->
@@ -151,7 +151,7 @@
 <div class="page-container">
 	<!-- BEGIN SIDEBAR -->
 	<div class="page-sidebar-wrapper">
-		<div class="page-sidebar md-shadow-z-2-i  navbar-collapse collapse">
+		<div class="page-sidebar navbar-collapse collapse">
 			<ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 				<li class="start">
 					<a href="index.html">
@@ -218,17 +218,17 @@
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
-                        <li id="navluong">
-                            <a href="/chucnang/luong">Bảng lương</a>
+                        <li>
+                            <a href="{{url('chuc_nang/bang_luong/danh_sach')}}">Bảng lương</a>
                         </li>
-                        <li id="navnangluong">
-                            <a href="/chucnang/nangluong">Nâng lương</a>
+                        <li>
+                            <a href="{{url('chuc_nang/nang_luong/danh_sach')}}">Nâng lương</a>
                         </li>
-                        <li id="navhetts">
-                            <a href="/chucnang/hetts">Hết tập sư</a>
+                        <li>
+                            <a href="{{url('chuc_nang/het_tap_su/danh_sach')}}">Hết tập sư</a>
                         </li>
-                        <li id="navhuutri">
-                            <a href="/chucnang/huutri">Nghỉ hưu</a>
+                        <li>
+                            <a href="{{url('chuc_nang/huu_tri/danh_sach')}}">Nghỉ hưu</a>
                         </li>
 					</ul>
 				</li>
@@ -239,12 +239,11 @@
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
-                        <li><a href="{{url('/tracuu/hoso')}}">Hồ sơ cán bộ</a></li>
-                        <li><a href="/login">Quá trình công tác</a></li>
-                        <li><a href="/login">Quá trình đào tạo</a></li>
-                        <li><a href="/login">Quá trình hưởng lương</a></li>
-                        <li><a href="/login">Quá trình phụ cấp</a></li>
-                        <li><a href="/login">Quan hệ gia đình</a></li>
+                        <li><a href="{{url('/tra_cuu/ho_so')}}">Hồ sơ cán bộ</a></li>
+                        <li><a href="{{url('/tra_cuu/cong_tac')}}">Quá trình công tác</a></li>
+                        <li><a href="{{url('/tra_cuu/dao_tao')}}">Quá trình đào tạo</a></li>
+                        <li><a href="{{url('/tra_cuu/luong')}}">Quá trình hưởng lương</a></li>
+                        <li><a href="{{url('/tra_cuu/phu_cap')}}">Quá trình phụ cấp</a></li>
 					</ul>
 				</li>
 				<li>
@@ -254,8 +253,8 @@
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
-                        <li><a href="{{url('/baocao/donvi')}}">Báo cáo số lượng, chất lượng cán bộ</a></li>
-                        <li><a href="{{url('/baocao/mauchuan')}}">Báo cáo theo thông tư, quyết định</a></li>
+                        <li><a href="{{url('bao_cao/don_vi')}}">Báo cáo số lượng, chất lượng cán bộ</a></li>
+                        <li><a href="{{url('bao_cao/mau_chuan')}}">Báo cáo theo thông tư, quyết định</a></li>
 					</ul>
 				</li>
 				<li class="last">
@@ -270,22 +269,22 @@
                                 <i class="fa fa-list-alt"></i> Danh mục <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu" style="margin-left: 15px;">
-                                <li><a href="{{url('/danhmuc/dantoc/index')}}">Dân tộc</a></li>
-                                <li><a href="{{url('/danhmuc/phongban/index')}}">Phòng ban</a></li>
-                                <li><a href="{{url('/danhmuc/phucap/index')}}">Phụ cấp</a></li>
-                                <li><a href="{{url('/danhmuc/chucvud/index')}}">Chức vụ đảng</a></li>
-                                <li><a href="{{url('/danhmuc/chucvucq/index')}}">Chức vụ chính quyền</a></li>
-                                <li><a href="{{url('/danhmuc/quanhegd/index')}}">Quan hệ gia đình</a></li>
-                                <li><a href="{{url('/danhmuc/congtac/index')}}">Phân loại công tác</a></li>
+                                <li><a href="{{url('danh_muc/dan_toc/index')}}">Dân tộc</a></li>
+                                <li><a href="{{url('danh_muc/phong_ban/index')}}">Phòng ban</a></li>
+                                <li><a href="{{url('danh_muc/phu_cap/index')}}">Phụ cấp</a></li>
+                                <li><a href="{{url('danh_muc/chuc_vu_d/index')}}">Chức vụ đảng</a></li>
+                                <li><a href="{{url('danh_muc/chuc_vu_cq/index')}}">Chức vụ chính quyền</a></li>
+                                <li><a href="{{url('danh_muc/quan_he_gd/index')}}">Quan hệ gia đình</a></li>
+                                <li><a href="{{url('danh_muc/cong_tac/index')}}">Phân loại công tác</a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="javascript:;">
                                 <i class="icon-user"></i> Người dùng <span class="arrow"></span>
                             </a>
-                            <ul class="sub-menu" style="margin-left: 15px;">
+                            <!--ul class="sub-menu" style="margin-left: 15px;">
                                 <li><a href="{{url('phanquyen')}}">Phân quyền</a></li>
-                            </ul>
+                            </ul-->
                         </li>
 					</ul>
 				</li>

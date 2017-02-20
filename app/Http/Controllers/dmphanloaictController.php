@@ -11,7 +11,7 @@ class dmphanloaictController extends Controller
     public function index(){
         if (Session::has('admin')) {
             $m_pb=dmphanloaict::all();
-            return view('hethong.danhmuc.congtac.index')
+            return view('system.danhmuc.congtac.index')
                 ->with('model',$m_pb)
                 ->with('pageTitle','Danh mục phân loại công tác');
         } else
@@ -62,7 +62,7 @@ class dmphanloaictController extends Controller
         if (Session::has('admin')) {
             $model = dmphanloaict::findOrFail($id);
             $model->delete();
-            return redirect('/danhmuc/congtac/index');
+            return redirect('/danh_muc/cong_tac/index');
         }else
             return view('errors.notlogin');
     }

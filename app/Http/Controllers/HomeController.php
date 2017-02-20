@@ -23,7 +23,7 @@ class HomeController extends Controller
             if(session('admin')->username == 'sa')
                 return redirect('cau_hinh_he_thong');
             else
-                return view('main')
+                return view('dashboard')
                     ->with('pageTitle','Tổng quan');
         }else
             return view('welcome');

@@ -59,8 +59,8 @@ class hosollvtController extends Controller
         $model = new hosollvt();
 
         $model->macanbo = $inputs['macanbo'];
-        $model->ngaytu = $inputs['ngaytu']==''?NULL:$inputs['ngaytu'];
-        $model->ngayden = $inputs['ngayden']==''?NULL:$inputs['ngayden'];
+        $model->ngaytu = getDateTime($inputs['ngaytu']);
+        $model->ngayden = getDateTime($inputs['ngayden']);
         $model->quanham = $inputs['quanham'];
         $model->chucvu = $inputs['chucvu'];
 
@@ -87,8 +87,8 @@ class hosollvtController extends Controller
         $inputs = $request->all();
         $model = hosollvt::find($inputs['id']);
 
-        $model->ngaytu = $inputs['ngaytu']==''?NULL:$inputs['ngaytu'];
-        $model->ngayden = $inputs['ngayden']==''?NULL:$inputs['ngayden'];
+        $model->ngaytu = getDateTime($inputs['ngaytu']);
+        $model->ngayden = getDateTime($inputs['ngayden']);
         $model->quanham = $inputs['quanham'];
         $model->chucvu = $inputs['chucvu'];
 

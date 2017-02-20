@@ -11,7 +11,7 @@ class dmdantocController extends Controller
     public function index(){
         if (Session::has('admin')) {
             $m_pb=dmdantoc::all();
-            return view('hethong.danhmuc.dantoc.index')
+            return view('system.danhmuc.dantoc.index')
                 ->with('model',$m_pb)
                 ->with('pageTitle','Danh mục dân tộc');
         } else
@@ -58,7 +58,7 @@ class dmdantocController extends Controller
         if (Session::has('admin')) {
             $model = dmdantoc::findOrFail($id);
             $model->delete();
-            return redirect('/danhmuc/dantoc/index');
+            return redirect('/danh_muc/dan_toc/index');
         }else
             return view('errors.notlogin');
     }

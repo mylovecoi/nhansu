@@ -31,11 +31,11 @@
         <div class="col-md-12">
             <div class="portlet light bordered">
                 <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-list-alt"></i>DANH SÁCH HỒ SƠ BẢO HIỂM Y TẾ CỦA CÁN BỘ
-                            </div>
-                            @include('includes.crumbs.bt_add')
-                        </div>
+                    <div class="caption">
+                        <i class="fa fa-list-alt"></i>DANH SÁCH HỒ SƠ BẢO HIỂM Y TẾ CỦA CÁN BỘ
+                    </div>
+                    @include('includes.crumbs.bt_add')
+                </div>
                 <div class="portlet-body form-horizontal">
                     @include('includes.crumbs.cb_canbo')
                     <table id="sample_3" class="table table-hover table-striped table-bordered" style="min-height: 230px">

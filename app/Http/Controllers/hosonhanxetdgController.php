@@ -9,38 +9,15 @@ use Illuminate\Http\Request;
 
 class hosonhanxetdgController extends Controller
 {
-    function index(){
-        if (Session::has('admin')) {
-            //xem có nên làm giao diện cấp tỉnh, huyện
-            if(session('admin')->level=="T" || session('admin')->level=="H"){
-                //Có thể thêm combo chọn đơn vị
-            }else{
-                $m_pb=getPhongBanX();
-                $m_cb=getCanBoX();
-            }
-
-            return view('quanly.nhanxet.index')
-                ->with('furl','/nghiepvu/danhgia/nhanxet/')
-                ->with('m_pb',$m_pb)
-                ->with('m_cb',$m_cb)
-                ->with('pageTitle','Danh sách hồ sơ nhận xét, đánh giá');
-        } else
-            return view('errors.notlogin');
-    }
-
-    function show($macanbo){
+    function index($macanbo){
         if (Session::has('admin')) {
             $model = hosonhanxetdg::where('macanbo',$macanbo)->get();
-            //xem có nên làm giao diện cấp tỉnh, huyện
-            if(session('admin')->level=="T" || session('admin')->level=="H"){
-                //Có thể thêm combo chọn đơn vị
-            }else{
-                $m_pb=getPhongBanX();
-                $m_cb=getCanBoX();
-            }
+            $m_pb=getPhongBanX();
+            $m_cb=getCanBoX();
 
-            return view('quanly.nhanxet.index')
-                ->with('furl','/nghiepvu/danhgia/nhanxet/')
+            return view('manage.nhanxet.index')
+                ->with('furl','/nghiep_vu/danh_gia/nhan_xet/')
+                ->with('furl_ajax','/ajax/nhan_xet/')
                 ->with('macanbo',$macanbo)
                 ->with('m_pb',$m_pb)
                 ->with('m_cb',$m_cb)
@@ -67,8 +44,8 @@ class hosonhanxetdgController extends Controller
         $model = new hosonhanxetdg();
 
         $model->macanbo = $inputs['macanbo'];
-        $model->ngaytu  = $inputs['ngaytu'];
-        $model->ngayden  = $inputs['ngayden'];
+        $model->ngaytu  = getDateTime($inputs['ngaytu']);
+        $model->ngayden  = getDateTime($inputs['ngayden']);
         $model->xeploai  = $inputs['xeploai'];
         $model->nhanxet  = $inputs['nhanxet'];
         $model->danhgia  = $inputs['danhgia'];
@@ -96,8 +73,8 @@ class hosonhanxetdgController extends Controller
         $inputs = $request->all();
         $model = hosonhanxetdg::find($inputs['id']);
 
-        $model->ngaytu  = $inputs['ngaytu'];
-        $model->ngayden  = $inputs['ngayden'];
+        $model->ngaytu  = getDateTime($inputs['ngaytu']);
+        $model->ngayden  = getDateTime($inputs['ngayden']);
         $model->xeploai  = $inputs['xeploai'];
         $model->nhanxet  = $inputs['nhanxet'];
         $model->danhgia  = $inputs['danhgia'];
@@ -114,7 +91,7 @@ class hosonhanxetdgController extends Controller
             $model = hosonhanxetdg::find($id);
             $macanbo = $model->macanbo;
             $model->delete();
-            return redirect('/nghiepvu/danhgia/nhanxet/'.$macanbo);
+            return redirect('/nghiep_vu/danh_gia/nhan_xet/maso='.$macanbo);
         } else
             return view('errors.notlogin');
     }

@@ -8,78 +8,67 @@
         ?>
 @extends('main')
 
-@section('custom-script')
-    <link href="{{url('vendors/select2/css/select2.min.css')}}" rel="stylesheet" />
-    <script src="{{url('vendors/select2/js/select2.min.js')}}"></script>
+@section('custom-style')
+    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
 @stop
 
-@section('script')
-    <script src="{{url('bower_components/datatables/media/js/jquery.dataTables.js')}}"></script>
-    <script src="{{url('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.js')}}"></script>
-    <script src="{{url('bower_components/datatables-responsive/js/dataTables.responsive.js')}}"></script>
+@section('custom-script')
+    <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
+
+    <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
     <script>
-        $(document).ready(function() {
-            $('#table_id').DataTable({
-                responsive: true,
-                iDisplayLength: 25
-            });
+        jQuery(document).ready(function() {
+            TableManaged.init();
         });
-       $('#cbmacb').select2();
     </script>
 @stop
 
 @section('content')
-    <div class="page-content">
-        <div class="col-lg-12">
-            <div class="row">
-                <form>
-                    <div class="portlet box">
-                        <div class="portlet-header">
-                            <div class="caption">
-                                <b>DANH SÁCH BẢNG LƯƠNG</b>
-                            </div>
-                            <div class="actions">
-                                <button type="button" id="_btnadd" class="btn btn-success btn-xs" onclick="add()"><i class="fa fa-plus"></i>&nbsp;Tạo bảng lương</button>
-                            </div>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="dataTables_wrapper">
-                                <table id="table_id" class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center" style="width: 5%">STT</th>
-                                        <th style="width: 15%">Tháng</th>
-                                        <th style="width: 15%">Năm</th>
-                                        <th class="text-center" style="width: 40%">Nội dung bảng lương</th>
-                                        <th>Thao tác</th>
-                                    </tr>
-                                    </thead>
-                                    <?php $stt =0;?>
-                                    <tbody>
-                                        @if(isset($model))
-                                            @foreach($model as $ct)
-                                                <tr>
-                                                    <td class="text-center">{{++$stt}}</td>
-                                                    <td>{{$ct->thang}}</td>
-                                                    <td>{{$ct->nam}}</td>
-                                                    <td>{{$ct->noidung}}</td>
-                                                    <td>
-                                                        <button type="button" onclick="edit(this, {{$ct->id}})" class="btn btn-info btn-xs mbs">
-                                                            <i class="fa fa-edit"></i>&nbsp; Chỉnh sửa</button>
-                                                        <a href="{{url('/chucnang/luong/bangluong/'.$ct->mabl)}}" class="btn btn-success btn-xs mbs">
-                                                            <i class="fa fa-th-list"></i>&nbsp; Chi tiết</a>
-                                                        <button type="button" onclick="cfDel('{{$furl.'del/'.$ct->id}}')" class="btn btn-danger btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
-                                                            <i class="fa fa-trash-o"></i>&nbsp; Xóa</button>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">DANH SÁCH BẢNG LƯƠNG CỦA CÁN BỘ</div>
+                    <div class="actions">
+                        <button type="button" id="_btnadd" class="btn btn-default btn-xs" onclick="add()"><i class="fa fa-plus"></i>&nbsp;Thêm mới bảng lương</button>
                     </div>
-                </form>
+                </div>
+                <div class="portlet-body form-horizontal">
+                    <table id="sample_3" class="table table-hover table-striped table-bordered" style="min-height: 230px">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 5%">STT</th>
+                                <th class="text-center">Tháng</th>
+                                <th class="text-center">Năm</th>
+                                <th class="text-center">Nội dung bảng lương</th>
+                                <th class="text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(isset($model))
+                                @foreach($model as $key=>$value)
+                                    <tr>
+                                        <td class="text-center">{{$key+1}}</td>
+                                        <td>{{$value->thang}}</td>
+                                        <td>{{$value->nam}}</td>
+                                        <td>{{$value->noidung}}</td>
+                                        <td>
+                                            <button type="button" onclick="edit({{$value->id}})" class="btn btn-info btn-xs mbs">
+                                                <i class="fa fa-edit"></i>&nbsp; Chỉnh sửa</button>
+                                            <a href="{{url($furl.'maso='.$value->mabl)}}" class="btn btn-success btn-xs mbs">
+                                                <i class="fa fa-th-list"></i>&nbsp; Chi tiết</a>
+                                            <button type="button" onclick="cfDel('{{$furl.'del/'.$value->id}}')" class="btn btn-danger btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
+                                                <i class="fa fa-trash-o"></i>&nbsp; Xóa</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -158,11 +147,11 @@
             $('#chitiet-modal').modal('show');
         }
 
-        function edit(e, id){
+        function edit(id){
             //var tr = $(e).closest('tr');
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/ajax/getbangluong',
+                url: '{{$furl_ajax}}' + 'get',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -175,7 +164,7 @@
                     $('#noidung').val(data.noidung);
                 },
                 error: function(message){
-                    alert(message);
+                    toastr.error(message,'Lỗi!');
                 }
             });
 
@@ -205,7 +194,7 @@
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 if(id==0){//Thêm mới
                     $.ajax({
-                        url: '/ajax/addbangluong',
+                        url: '{{$furl_ajax}}' + 'add',
                         type: 'GET',
                         data: {
                             _token: CSRF_TOKEN,
@@ -225,7 +214,7 @@
                     });
                 }else{//Cập nhật
                     $.ajax({
-                        url: '/ajax/updatebangluong',
+                        url: '{{$furl_ajax}}' + 'update',
                         type: 'GET',
                         data: {
                             _token: CSRF_TOKEN,

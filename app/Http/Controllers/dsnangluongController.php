@@ -19,13 +19,9 @@ class dsnangluongController extends Controller
     function index(){
         if (Session::has('admin')) {
             $model = dsnangluong::where('madv',session('admin')->maxa)->get();
-            //xem có nên làm giao diện cấp tỉnh, huyện
-            if(session('admin')->level=="T" || session('admin')->level=="H"){
-                //Có thể thêm combo chọn đơn vị
-            }
-
-            return view('quanly.nangluong.index')
-                ->with('furl','/chucnang/nangluong/')
+            return view('manage.nangluong.index')
+                ->with('furl','/chuc_nang/nang_luong/')
+                ->with('furl_ajax','/ajax/nang_luong/')
                 ->with('model',$model)
                 ->with('pageTitle','Danh sách nâng lương');
         } else
@@ -64,7 +60,6 @@ class dsnangluongController extends Controller
         $m_cb=hosocanbo::where('ngayden','<',$inputs['ngayxet'])->get();
 
         foreach($m_cb as $cb){
-
             $m_luong=new hosoluong();
 
             $m_luong->manl=$manl;
@@ -90,11 +85,10 @@ class dsnangluongController extends Controller
                 $m_luong->ngaytu=$cb->ngaytu;
                 $m_luong->ngayden=$cb->ngayden;
             }
-
             $m_luong->save();
         }
 
-        $result['message'] = '/chucnang/nangluong/danhsach/'.$manl;
+        $result['message'] = '/chuc_nang/nang_luong/maso='.$manl;
         $result['status'] = 'success';
         die(json_encode($result));
         //return redirect('/chucnang/luong/bangluong/'.$mabl);
@@ -119,7 +113,6 @@ class dsnangluongController extends Controller
 
         $inputs=$request->all();
         $model = dsnangluong::find($inputs['id']);
-
         $model->soqd=$inputs['soqd'];
         $model->ngayqd=$inputs['ngayqd'];
         $model->nguoiky=$inputs['nguoiky'];
@@ -127,7 +120,6 @@ class dsnangluongController extends Controller
         $model->noidung=$inputs['noidung'];
         $model->ngayxet=$inputs['ngayxet'];
         $model->kemtheo=$inputs['kemtheo'];
-
         $model->save();
 
         $result['message'] = 'Cập nhật thành công.';
@@ -149,8 +141,9 @@ class dsnangluongController extends Controller
             foreach($model as $hs){
                 $hs->tencv=getInfoChucVuCQ($hs,$dmchucvucq);
             }
-            return view('quanly.nangluong.nangluong')
-                ->with('furl','/chucnang/nangluong/')
+            return view('manage.nangluong.nangluong')
+                ->with('furl','/chuc_nang/nang_luong/')
+                ->with('furl_ajax', '/ajax/luong/')
                 ->with('model',$model)
                 ->with('pageTitle','Chi tiết danh sách nâng lương');
         } else
@@ -161,7 +154,7 @@ class dsnangluongController extends Controller
         if (Session::has('admin')) {
             $model = dsnangluong::find($id);
             $model->delete();
-            return redirect('/chucnang/nangluong/');
+            return redirect('/chuc_nang/nang_luong/danh_sach');
         } else
             return view('errors.notlogin');
     }
@@ -171,7 +164,7 @@ class dsnangluongController extends Controller
             $model = hosoluong::find($id);
             $manl= $model->manl;
             $model->delete();
-            return redirect('/chucnang/nangluong/danhsach/'.$manl);
+            return redirect('/chuc_nang/nang_luong/maso='.$manl);
         } else
             return view('errors.notlogin');
     }

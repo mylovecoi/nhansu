@@ -20,13 +20,9 @@ class bangluongController extends Controller
     function index(){
         if (Session::has('admin')) {
             $model = bangluong::where('madv',session('admin')->maxa)->get();
-            //xem có nên làm giao diện cấp tỉnh, huyện
-            if(session('admin')->level=="T" || session('admin')->level=="H"){
-                //Có thể thêm combo chọn đơn vị
-            }
-
-            return view('quanly.bangluong.index')
-                ->with('furl','/chucnang/luong/')
+            return view('manage.bangluong.index')
+                ->with('furl','/chuc_nang/bang_luong/')
+                ->with('furl_ajax','/ajax/bang_luong/')
                 ->with('model',$model)
                 ->with('pageTitle','Danh sách bảng lương');
         } else
@@ -175,8 +171,8 @@ class bangluongController extends Controller
             foreach($model as $hs){
                 $hs->tencv=getInfoChucVuCQ($hs,$dmchucvucq);
             }
-            return view('quanly.bangluong.bangluong')
-                ->with('furl','/chucnang/luong/')
+            return view('manage.bangluong.bangluong')
+                ->with('furl','/chuc_nang/bang_luong/')
                 ->with('model',$model)
                 ->with('m_bl',$m_bl)
                 ->with('pageTitle','Bảng lương chi tiết');
@@ -206,8 +202,7 @@ class bangluongController extends Controller
         die($model);
     }
 
-    function detail($id){
-
+    function detail($mabl,$id){
         if (Session::has('admin')) {
             $model = bangluong_ct::find($id);
 
@@ -220,7 +215,7 @@ class bangluongController extends Controller
             $m_tennb = ngachbac::select('tennb')->where('plnb', '=', $model->plnb)->distinct()->get();
             $m_bac = ngachbac::select('bac')->where('msngbac', '=', $model->msngbac)->get();
 
-            return view('quanly.bangluong.chitiet')
+            return view('manage.bangluong.chitiet')
                 ->with('furl','/chucnang/luong/')
                 ->with('model',$model)
                 ->with('m_plnb',$m_plnb)
@@ -277,7 +272,7 @@ class bangluongController extends Controller
             
             $model->save();
 
-            return redirect('/chucnang/luong/bangluong/'.$mabl);
+            return redirect('/chuc_nang/bang_luong/maso='.$mabl);
 
 
         } else

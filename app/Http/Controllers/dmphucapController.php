@@ -11,7 +11,7 @@ class dmphucapController extends Controller
     public function index(){
         if (Session::has('admin')) {
             $m_pb=dmphucap::all();
-            return view('hethong.danhmuc.phucap.index')
+            return view('system.danhmuc.phucap.index')
                 ->with('model',$m_pb)
                 ->with('pageTitle','Danh mục phụ cấp');
         } else
@@ -63,7 +63,7 @@ class dmphucapController extends Controller
         if (Session::has('admin')) {
             $model = dmphucap::findOrFail($id);
             $model->delete();
-            return redirect('/danhmuc/phucap/index');
+            return redirect('/danh_muc/phu_cap/index');
         }else
             return view('errors.notlogin');
     }

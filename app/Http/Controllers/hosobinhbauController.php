@@ -9,38 +9,15 @@ use Illuminate\Http\Request;
 
 class hosobinhbauController extends Controller
 {
-    function index(){
-        if (Session::has('admin')) {
-            //xem có nên làm giao diện cấp tỉnh, huyện
-            if(session('admin')->level=="T" || session('admin')->level=="H"){
-                //Có thể thêm combo chọn đơn vị
-            }else{
-                $m_pb=getPhongBanX();
-                $m_cb=getCanBoX();
-            }
-
-            return view('quanly.binhbau.index')
-                ->with('furl','/nghiepvu/danhgia/binhbau/')
-                ->with('m_pb',$m_pb)
-                ->with('m_cb',$m_cb)
-                ->with('pageTitle','Danh sách quá trình bình bầu');
-        } else
-            return view('errors.notlogin');
-    }
-
-    function show($macanbo){
+    function index($macanbo){
         if (Session::has('admin')) {
             $model = hosobinhbau::where('macanbo',$macanbo)->get();
-            //xem có nên làm giao diện cấp tỉnh, huyện
-            if(session('admin')->level=="T" || session('admin')->level=="H"){
-                //Có thể thêm combo chọn đơn vị
-            }else{
-                $m_pb=getPhongBanX();
-                $m_cb=getCanBoX();
-            }
+            $m_pb=getPhongBanX();
+            $m_cb=getCanBoX();
 
-            return view('quanly.binhbau.index')
-                ->with('furl','/nghiepvu/danhgia/binhbau/')
+            return view('manage.binhbau.index')
+                ->with('furl','/nghiep_vu/danh_gia/binh_bau/')
+                ->with('furl_ajax','/ajax/binh_bau/')
                 ->with('macanbo',$macanbo)
                 ->with('m_pb',$m_pb)
                 ->with('m_cb',$m_cb)
@@ -67,8 +44,8 @@ class hosobinhbauController extends Controller
         $model = new hosobinhbau();
 
         $model->macanbo = $inputs['macanbo'];
-        $model->ngaytu  = $inputs['ngaytu'];
-        $model->ngayden  = $inputs['ngayden'];
+        $model->ngaytu  = getDateTime($inputs['ngaytu']);
+        $model->ngayden  = getDateTime($inputs['ngayden']);
         $model->hinhthuc  = $inputs['hinhthuc'];
         $model->noidung  = $inputs['noidung'];
         $model->ketqua  = $inputs['ketqua'];
@@ -96,8 +73,8 @@ class hosobinhbauController extends Controller
         $inputs = $request->all();
         $model = hosobinhbau::find($inputs['id']);
 
-        $model->ngaytu  = $inputs['ngaytu'];
-        $model->ngayden  = $inputs['ngayden'];
+        $model->ngaytu  = getDateTime($inputs['ngaytu']);
+        $model->ngayden  = getDateTime($inputs['ngayden']);
         $model->hinhthuc  = $inputs['hinhthuc'];
         $model->noidung  = $inputs['noidung'];
         $model->ketqua  = $inputs['ketqua'];
@@ -114,7 +91,7 @@ class hosobinhbauController extends Controller
             $model = hosobinhbau::find($id);
             $macanbo = $model->macanbo;
             $model->delete();
-            return redirect('/nghiepvu/danhgia/binhbau/'.$macanbo);
+            return redirect('/nghiep_vu/danh_gia/binh_bau/maso='.$macanbo);
         } else
             return view('errors.notlogin');
     }

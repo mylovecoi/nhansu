@@ -12,7 +12,7 @@ class dmchucvucqController extends Controller
     public function index(){
         if (Session::has('admin')) {
             $m_pb=dmchucvucq::orderby('sapxep')->get();
-            return view('hethong.danhmuc.chucvucq.index')
+            return view('system.danhmuc.chucvucq.index')
                 ->with('model',$m_pb)
                 ->with('pageTitle','Danh mục chức vụ');
         } else
@@ -62,7 +62,7 @@ class dmchucvucqController extends Controller
         if (Session::has('admin')) {
             $model = dmchucvucq::findOrFail($id);
             $model->delete();
-            return redirect('/danhmuc/chucvucq/index');
+            return redirect('/danh_muc/chuc_vu_cq/index');
         }else
             return view('errors.notlogin');
     }
