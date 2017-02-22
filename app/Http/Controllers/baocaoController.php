@@ -648,10 +648,10 @@ class baocaoController extends Controller
     function getDSChuan($inputs){
         $data=hosocanbo::join('hosotinhtrangct', 'hosotinhtrangct.macanbo', '=', 'hosocanbo.macanbo')
             ->join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
-            ->select('hosong tác%')
-            ->where('hosocanbo.macanbo.tencanbo','hosocanbo.macanbo','hosocanbo.mapb','hosocanbo.macvcq','hosocanbo.ngaysinh'
+            ->select('hosocanbo.tencanbo','hosocanbo.macanbo','hosocanbo.mapb','hosocanbo.macvcq','hosocanbo.ngaysinh'
                 ,'hosocanbo.gioitinh','hosocanbo.ngaybc','hosocanbo.tdcm','hosocanbo.msngbac','hosocanbo.heso','hosocanbo.httd')
             ->whereBetween ('hosocanbo.ngaybc',[$inputs['ngaytu'],$inputs['ngayden']])
+            ->where('hosocanbo.madv',session('admin')->maxa)
             ->where('hosotinhtrangct.phanloaict','Like','Đang công tác')
             ->where('hosocanbo.mapb','Like',$inputs['phongban'].'%')
             ->orderby('dmchucvucq.sapxep')

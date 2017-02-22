@@ -3,9 +3,13 @@ $(function () {
 
     var url = window.location.href;
     var i = url.indexOf('maso');
+    var j = url.indexOf('create');
 
     if (i > 0) {
         url = url.substring(0, i);
+    }
+    if (j > 0) {
+        url = url.substring(0, j);
     }
     if (url != 'http://nhansu.dev/') {
         var element = $('ul.sub-menu a').filter(function () {

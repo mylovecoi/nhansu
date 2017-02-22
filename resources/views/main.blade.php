@@ -85,8 +85,8 @@
 	<div class="page-header-inner">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
-			<a href="index.html">
-                <img src="{{url('images/LOGO1.png')}}" alt="logo" class="logo-default" style="margin-top: 15px;">
+			<a href="{{url('/')}}">
+                <img src="{{url('images/LOGO.png')}}" alt="logo" class="logo-default" style="margin-top: 10px;">
 			</a>
 			<div class="menu-toggler sidebar-toggler">
 				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -104,10 +104,10 @@
 			<!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
 			<form class="search-form" action="extra_search.html" method="GET">
 				<div class="input-group">
-					<input type="text" class="form-control input-sm" placeholder="Search..." name="query">
+					<!--input type="text" class="form-control input-sm" placeholder="Search..." name="query">
 					<span class="input-group-btn">
 					<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
-					</span>
+					</span-->
 				</div>
 			</form>
 			<!-- END HEADER SEARCH BOX -->
@@ -154,7 +154,7 @@
 		<div class="page-sidebar navbar-collapse collapse">
 			<ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 				<li class="start">
-					<a href="index.html">
+					<a href="{{url('')}}">
 					<i class="icon-home"></i>
 					<span class="title">Tổng quan</span>
 					</a>
@@ -282,10 +282,23 @@
                             <a href="javascript:;">
                                 <i class="icon-user"></i> Người dùng <span class="arrow"></span>
                             </a>
-                            <!--ul class="sub-menu" style="margin-left: 15px;">
-                                <li><a href="{{url('phanquyen')}}">Phân quyền</a></li>
-                            </ul-->
+
+                            <ul class="sub-menu" style="margin-left: 15px;">
+                                <li><a href="{{url('change-password')}}">Đổi mật khẩu</a></li>
+                                <!--li><a href="{{url('phanquyen')}}">Phân quyền</a></li-->
+                            </ul>
                         </li>
+                        @if(session('admin')->level != 'X')
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="icon-user"></i> Đơn vị <span class="arrow"></span>
+                                </a>
+                                    <ul class="sub-menu" style="margin-left: 15px;">
+                                        <li><a href="{{url('danh_muc/don_vi/index')}}">Danh sách đơn vị</a></li>
+                                    </ul>
+                            </li>
+                        @endif
+
 					</ul>
 				</li>
 			</ul>
@@ -326,7 +339,8 @@
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
     <div class="page-footer-tools">
-        2016 &copy; LifeSoft <a href="" >Tiện ích hơn - Hiệu quả hơn</a>
+       <!--  2016 &copy; LifeSoft <a href="" >Tiện ích hơn - Hiệu quả hơn</a>-->
+        Số đăng ký bản quyền: 282/2015/QTG, được khai thác và phần phối bởi H2SOFT
     </div>
     <div class="scroll-to-top">
         <i class="icon-arrow-up"></i>

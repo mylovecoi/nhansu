@@ -104,16 +104,23 @@ Route::group(['prefix'=>'danh_muc'],function(){
         Route::get('store','dmphanloaictController@store');
         Route::get('del/{id}','dmphanloaictController@destroy');
     });
+
+    Route::group(['prefix'=>'don_vi'],function(){
+        Route::get('index','dmdonviController@index');
+        Route::get('store','dmdonviController@store');
+        Route::get('del/{id}','dmdonviController@destroy');
+        Route::get('change/maso={madv}','dmdonviController@change');
+    });
 });
 
 Route::group(['prefix'=>'nghiep_vu'],function(){
     Route::group(['prefix'=>'ho_so'],function(){
         Route::get('danh_sach','hosocanboController@index');
-        Route::get('update/{id}','hosocanboController@update');
+        Route::patch('update/{id}','hosocanboController@update');
         Route::get('create','hosocanboController@create');
-        Route::get('/{id}','hosocanboController@show');
-        Route::get('del/{id}','hosocanboController@destroy');
-        Route::get('store','hosocanboController@store');
+        Route::get('maso={id}','hosocanboController@show');
+        Route::get('del/maso={id}','hosocanboController@destroy');
+        Route::post('store','hosocanboController@store');
 
         Route::get('syll/{id}','hosocanboController@syll');
         Route::get('ttts/{id}','hosocanboController@tomtatts');

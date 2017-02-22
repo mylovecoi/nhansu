@@ -30,8 +30,7 @@
                 <div class="portlet box blue" id="form_wizard_1">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-gift"></i> THÊM MỚI HỒ SƠ CÁN BỘ - <span class="step-title">
-								Step 1 of 4 </span>
+                            THÊM MỚI HỒ SƠ CÁN BỘ
                         </div>
                         <div class="tools hidden-xs">
                             <a href="javascript:;" class="collapse">
@@ -40,7 +39,7 @@
                     </div>
 
                     <div class="portlet-body form">
-                        {!! Form::open(['url'=>'/nghiep_vu/ho_so','method'=>'POST' , 'files'=>true, 'id' => 'submit_form','class'=>'form-horizontal','enctype'=>'multipart/form-data']) !!}
+                        {!! Form::open(['url'=>'/nghiep_vu/ho_so/store','method'=>'post' , 'files'=>true, 'id' => 'create-hscb','class'=>'form-horizontal','enctype'=>'multipart/form-data']) !!}
 
                             <div class="form-body">
                                 <ul class="nav nav-pills nav-justified steps">
@@ -96,16 +95,18 @@
                             </div>
                             <div class="form-actions">
                                 <div class="row">
-                                    <button type="button" name="previous" value="Previous" class="btn btn-info button-previous">
-                                        <i class="fa fa-arrow-circle-o-left mrx"></i>Quay lại
-                                    </button>
-                                    <button id="btnnext" type="button" name="next" value="Next" class="btn btn-info button-next mlm">
-                                        Tiếp theo<i class="fa fa-arrow-circle-o-right mlx"></i></button>
-                                    <!-- Kiem tra co quyen moi dc sửa, ko thì chỉ là xem -->
-                                    <button type="submit" class="btn btn-success pull-right">Tạo hồ sơ</button>
+                                    <div class="col-md-offset-4 col-md-8">
+                                        <button type="button" name="previous" value="Previous" class="btn btn-info button-previous">
+                                            <i class="fa fa-arrow-circle-o-left mrx"></i>Quay lại
+                                        </button>
+                                        <button id="btnnext" type="button" name="next" value="Next" class="btn btn-info button-next mlm">
+                                            Tiếp theo<i class="fa fa-arrow-circle-o-right mlx"></i></button>
+                                        <!-- Kiem tra co quyen moi dc sửa, ko thì chỉ là xem -->
+                                        <button type="submit" class="btn btn-success">Tạo hồ sơ</button>
+                                    </div>
                                 </div>
 
-                                <div class="row">
+                                <!--div class="row">
                                     <div class="col-md-offset-3 col-md-9">
                                         <a href="javascript:;" class="btn default button-previous">
                                             <i class="m-icon-swapleft"></i> Back </a>
@@ -116,7 +117,7 @@
                                             Submit <i class="m-icon-swapright m-icon-white"></i>
                                         </a>
                                     </div>
-                                </div>
+                                </div-->
                             </div>
                         {!! Form::close() !!}
                     </div>

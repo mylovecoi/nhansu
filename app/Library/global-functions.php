@@ -136,6 +136,16 @@ function getDbl($obj) {
     }
 }
 
+function chkDbl($obj) {
+    $obj=str_replace(',','',$obj);
+    $obj=str_replace('.','',$obj);
+    if(is_numeric($obj)){
+        return $obj;
+    }else {
+        return 0;
+    }
+}
+
 function can($module = null, $action = null)
 {
     $permission = !empty(session('admin')->permission) ? session('admin')->permission : getPermissionDefault(session('admin')->level);

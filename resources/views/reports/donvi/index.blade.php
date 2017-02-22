@@ -9,27 +9,23 @@
 @extends('main')
 
 @section('content')
-    <div class="page-content">
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="portlet box">
-                    <div class="portlet-header">
-                        <div class="caption">
-                            <b>BÁO CÁO SỐ LƯỢNG, CHẤT LƯỢNG CÁN BỘ</b>
-                        </div>
-                        <div class="actions">
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <ul class="ul-report">
-                                    <li><a href="#" data-target="#chitiet-modal" data-toggle="modal" onclick="baocao('{{$furl.'mausl1'}}')">Báo cáo số lượng đội ngũ cán bộ (Mẫu 1)</a></li>
-                                    <li><a href="#" data-target="#chitiet-modal" data-toggle="modal" onclick="baocao('{{$furl.'mausl2'}}')">Báo cáo số lượng đội ngũ cán bộ (Mẫu 2)</a></li>
-                                    <li><a href="#" data-target="#chitiet-modal" data-toggle="modal" onclick="baocao('{{$furl.'mausl3'}}')">Báo cáo số lượng đội ngũ cán bộ (Mẫu 3)</a></li>
-                                    <li><a href="#" data-target="#chitiet-modal" data-toggle="modal" onclick="baocao('{{$furl.'maudv'}}')">Báo cáo chất lượng đảng viên</a></li>
-                                </ul>
-                            </div>
+    <h3 class="page-title">
+        BÁO CÁO SỐ LƯỢNG, CHẤT LƯỢNG CÁN BỘ
+    </h3>
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet box">
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ol>
+                                <li><a href="#" data-target="#chitiet-modal" data-toggle="modal" onclick="baocao('{{$furl.'mausl1'}}')">Báo cáo số lượng đội ngũ cán bộ (Mẫu 1)</a></li>
+                                <li><a href="#" data-target="#chitiet-modal" data-toggle="modal" onclick="baocao('{{$furl.'mausl2'}}')">Báo cáo số lượng đội ngũ cán bộ (Mẫu 2)</a></li>
+                                <li><a href="#" data-target="#chitiet-modal" data-toggle="modal" onclick="baocao('{{$furl.'mausl3'}}')">Báo cáo số lượng đội ngũ cán bộ (Mẫu 3)</a></li>
+                                <li><a href="#" data-target="#chitiet-modal" data-toggle="modal" onclick="baocao('{{$furl.'maudv'}}')">Báo cáo chất lượng đảng viên</a></li>
+                            </ol>
                         </div>
                     </div>
                 </div>

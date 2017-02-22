@@ -52,7 +52,7 @@
                         <div class="form-actions">
                             <div class="form-group text-center">
                                 <button type="submit" onclick="validatePassword();" class="btn btn-primary">Cập nhật</button>
-                                <button type="button" class="btn default">Hủyu</button>
+                                <button type="button" class="btn default">Hủy</button>
                             </div>
                         </div>
                     {!! Form::close() !!}

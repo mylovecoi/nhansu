@@ -28,7 +28,7 @@ class ajaxController extends Controller
         $inputs = $request->all();
 
         if (isset($inputs['phanloaict'])) {
-            $m_kcts = dmphanloaict::select('kieuct')->where('phanloaict', '=', $inputs['phanloaict'])->get();
+            $m_kcts = dmphanloaict::select('kieuct')->where('phanloaict', '=', $inputs['phanloaict'])->distinct()->get();
             $result['message'] = '<select name="kieuct" id="kieuct" class="form-control" onchange="getTenCT()"><option value="all">-- Chọn kiểu công tác --</option>';
             if (count($m_kcts) > 0) {
                 foreach ($m_kcts as $m_kct) {
@@ -58,7 +58,7 @@ class ajaxController extends Controller
         $inputs = $request->all();
 
         if (isset($inputs['kieuct'])) {
-            $m_tcts = dmphanloaict::select('tenct')->where('kieuct', '=', $inputs['kieuct'])->get();
+            $m_tcts = dmphanloaict::select('tenct')->where('kieuct', '=', $inputs['kieuct'])->distinct()->get();
             $result['message'] = '<select name="tenct" id="tenct" class="form-control"><option value="all">-- Chọn tên công tác --</option>';
             if (count($m_tcts) > 0) {
                 foreach ($m_tcts as $m_tct) {

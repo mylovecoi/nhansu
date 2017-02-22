@@ -12,7 +12,7 @@ var FormWizard = function () {
                 if (!state.id) return state.text; // optgroup
                 return "<img class='flag' src='../../assets/global/img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
             }
-
+            /*
             $("#country_list").select2({
                 placeholder: "Select",
                 allowClear: true,
@@ -22,7 +22,7 @@ var FormWizard = function () {
                     return m;
                 }
             });
-
+             */
             var form = $('#submit_form');
             var error = $('.alert-danger', form);
             var success = $('.alert-success', form);
@@ -86,6 +86,7 @@ var FormWizard = function () {
             });
 
             var displayConfirm = function() {
+                /*
                 $('#tab5 .form-control-static', form).each(function(){
                     var input = $('[name="'+$(this).attr("data-display")+'"]', form);
                     if (input.is(":radio")) {
@@ -105,6 +106,7 @@ var FormWizard = function () {
                         $(this).html(payment.join("<br>"));
                     }
                 });
+                 */
             }
 
             var handleTitle = function(tab, navigation, index) {
@@ -176,7 +178,7 @@ var FormWizard = function () {
                     });
                 }
             });
-
+            /*
             $('#form_wizard_1').find('.button-previous').hide();
             $('#form_wizard_1 .button-submit').click(function () {
                 alert('Finished! Hope you like it :)');
@@ -186,6 +188,7 @@ var FormWizard = function () {
             $('#country_list', form).change(function () {
                 form.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
             });
+             */
         }
 
     };

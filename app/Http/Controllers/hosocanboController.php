@@ -43,6 +43,7 @@ class hosocanboController extends Controller
                     ->select('hosocanbo.*', 'dmchucvucq.sapxep')
                     ->where('hosotinhtrangct.hientai','1')
                     ->where('hosotinhtrangct.phanloaict','Đang công tác')
+                    ->where('hosocanbo.madv',session('admin')->maxa)
                     ->orderby('dmchucvucq.sapxep')
                     ->get();
             }
@@ -73,7 +74,7 @@ class hosocanboController extends Controller
             $m_pb= dmphongban::all();
             $m_cvcq= dmchucvucq::all();
             $m_cvd= dmchucvud::all();
-            $m_phanloai=dmphanloaict::select('phanloaict')->get();
+            $m_phanloai=dmphanloaict::select('phanloaict')->distinct()->get();
             $m_plnb=ngachbac::select('plnb')->distinct()->get();
             return view('manage.hosocanbo.create')
                 ->with('type','create')
@@ -98,7 +99,7 @@ class hosocanboController extends Controller
             $img=$request->file('anh');
             $filename='';
             if(isset($img)) {
-                $filename = $macanbo . '.' . $img->getClientOriginalExtension();
+                $filename = $macanbo . '_' . $img->getClientOriginalExtension();
                 $img->move(public_path() . '/data/uploads/anh/', $filename);
             }
 
@@ -157,18 +158,18 @@ class hosocanboController extends Controller
             $model->vuotkhung = $insert['vuotkhung'];
             $model->ngaytu = getDateTime($insert['ngaytu']);
             $model->ngayden = getDateTime($insert['ngayden']);
-            $model->pccv = $insert['pccv'];
-            $model->pctnn = $insert['pctnn'];
-            $model->pcvk = $insert['pcvk'];
-            $model->pckn = $insert['pckn'];
-            $model->pctn = $insert['pctn'];
-            $model->pckv = $insert['pckv'];
-            $model->pcth = $insert['pcth'];
-            $model->pcudn = $insert['pcudn'];
-            $model->pcdbn = $insert['pcdbn'];
-            $model->pcld = $insert['pcld'];
-            $model->pcdh = $insert['pcdh'];
-            $model->pck = $insert['pck'];
+            $model->pccv = chkDbl($insert['pccv']) ;
+            $model->pctnn = chkDbl($insert['pctnn']) ;
+            $model->pcvk = chkDbl($insert['pcvk']) ;
+            $model->pckn = chkDbl($insert['pckn']) ;
+            $model->pctn = chkDbl($insert['pctn']) ;
+            $model->pckv = chkDbl($insert['pckv']) ;
+            $model->pcth = chkDbl($insert['pcth']) ;
+            $model->pcudn = chkDbl($insert['pcudn']) ;
+            $model->pcdbn = chkDbl($insert['pcdbn']) ;
+            $model->pcld = chkDbl($insert['pcld']) ;
+            $model->pcdh = chkDbl($insert['pcdh']) ;
+            $model->pck = chkDbl($insert['pck']) ;
             $model->tthn = $insert['tthn'];
             $model->soBHXH = $insert['soBHXH'];
             $model->sotk = $insert['sotk'];
@@ -211,9 +212,9 @@ class hosocanboController extends Controller
             $m_pb= dmphongban::all();
             $m_cvcq= dmchucvucq::all();
             $m_cvd= dmchucvud::all();
-            $m_phanloai=dmphanloaict::select('phanloaict')->get();
-            $m_kieuct=dmphanloaict::where('phanloaict',$m_hosoct->phanloaict)->select('kieuct')->get();
-            $m_tenct=dmphanloaict::where('phanloaict',$m_hosoct->phanloaict)->where('kieuct',$m_hosoct->kieuct)->select('tenct')->get();
+            $m_phanloai=dmphanloaict::select('phanloaict')->distinct()->get();
+            $m_kieuct=dmphanloaict::where('phanloaict',$m_hosoct->phanloaict)->select('kieuct')->distinct()->get();
+            $m_tenct=dmphanloaict::where('phanloaict',$m_hosoct->phanloaict)->where('kieuct',$m_hosoct->kieuct)->select('tenct')->distinct()->get();
 
             $m_msnb=ngachbac::select('tennb','plnb')->where('msngbac',$model->msngbac)->first();
 
@@ -222,7 +223,7 @@ class hosocanboController extends Controller
             $m_bac=ngachbac::where('msngbac',$model->msngbac)->select('bac')->distinct()->get();
 
             //dd($m_hosoct);
-            return view('quanly.hosocanbo.edit')
+            return view('manage.hosocanbo.edit')
                 ->with(compact('model',$model))
                 ->with(compact('m_hosoct',$m_hosoct))
                 ->with('type','edit')
