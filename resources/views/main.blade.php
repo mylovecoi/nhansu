@@ -85,7 +85,7 @@
 	<div class="page-header-inner">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
-			<a href="{{url('/')}}">
+			<a href="{{url('tong_quan')}}">
                 <img src="{{url('images/LOGO.png')}}" alt="logo" class="logo-default" style="margin-top: 10px;">
 			</a>
 			<div class="menu-toggler sidebar-toggler">
@@ -154,7 +154,7 @@
 		<div class="page-sidebar navbar-collapse collapse">
 			<ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 				<li class="start">
-					<a href="{{url('')}}">
+					<a href="{{url('tong_quan')}}">
 					<i class="icon-home"></i>
 					<span class="title">Tổng quan</span>
 					</a>
@@ -291,7 +291,7 @@
                         @if(session('admin')->level != 'X')
                             <li>
                                 <a href="javascript:;">
-                                    <i class="icon-user"></i> Đơn vị <span class="arrow"></span>
+                                    <i class="icon-book-open"></i> Đơn vị <span class="arrow"></span>
                                 </a>
                                     <ul class="sub-menu" style="margin-left: 15px;">
                                         <li><a href="{{url('danh_muc/don_vi/index')}}">Danh sách đơn vị</a></li>

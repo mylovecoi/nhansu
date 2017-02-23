@@ -147,10 +147,10 @@
                         @if(isset($m_nangluong))
                             @foreach($m_nangluong as $key=>$value)
                                 <tr>
-                                    <td class="text-center">{{$key+1}}</td>
-                                    <td>{{$value->quanhe}}</td>
-                                    <td class="text-center">{{$value->nhom}}</td>
-                                    <td class="text-center">{{$value->sapxep}}</td>
+                                    <td>{{$key+1}}</td>
+                                    <td>{{$value->tencanbo}}</td>
+                                    <td>{{$value->msngbac}}</td>
+                                    <td>{{getDayVn($value->ngayden)}}</td>
                                 </tr>
                             @endforeach
                         @endif
@@ -185,9 +185,9 @@
                         @if(isset($m_nghihuu))
                             @foreach($m_nghihuu as $key=>$value)
                                 <tr>
-                                    <td class="text-center">{{$key+1}}</td>
-                                    <td class="text-center">{{$value->nhom}}</td>
-                                    <td class="text-center">{{$value->sapxep}}</td>
+                                    <td>{{$value->tencanbo}}</td>
+                                    <td>{{$value->msngbac}}</td>
+                                    <td>{{''}}</td>
                                 </tr>
                             @endforeach
 
@@ -226,9 +226,9 @@
                         @if(isset($m_sinhnhat))
                             @foreach($m_sinhnhat as $key=>$value)
                                 <tr>
-                                    <td class="text-center">{{$key+1}}</td>
-                                    <td class="text-center">{{$value->nhom}}</td>
-                                    <td class="text-center">{{$value->sapxep}}</td>
+                                    <td>{{$value->tencanbo}}</td>
+                                    <td>{{$value->msngbac}}</td>
+                                    <td>{{getDayVn($value->ngaysinh)}}</td>
                                 </tr>
                             @endforeach
 
@@ -257,16 +257,16 @@
                         <tr>
                             <th class="text-center">STT</th>
                             <th class="text-center">Họ và tên</th>
-                            <th class="text-center">Ngày sinh nhật</th>
+                            <th class="text-center">Ngày xét</th>
                         </tr>
                         </thead>
                         <tbody>
                         @if(isset($m_hettapsu))
                             @foreach($m_hettapsu as $key=>$value)
                                 <tr>
-                                    <td class="text-center">{{$key+1}}</td>
-                                    <td class="text-center">{{$value->nhom}}</td>
-                                    <td class="text-center">{{$value->sapxep}}</td>
+                                    <td>{{$value->tencanbo}}</td>
+                                    <td>{{$value->msngbac}}</td>
+                                    <td>{{''}}</td>
                                 </tr>
                             @endforeach
                         @else

@@ -58,8 +58,10 @@
                                         <td>
                                             <button type="button" onclick="edit({{$value->id}})" class="btn btn-info btn-xs mbs">
                                                 <i class="fa fa-edit"></i>&nbsp; Chỉnh sửa</button>
-                                            <a href="{{url($furl.'maso='.$value->mabl)}}" class="btn btn-success btn-xs mbs">
+                                            <a href="{{url($furl.'maso='.$value->mabl)}}" class="btn btn-warning btn-xs mbs">
                                                 <i class="fa fa-th-list"></i>&nbsp; Chi tiết</a>
+                                            <a href="{{url($furl.'in/maso='.$value->mabl)}}" class="btn btn-success btn-xs mbs" TARGET="_blank">
+                                                <i class="fa fa-print"></i>&nbsp; In bảng lương</a>
                                             <button type="button" onclick="cfDel('{{$furl.'del/'.$value->id}}')" class="btn btn-danger btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
                                                 <i class="fa fa-trash-o"></i>&nbsp; Xóa</button>
                                         </td>

@@ -1,5 +1,5 @@
 <?php
-Route::get('/', 'HomeController@index');
+Route::get('tong_quan', 'HomeController@index');
 Route::get('ajaxtest','ajaxController@test');
 Route::get('test', function(){
     return view('test');
@@ -211,6 +211,7 @@ Route::group(['prefix'=>'chuc_nang'],function(){
         Route::get('update/{id}','bangluongController@update');
         Route::get('create','bangluongController@create');
         Route::get('/maso={mabl}','bangluongController@show');
+        Route::get('in/maso={mabl}','bangluongController@inbangluong');
         Route::get('/maso={mabl}/id={id}','bangluongController@detail');
         Route::post('updatect/{id}','bangluongController@updatect');
         Route::get('del/{id}','bangluongController@destroy');

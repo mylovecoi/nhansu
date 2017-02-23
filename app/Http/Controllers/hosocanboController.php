@@ -31,22 +31,18 @@ class hosocanboController extends Controller
 {
     function index(){
         if (Session::has('admin')) {
-            //xem có nên làm giao diện cấp tỉnh, huyện
-            if(session('admin')->level=="T" || session('admin')->level=="H"){
-                $m_hs=hosocanbo::all();
-                //Có thể thêm combo chọn đơn vị
-            }else{
-                //$m_hs=hosocanbo::where('madv',session('admin')->maxa)->get();
-                $m_hs=DB::table('hosocanbo')
-                    ->join('dmchucvucq', 'hosocanbo.macvcq', '=', 'dmchucvucq.macvcq')
-                    ->join('hosotinhtrangct', 'hosocanbo.macanbo', '=', 'hosotinhtrangct.macanbo')
-                    ->select('hosocanbo.*', 'dmchucvucq.sapxep')
-                    ->where('hosotinhtrangct.hientai','1')
-                    ->where('hosotinhtrangct.phanloaict','Đang công tác')
-                    ->where('hosocanbo.madv',session('admin')->maxa)
-                    ->orderby('dmchucvucq.sapxep')
-                    ->get();
-            }
+
+            //$m_hs=hosocanbo::where('madv',session('admin')->maxa)->get();
+            $m_hs=DB::table('hosocanbo')
+                ->join('dmchucvucq', 'hosocanbo.macvcq', '=', 'dmchucvucq.macvcq')
+                ->join('hosotinhtrangct', 'hosocanbo.macanbo', '=', 'hosotinhtrangct.macanbo')
+                ->select('hosocanbo.*', 'dmchucvucq.sapxep')
+                ->where('hosotinhtrangct.hientai','1')
+                ->where('hosotinhtrangct.phanloaict','Đang công tác')
+                ->where('hosocanbo.madv',session('admin')->maxa)
+                ->orderby('dmchucvucq.sapxep')
+                ->get();
+
 
             $dmphongban=dmphongban::all('mapb','tenpb')->toArray();
             $dmchucvud=dmchucvud::all('tencv', 'macvd')->toArray();

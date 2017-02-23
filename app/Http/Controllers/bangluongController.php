@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\bangluong;
 use App\bangluong_ct;
 use App\dmchucvucq;
+use App\dmdonvi;
 use App\hosocanbo;
 use App\ngachbac;
 use Carbon\Carbon;
@@ -279,5 +280,31 @@ class bangluongController extends Controller
             return view('errors.notlogin');
     }
 
+    function inbangluong($mabl){
+        if (Session::has('admin')) {
+            $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
 
+            $model=DB::table('bangluong_ct')
+                ->join('dmchucvucq', 'bangluong_ct.macvcq', '=', 'dmchucvucq.macvcq')
+                ->select('bangluong_ct.*', 'dmchucvucq.sapxep')
+                ->where('bangluong_ct.mabl',$mabl)
+                ->orderby('dmchucvucq.sapxep')
+                ->get();
+
+            $m_bl=bangluong::select('thang','nam')->where('mabl',$mabl)->first();
+            $dmchucvucq=dmchucvucq::all('tencv', 'macvcq')->toArray();
+            foreach($model as $hs){
+                $hs->tencv=getInfoChucVuCQ($hs,$dmchucvucq);
+            }
+            $thongtin=array('nguoilap'=>session('admin')->name,
+                'thang'=>$m_bl->thang,
+                'nam'=>$m_bl->nam);
+            return view('reports.bangluong.maubangluong')
+                ->with('model',$model)
+                ->with('m_dv',$m_dv)
+                ->with('thongtin',$thongtin)
+                ->with('pageTitle','Bảng lương chi tiết');
+        } else
+            return view('errors.notlogin');
+    }
 }
