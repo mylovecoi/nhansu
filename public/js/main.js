@@ -11,7 +11,7 @@ $(function () {
     if (j > 0) {
         url = url.substring(0, j);
     }
-    if (url != 'http://nhansu.dev/') {
+    if (url.split('/').length>4) {
         var element = $('ul.sub-menu a').filter(function () {
             return this.href == url || this.href.indexOf(url) == 0;
         }).parent().addClass('active').parent().parent().addClass('active').addClass('open');

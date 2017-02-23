@@ -1,5 +1,5 @@
 <?php
-Route::get('tong_quan', 'HomeController@index');
+Route::get('', 'HomeController@index');
 Route::get('ajaxtest','ajaxController@test');
 Route::get('test', function(){
     return view('test');

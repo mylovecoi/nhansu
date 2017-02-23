@@ -34,7 +34,7 @@ class UsersController extends Controller
         if (md5($input['password']) == $ttuser->password) {
             if ($ttuser->status == "Kích hoạt") {
                 Session::put('admin', $ttuser);
-                return redirect('tong_quan')
+                return redirect('')
                     ->with('pageTitle', 'Tổng quan');
             } else
                 return view('errors.lockuser');

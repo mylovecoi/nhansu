@@ -85,7 +85,7 @@
 	<div class="page-header-inner">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
-			<a href="{{url('tong_quan')}}">
+			<a href="{{url('')}}">
                 <img src="{{url('images/LOGO_LIFE.png')}}" alt="logo" class="logo-default" style="margin-top: 10px;">
 			</a>
 			<div class="menu-toggler sidebar-toggler">
@@ -154,7 +154,7 @@
 		<div class="page-sidebar navbar-collapse collapse">
 			<ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 				<li class="start">
-					<a href="{{url('tong_quan')}}">
+					<a href="{{url('')}}">
 					<i class="icon-home"></i>
 					<span class="title">Tổng quan</span>
 					</a>
