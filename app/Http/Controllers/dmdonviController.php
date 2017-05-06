@@ -106,6 +106,30 @@ class dmdonviController extends Controller
             return view('errors.notlogin');
     }
 
+    function update_global(Request $request, $id){
+        if (Session::has('admin')) {
+            $inputs=$request->all();
+            $model=GeneralConfigs::first();
+            $model->tuoinam=$inputs['tuoinam'];
+            $model->tg_hetts=$inputs['tg_hetts'];
+            $model->tuoinu=$inputs['tuoinu'];
+            $model->tg_xetnl=$inputs['tg_xetnl'];
+            $model->bhxh=$inputs['bhxh'];
+            $model->bhxh_dv=$inputs['bhxh_dv'];
+            $model->bhyt=$inputs['bhyt'];
+            $model->bhyt_dv=$inputs['bhyt_dv'];
+            $model->bhtn=$inputs['bhtn'];
+            $model->bhtn_dv=$inputs['bhtn_dv'];
+            $model->kpcd=$inputs['kpcd'];
+            $model->kpcd_dv=$inputs['kpcd_dv'];
+            $model->luongcb=$inputs['luongcb'];
+            $model->save();
+            return redirect('/he_thong/don_vi/chung');
+
+        } else
+            return view('errors.notlogin');
+    }
+
     public function information_manage(){
         if (Session::has('admin')) {
             $model=dmdonvi::all();
@@ -155,7 +179,7 @@ class dmdonviController extends Controller
                 ->with('model',$model)
                 ->with('model_donvi',$model_donvi)
                 ->with('url','/he_thong/quan_tri/')
-                ->with('pageTitle','Thêm mới đơn vị');
+                ->with('pageTitle','Danh sách tài khoản người dùng');
         } else
             return view('errors.notlogin');
     }
@@ -195,7 +219,7 @@ class dmdonviController extends Controller
             return view('system.manage.edit_account')
                 ->with('model',$model)
                 ->with('url','/he_thong/quan_tri/')
-                ->with('pageTitle','Thêm mới đơn vị');
+                ->with('pageTitle','Chỉnh sửa thông tin tài khoản');
         } else
             return view('errors.notlogin');
     }
@@ -218,9 +242,10 @@ class dmdonviController extends Controller
             return view('errors.notlogin');
     }
 
-    function destroy_account($id){
+    function destroy_account(Request $request){
         if (Session::has('admin')) {
-            $model = Users::findOrFail($id);
+            $inputs = $request->all();
+            $model = Users::findOrFail($inputs['iddelete']);
             $maxa=$model->maxa;
             $model->delete();
             return redirect('/he_thong/quan_tri/don_vi/maso='.$maxa);

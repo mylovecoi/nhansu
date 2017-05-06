@@ -416,7 +416,7 @@ Route::group(['prefix'=>'he_thong'],function(){
 
         Route::get('chung','dmdonviController@information_global');
         Route::get('maso={id}/edit_global','dmdonviController@edit_global');
-        Route::patch('/{id}/global','dmdonviController@update_local');
+        Route::patch('/{id}/global','dmdonviController@update_global');
     });
 
     Route::group(['prefix'=>'quan_tri'],function(){
@@ -429,7 +429,7 @@ Route::group(['prefix'=>'he_thong'],function(){
         Route::post('don_vi/maso={madv}/store','dmdonviController@store_account');
         Route::get('don_vi/maso={id}/edit','dmdonviController@edit_account');
         Route::patch('don_vi/maso={id}/update','dmdonviController@update_account');
-        Route::get('don_vi/maso={id}/detroy','dmdonviController@detroy_account');
+        Route::post('destroy_account','dmdonviController@destroy_account');
     });
 });
 

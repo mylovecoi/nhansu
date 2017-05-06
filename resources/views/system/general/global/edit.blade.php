@@ -107,7 +107,7 @@
                 </div-->
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    {!! Form::model($model,['url'=>$url. $model->madv, 'class'=>'horizontal-form','id'=>'update_tthethong']) !!}
+                    {!! Form::model($model,['url'=>$url. $model->id.'/global', 'class'=>'horizontal-form','id'=>'update_tthethong']) !!}
                             <meta name="csrf-token" content="{{ csrf_token() }}" />
                             <input type="hidden" name="_method" value="PATCH">
                             <input type="hidden" name="_token" value="{{ csrf_token()}}">
