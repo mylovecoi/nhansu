@@ -19,7 +19,7 @@
                     <div class="col-sm-8 controls">
                         <select name="mapb" id="mapb" class="form-control" autofocus="autofocus" required="required">
                             @if($type=='create')
-                                <option value="">-- Chọn phòng ban ---</option>
+                                <!--option value="">-- Chọn phòng ban ---</option-->
                                 @foreach($m_pb as $pb)
                                     <option value="{{$pb->mapb}}">{{$pb->tenpb}}</option>
                                 @endforeach
@@ -39,7 +39,7 @@
                     <div class="col-sm-8">
                         <select name="macvcq" id="macvcq" class="form-control" required="required">
                             @if($type=='create')
-                                <option value="">-- Chọn chức vụ ---</option>
+                                <!--option value="">-- Chọn chức vụ ---</option-->
                                 @foreach($m_cvcq as $cv)
                                     <option value="{{$cv->macvcq}}">{{$cv->tencv}}</option>
                                 @endforeach
@@ -121,7 +121,6 @@
                     <div class="col-sm-8 controls">
                         <select name="dantoc" id="dantoc" class="form-control" required="required">
                             @if($type=='create')
-                                <option value="">-- Chọn dân tộc ---</option>
                                 @foreach($m_dt as $dt)
                                     <option value="{{$dt->dantoc}}">{{$dt->dantoc}}</option>
                                 @endforeach

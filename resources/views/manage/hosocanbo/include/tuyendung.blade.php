@@ -37,8 +37,8 @@
 
                     <div class="col-sm-8">
                         <select class="form-control" id="lvtd" name="lvtd">
+                            <!--option value="">-- Chọn lĩnh vực hoạt động --</option-->
                             @if($type=='create')
-                                <option value="">-- Chọn lĩnh vực hoạt động --</option>
                                 <option value="Giáo dục">Giáo dục</option>
                                 <option value="Y tế">Y tế</option>
                                 <option value="Nghiên cứu khoa học">Nghiên cứu khoa học</option>
@@ -46,7 +46,6 @@
                                 <option value="Văn hóa thể thao">Văn hóa thể thao</option>
                                 <option value="Khác">Khác</option>
                             @else
-                                <option value="">-- Chọn lĩnh vực hoạt động --</option>
                                 <option value="Giáo dục" {{$model->lvtd=='Giáo dục'?'selected':''}}>Giáo dục</option>
                                 <option value="Y tế" {{$model->lvtd=='Y tế'?'selected':''}}>Y tế</option>
                                 <option value="Nghiên cứu khoa học" {{$model->lvtd=='Nghiên cứu khoa học'?'selected':''}}>Nghiên cứu khoa học</option>
@@ -108,7 +107,7 @@
 
                     <div class="col-sm-8">
                         <select class="form-control" name="sunghiep" id="sunghiep" required="required">
-                            <option value="">-- Chọn sự nghiệp cán bộ --</option>
+                            <!--option value="">-- Chọn sự nghiệp cán bộ --</option-->
                             @if($type=='create')
                                 <option value="Công chức">Công chức</option>
                                 <option value="Viên chức">Viên chức</option>
@@ -129,7 +128,7 @@
 
                     <div class="col-sm-8">
                         <select class="form-control" id="lvhd" name="lvhd">
-                            <option value="">-- Chọn lĩnh vực hoạt động --</option>
+                            <!--option value="">-- Chọn lĩnh vực công tác--</option-->
                             @if($type=='create')
                                 <option value="Giáo dục">Giáo dục</option>
                                 <option value="Y tế">Y tế</option>

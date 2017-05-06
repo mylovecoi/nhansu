@@ -8,12 +8,18 @@ class dmdonvi extends Model
 {
     protected $table = 'dmdonvi';
     protected $fillable = [
-        'id',
-        'madv',
-        'tendv',
-        'diachi',
-        'sodt',
-        'lanhdao',
-        'songuoi'
-    ];
+            'id',
+            'madv',
+            'tendv',
+            'diachi',
+            'sodt',
+            'lanhdao',
+            'songuoi',
+            'macqcq',
+            'diadanh',
+            'cdlanhdao',
+            'nguoilapbieu',
+            'khoiphongban',
+            'level'
+        ];
 }

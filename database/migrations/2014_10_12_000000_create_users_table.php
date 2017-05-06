@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -15,18 +14,20 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->nullable();
-            $table->string('username')->unique();
-            $table->string('password')->nullable();
+            $table->string('name');
+            $table->string('username');
+            $table->string('password');
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status');
             $table->string('maxa')->nullable();
             $table->string('mahuyen')->nullable();
-            $table->string('level')->nullable();
-            $table->string('sadmin')->nullable();
+            $table->string('level');
+            $table->string('sadmin');
             $table->string('permission')->nullable();
-            $table->string('pldv')->nullable();
+            $table->integer('page')->default(0); //dùng cho trạng thái
+            $table->integer('length')->default(10); ////dùng cho trạng thái
+            $table->boolean('status_page')->default(0);//dùng cho trạng thái
             $table->timestamps();
         });
     }

@@ -296,6 +296,7 @@ Route::group(['prefix'=>'ajax'],function(){
     Route::get('bac','ajaxController@getBac');
     Route::get('heso','ajaxController@getHS');
     Route::get('msnb','ajaxController@getMSNB');
+    Route::get('checkmadv','ajaxController@checkmadv');
 
     Route::group(['prefix'=>'tai_lieu'],function(){
         Route::get('add','hosotailieuController@store');
@@ -405,6 +406,31 @@ Route::group(['prefix'=>'luu_du_lieu'],function(){
     Route::get('can_bo','dshuutriController@store');
     Route::get('bang_luong','dshuutriController@update');
     Route::get('het_tap_su','dshuutriController@getinfo');
+});
+
+Route::group(['prefix'=>'he_thong'],function(){
+    Route::group(['prefix'=>'don_vi'],function(){
+        Route::get('don_vi','dmdonviController@information_local');
+        Route::get('maso={madv}/edit_local','dmdonviController@edit_local');
+        Route::patch('/{madv}','dmdonviController@update_local');
+
+        Route::get('chung','dmdonviController@information_global');
+        Route::get('maso={id}/edit_global','dmdonviController@edit_global');
+        Route::patch('/{id}/global','dmdonviController@update_local');
+    });
+
+    Route::group(['prefix'=>'quan_tri'],function(){
+        Route::get('don_vi','dmdonviController@information_manage');
+        Route::get('don_vi/create','dmdonviController@create_manage');
+        Route::post('store','dmdonviController@store_manage');
+
+        Route::get('don_vi/maso={madv}','dmdonviController@list_account');
+        Route::get('don_vi/maso={madv}/create','dmdonviController@create_account');
+        Route::post('don_vi/maso={madv}/store','dmdonviController@store_account');
+        Route::get('don_vi/maso={id}/edit','dmdonviController@edit_account');
+        Route::patch('don_vi/maso={id}/update','dmdonviController@update_account');
+        Route::get('don_vi/maso={id}/detroy','dmdonviController@detroy_account');
+    });
 });
 
 

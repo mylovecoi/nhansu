@@ -288,6 +288,17 @@
                                 <!--li><a href="{{url('phanquyen')}}">Phân quyền</a></li-->
                             </ul>
                         </li>
+                        <li>
+                            <a href="javascript:;">
+                                <i class="icon-user"></i> Quản trị hệ thống <span class="arrow"></span>
+                            </a>
+
+                            <ul class="sub-menu" style="margin-left: 15px;">
+                                <li><a href="{{url('he_thong/don_vi/don_vi')}}">Thông tin đơn vị</a></li>
+                                <li><a href="{{url('he_thong/don_vi/chung')}}">Thông tin chung</a></li>
+                                <li><a href="{{url('he_thong/quan_tri/don_vi')}}">Quản lý tài khoản</a></li>
+                            </ul>
+                        </li>
                         @if(session('admin')->level != 'X')
                             <li>
                                 <a href="javascript:;">
@@ -298,7 +309,6 @@
                                     </ul>
                             </li>
                         @endif
-
 					</ul>
 				</li>
 			</ul>
@@ -311,7 +321,7 @@
 	<div class="page-content-wrapper">
         <div class="page-content">
             <!-- BEGIN PAGE BREADCRUMB -->
-            <div class="page-bar">
+            <!--div class="page-bar">
                 <ul class="page-breadcrumb breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
@@ -328,7 +338,7 @@
                         <b><div id="clock"></div></b>
                     </div>
                 </div>
-            </div>
+            </div-->
             <!-- END PAGE BREADCRUMB -->
             @yield('content')
         </div>

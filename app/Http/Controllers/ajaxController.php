@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\dmdonvi;
 use App\dmphanloaict;
 use App\ngachbac;
 use Illuminate\Http\Request;
@@ -194,4 +195,15 @@ class ajaxController extends Controller
         }
         die(json_encode($result));
     }
+
+    function checkmadv(Request $request){
+        $inputs = $request->all();
+        $model = dmdonvi::where('madv',$inputs['madv'])->first();
+        if (isset($model)) {
+            echo 'false';
+        } else {
+            echo 'true';
+        }
+    }
+
 }

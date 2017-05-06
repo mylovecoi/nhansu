@@ -55,13 +55,21 @@
                                         <tr>
                                             <td class="text-center">{{$key+1}}</td>
                                             <td>{{$value->madv}}</td>
-                                            <td>{{$value->tendv}}</td>
+                                            <td
+                                                @if(session('admin')->maxa == $value->madv)
+                                                    class="active"
+                                                @endif
+                                                    >{{$value->tendv}}</td>
                                             <td>{{$value->diachi}}</td>
                                             <td>{{$value->sodt}}</td>
                                             <td>{{$value->lanhdao}}</td>
                                             <td>
                                                 @if(session('admin')->maxa != $value->madv)
-                                                    <a href="{{url('danh_muc/don_vi/change/maso='.$value->madv)}}">Xem dữ liệu</a>
+                                                    <a class="btn btn-default btn-xs mbs" href="{{url('danh_muc/don_vi/change/maso='.$value->madv)}}">
+                                                        <i class="fa fa-credit-card"></i> Xem dữ liệu
+                                                    </a>
+                                                    @else
+                                                        Đang xem dữ liệu
                                                 @endif
                                             </td>
                                         </tr>

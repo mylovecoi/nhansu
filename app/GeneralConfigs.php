@@ -9,17 +9,18 @@ class GeneralConfigs extends Model
     protected $table = 'general_configs';
     protected $fillable = [
         'id',
-        'maqhns',
-        'tendonvi',
-        'diachi',
-        'teldv',
-        'thutruong',
-        'ketoan',
-        'nguoilapbieu',
-        'namhethong',
-        'sodvlt',
-        'sodvvt',
-        'ttlh',
-        'setting'
+        'tuoinu',
+        'tuoinam',
+        'luongcb',
+        'bhxh',
+        'bhyt',
+        'bhtn',
+        'kpcd',
+        'bhxh_dv',
+        'bhyt_dv',
+        'bhtn_dv',
+        'kpcd_dv',
+        'tg_hetts',
+        'tg_xetnl'
     ];
 }

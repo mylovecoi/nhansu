@@ -130,7 +130,7 @@ class bangluongController extends Controller
             $m_luongct->save();
         }
 
-        $result['message'] = '/chucnang/luong/bangluong/'.$mabl;
+        $result['message'] = '/chuc_nang/bang_luong/maso='.$mabl;
         $result['status'] = 'success';
         die(json_encode($result));
         //return redirect('/chucnang/luong/bangluong/'.$mabl);
@@ -185,7 +185,7 @@ class bangluongController extends Controller
         if (Session::has('admin')) {
             $model = bangluong::find($id);
             $model->delete();
-            return redirect('/chucnang/luong/');
+            return redirect('/chuc_nang/bang_luong/danh_sach');
         } else
             return view('errors.notlogin');
     }
