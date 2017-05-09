@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="Thu, 19 Nov 1900 08:52:00 GMT">
-    <!--link rel="shortcut icon" href="images/icons/loading.gif" type="image/x-icon"-->
-    <link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon">
+    <!--link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon"-->
+    <!--link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon"-->
     <!--Loading bootstrap css-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700&subset=vietnamese' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{url('vendors/font-awesome/css/font-awesome.min.css')}}">
@@ -31,13 +31,13 @@
 
 <br><br>
 <div class="row">
-    <img src="{{url('images/LIFESOFT.png')}}" width="250" alt="Công ty TNHH phát triển phần mềm Cuộc Sống">
+    <!--img src="{{url('images/LIFESOFT.png')}}" width="250" alt="Công ty TNHH phát triển phần mềm Cuộc Sống"-->
+    <img src="{{url('images/logosua.png')}}" width="150">
 </div>
 <div class="row">
     <h3><b></b></h3>
 </div>
 <div class="row mbl">
-    <br>
     <br>
     <br>
     <h1><b>PHẦN MỀM HỒ SƠ NHÂN SỰ</b></h1>
@@ -55,11 +55,13 @@
 <hr class="mtxl mbxl">
 
 <div class="row">
-    <p style="text"><b>Phát triển bởi Công ty TNHH Phát Triển Phần Mềm Cuộc Sống</b></p>
+    <p style="text"><b>Số đăng ký bản quyền: 282/2015/QTG, được khai thác và phần phối bởi H2SOFT</b></p>
+
+    <!--p style="text"><b>Phát triển bởi Công ty TNHH Phát Triển Phần Mềm Cuộc Sống</b></p>
 
     <p><b>Địa chỉ</b>: T14 – Cụm 591 – Liên Ninh – Thanh trì – Hà Nội</p>
 
-    <p><b>Tel</b>: 04.36343951 - <b>Email</b>: phanmemcuocsong@gmail.com</p>
+    <p><b>Tel</b>: 04.36343951 - <b>Email</b>: phanmemcuocsong@gmail.com</p-->
 </div>
 
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>

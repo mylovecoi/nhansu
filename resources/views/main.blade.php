@@ -86,7 +86,7 @@
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
 			<a href="{{url('')}}">
-                <img src="{{url('images/LOGO_LIFE.png')}}" alt="logo" class="logo-default" style="margin-top: 10px;">
+                <!--img src="{{url('images/LOGO_LIFE.png')}}" alt="logo" class="logo-default" style="margin-top: 10px;"-->
 			</a>
 			<div class="menu-toggler sidebar-toggler">
 				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->

@@ -34,10 +34,11 @@
                     <div class="caption">DANH SÁCH CÁC ĐƠN VỊ</div>
                     <div class="actions">
                         <div class="actions">
-                            <a class="btn btn-default" href="{{url($url.'don_vi/create')}}">
-                                <i class="fa fa-plus"></i> Thêm mới đơn vị
-                            </a>
-
+                            @if(session('admin')->sadmin=='ssa')
+                                <a class="btn btn-default" href="{{url($url.'don_vi/create')}}">
+                                    <i class="fa fa-plus"></i> Thêm mới đơn vị
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>

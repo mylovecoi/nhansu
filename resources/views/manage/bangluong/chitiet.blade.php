@@ -290,12 +290,69 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-6 control-label">BHXH đơn vị nộp</label>
+
+                                        <div class="col-sm-6 controls">
+                                            {!!Form::text('stbhxh_dv', null, array('id' => 'stbhxh_dv','class' => 'form-control baohiem_dv', 'data-mask'=>'fdecimal'))!!}
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="col-sm-6 control-label">Lương thực nhận </label>
+                                        <label class="col-sm-6 control-label">BHYT đơn vị nộp</label>
 
                                         <div class="col-sm-6 controls">
+                                            {!!Form::text('stbhyt_dv', null, array('id' => 'stbhyt_dv','class' => 'form-control baohiem_dv', 'data-mask'=>'fdecimal'))!!}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-6 control-label">KPCĐ đơn vị nộp</label>
+
+                                        <div class="col-sm-6 controls">
+                                            {!!Form::text('stkpcd_dv', null, array('id' => 'stkpcd_dv','class' => 'form-control baohiem_dv', 'data-mask'=>'fdecimal'))!!}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-6 control-label">BHTN đơn vị nộp</label>
+
+                                        <div class="col-sm-6 controls">
+                                            {!!Form::text('stbhtn_dv', null, array('id' => 'stbhtn_dv','class' => 'form-control baohiem_dv', 'data-mask'=>'fdecimal'))!!}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-6 control-label">Tổng tiền BH đơn vị nộp</label>
+
+                                        <div class="col-sm-6 controls">
+                                            {!!Form::text('ttbh_dv', null, array('id' => 'ttbh_dv','class' => 'form-control', 'data-mask'=>'fdecimal','readonly'=>'true','style'=>'font-weight:bold'))!!}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><b>Lương thực nhận </b></label>
+
+                                        <div class="col-sm-10 controls">
                                             {!!Form::text('luongtn', null, array('id' => 'luongtn','class' => 'form-control', 'data-mask'=>'fdecimal','readonly'=>'true','style'=>'font-weight:bold'))!!}
                                         </div>
                                     </div>
@@ -366,6 +423,14 @@
 
         $('.tienluong').change(function(){
             luongtn();
+        })
+
+        $('.baohiem_dv').change(function(){
+            var stbhxh_dv=getdl($('#stbhxh_dv').val());
+            var stbhyt_dv=getdl($('#stbhyt_dv').val());
+            var stkpcd_dv=getdl($('#stkpcd_dv').val());
+            var stbhtn_dv=getdl($('#stbhtn_dv').val());
+            $('#ttbh_dv').val(stbhxh_dv+stbhyt_dv+stkpcd_dv+stbhtn_dv);
         })
 
     </script>

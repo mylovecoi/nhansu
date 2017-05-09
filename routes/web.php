@@ -212,6 +212,7 @@ Route::group(['prefix'=>'chuc_nang'],function(){
         Route::get('create','bangluongController@create');
         Route::get('/maso={mabl}','bangluongController@show');
         Route::get('in/maso={mabl}','bangluongController@inbangluong');
+        Route::get('in_bh/maso={mabl}','bangluongController@inbaohiem');
         Route::get('/maso={mabl}/id={id}','bangluongController@detail');
         Route::post('updatect/{id}','bangluongController@updatect');
         Route::get('del/{id}','bangluongController@destroy');

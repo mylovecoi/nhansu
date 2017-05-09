@@ -62,6 +62,8 @@
                                                 <i class="fa fa-th-list"></i>&nbsp; Chi tiết</a>
                                             <a href="{{url($furl.'in/maso='.$value->mabl)}}" class="btn btn-success btn-xs mbs" TARGET="_blank">
                                                 <i class="fa fa-print"></i>&nbsp; In bảng lương</a>
+                                            <a href="{{url($furl.'in_bh/maso='.$value->mabl)}}" class="btn btn-success btn-xs mbs" TARGET="_blank">
+                                                <i class="fa fa-print"></i>&nbsp; In bảo hiểm</a>
                                             <button type="button" onclick="cfDel('{{$furl.'del/'.$value->id}}')" class="btn btn-danger btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
                                                 <i class="fa fa-trash-o"></i>&nbsp; Xóa</button>
                                         </td>

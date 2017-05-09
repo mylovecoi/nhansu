@@ -65,6 +65,7 @@ class bangluongController extends Controller
                 })->get();
 
         $gnr=getGeneralConfigs();
+
         foreach($m_cb as $cb){
             $ths=0;
             $m_luongct=new bangluong_ct();
@@ -115,17 +116,22 @@ class bangluongController extends Controller
             $m_luongct->tonghs=$ths;
             $ttl=$gnr['luongcb']*$ths;
             $m_luongct->ttl=$ttl;
+               // chưa tính được các loại hệ số pải nộp bh
+               //tách bảng phụ cấp riêng ra - liên kết với bảng hosocanbo
 
-
-            $m_luongct->stbhxh=$gnr['stbhxh'];
-            $m_luongct->stbhyt=$gnr['stbhyt'];
-            $m_luongct->stkpcd=$gnr['stkpcd'];
-            $m_luongct->stbhtn=$gnr['stbhtn'];
-
-            $tbh=$gnr['stbhxh']+$gnr['stbhyt']+$gnr['stkpcd']+$gnr['stbhtn'];
+            $m_luongct->stbhxh=$ttl*floatval($gnr['bhxh'])/100;
+            $m_luongct->stbhyt=$ttl*floatval($gnr['bhyt'])/100;
+            $m_luongct->stkpcd=$ttl*floatval($gnr['kpcd'])/100;
+            $m_luongct->stbhtn=$ttl*floatval($gnr['bhtn'])/100;
+            $tbh=$m_luongct->stbhxh+$m_luongct->stbhyt+$m_luongct->stkpcd + $m_luongct->stbhtn;
             $m_luongct->ttbh=$tbh;
-
             $m_luongct->luongtn=$ttl-$tbh;
+
+            $m_luongct->stbhxh_dv=$ttl*floatval($gnr['bhxh_dv'])/100;
+            $m_luongct->stbhyt_dv=$ttl*floatval($gnr['bhyt_dv'])/100;
+            $m_luongct->stkpcd_dv=$ttl*floatval($gnr['kpcd_dv'])/100;
+            $m_luongct->stbhtn_dv=$ttl*floatval($gnr['bhtn_dv'])/100;
+            $m_luongct->ttbh_dv=$m_luongct->stbhxh_dv + $m_luongct->stbhyt_dv + $m_luongct->stkpcd_dv + $m_luongct->stbhtn_dv;
 
             $m_luongct->save();
         }
@@ -304,6 +310,34 @@ class bangluongController extends Controller
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)
                 ->with('pageTitle','Bảng lương chi tiết');
+        } else
+            return view('errors.notlogin');
+    }
+
+    function inbaohiem($mabl){
+        if (Session::has('admin')) {
+            $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
+
+            $model=DB::table('bangluong_ct')
+                ->join('dmchucvucq', 'bangluong_ct.macvcq', '=', 'dmchucvucq.macvcq')
+                ->select('bangluong_ct.*', 'dmchucvucq.sapxep')
+                ->where('bangluong_ct.mabl',$mabl)
+                ->orderby('dmchucvucq.sapxep')
+                ->get();
+
+            $m_bl=bangluong::select('thang','nam')->where('mabl',$mabl)->first();
+            $dmchucvucq=dmchucvucq::all('tencv', 'macvcq')->toArray();
+            foreach($model as $hs){
+                $hs->tencv=getInfoChucVuCQ($hs,$dmchucvucq);
+            }
+            $thongtin=array('nguoilap'=>session('admin')->name,
+                'thang'=>$m_bl->thang,
+                'nam'=>$m_bl->nam);
+            return view('reports.bangluong.maubaohiem')
+                ->with('model',$model)
+                ->with('m_dv',$m_dv)
+                ->with('thongtin',$thongtin)
+                ->with('pageTitle','Bảng trích nộp bảo hiểm chi tiết');
         } else
             return view('errors.notlogin');
     }

@@ -67,6 +67,12 @@ class CreateBangluongctTable extends Migration
             $table->double('ttbh')->default(0);
             $table->double('gttncn')->default(0);
             $table->double('luongtn')->default(0);
+
+            $table->double('stbhxh_dv')->default(0);
+            $table->double('stbhyt_dv')->default(0);
+            $table->double('stkpcd_dv')->default(0);
+            $table->double('stbhtn_dv')->default(0);
+            $table->double('ttbh_dv')->default(0);
             $table->timestamps();
         });
     }
