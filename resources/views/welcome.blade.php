@@ -55,7 +55,7 @@
 <hr class="mtxl mbxl">
 
 <div class="row">
-    <p style="text"><b>Số đăng ký bản quyền: 282/2015/QTG, được khai thác và phần phối bởi H2SOFT</b></p>
+    <p style="text"><b>Số đăng ký bản quyền: 282/2015/QTG, Khai Thác và Phần Phối bởi H2SOFT</b></p>
 
     <!--p style="text"><b>Phát triển bởi Công ty TNHH Phát Triển Phần Mềm Cuộc Sống</b></p>
 

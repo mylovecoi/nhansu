@@ -86,7 +86,7 @@
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
 			<a href="{{url('')}}">
-                <!--img src="{{url('images/LOGO_LIFE.png')}}" alt="logo" class="logo-default" style="margin-top: 10px;"-->
+                <img src="{{url('images/logo_dai.png')}}" alt="logo" class="logo-default" style="margin-top: 5px;">
 			</a>
 			<div class="menu-toggler sidebar-toggler">
 				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -350,7 +350,7 @@
 <div class="page-footer">
     <div class="page-footer-tools">
        <!--  2016 &copy; LifeSoft <a href="" >Tiện ích hơn - Hiệu quả hơn</a>-->
-        Số đăng ký bản quyền: 282/2015/QTG, được khai thác và phần phối bởi H2SOFT
+        Số đăng ký bản quyền: 282/2015/QTG, Khai Thác và Phần Phối bởi H2SOFT
     </div>
     <div class="scroll-to-top">
         <i class="icon-arrow-up"></i>
