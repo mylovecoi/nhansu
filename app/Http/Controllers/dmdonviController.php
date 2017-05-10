@@ -170,6 +170,7 @@ class dmdonviController extends Controller
                 $model->name=$inputs['tendv'];
                 $model->level=$inputs['level'];
                 $model->maxa=$inputs['madv'];
+                $model->madv=$inputs['madv'];
                   if($inputs['level']=='H'){
                       $model->mahuyen=$inputs['madv'];
                   }
@@ -213,6 +214,7 @@ class dmdonviController extends Controller
             $model=new Users();
             $model->level='X';
             $model->maxa=$inputs['madv'];
+            $model->madv=$inputs['madv'];
             $model->name=$inputs['name'];
             $model->username=$inputs['username'];
             $model->password=md5($inputs['password']);
