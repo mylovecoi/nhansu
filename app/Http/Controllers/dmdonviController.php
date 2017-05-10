@@ -165,7 +165,18 @@ class dmdonviController extends Controller
             $model->khoiphongban=$inputs['khoiphongban'];
             $model->diadanh=$inputs['diadanh'];
             $model->macqcq=isset($inputs['macqcq'])?isset($inputs['macqcq']):NULL;
-            $model->save();
+            if($model->save()){
+                $model=new Users();
+                $model->level=$inputs['level'];
+                $model->maxa=$inputs['madv'];
+                  if($inputs['level']=='H'){
+                      $model->mahuyen=$inputs['madv'];
+                  }
+                $model->username=$inputs['username'];
+                $model->password=md5($inputs['password']);
+                $model->status="Kích hoạt";
+                $model->save();
+            }
 
             return redirect('/he_thong/quan_tri/don_vi');
         } else
