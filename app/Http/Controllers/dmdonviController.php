@@ -167,6 +167,7 @@ class dmdonviController extends Controller
             $model->macqcq=isset($inputs['macqcq'])?isset($inputs['macqcq']):NULL;
             if($model->save()){
                 $model=new Users();
+                $model->name=$inputs['tendv'];
                 $model->level=$inputs['level'];
                 $model->maxa=$inputs['madv'];
                   if($inputs['level']=='H'){
