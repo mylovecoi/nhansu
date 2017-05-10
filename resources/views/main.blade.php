@@ -73,7 +73,8 @@
             }
         }
     </script>
-    <link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url('images/logovang.png')}}" type="image/x-icon">
+    <!--link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon"-->
 </head>
 <!-- END HEAD -->
 

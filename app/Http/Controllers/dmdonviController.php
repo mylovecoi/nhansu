@@ -211,8 +211,9 @@ class dmdonviController extends Controller
     public function store_account(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
+            $model_donvi=dmdonvi::where('madv',$inputs['madv'])->first();
             $model=new Users();
-            $model->level='X';
+            $model->level=$model_donvi->level;
             $model->maxa=$inputs['madv'];
             $model->madv=$inputs['madv'];
             $model->name=$inputs['name'];
