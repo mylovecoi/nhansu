@@ -28,7 +28,7 @@
                 </div-->
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    {!! Form::open(['url'=>$url.'users', 'id' => 'create_tttaikhoan', 'class'=>'horizontal-form']) !!}
+                    {!! Form::open(['url'=>$url.'store', 'id' => 'create_tttaikhoan', 'class'=>'horizontal-form']) !!}
                         <meta name="csrf-token" content="{{ csrf_token() }}" />
                         <div class="form-body">
                             <div class="row">
@@ -72,8 +72,20 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label class="control-label">Loại đơn vị</label>
+                                        <select class="form-control select2me required" id="level" name="level">
+                                            <option value="H">Đơn vị chủ quản</option>
+                                            <option value="X">Đơn vị cơ sở</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label class="control-label">Đơn vị chủ quản</label>
-                                        <select class="form-control select2me required" id="mahuyen" name="mahuyen">
+                                        <select class="form-control select2me" id="mahuyen" name="mahuyen">
                                             @foreach($model as $dv)
                                                 <option value="{{$dv->madv}}">{{$dv->tendv}}</option>
                                             @endforeach

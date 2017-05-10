@@ -51,7 +51,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN LOGO -->
 <div class="logo">
 	<a href="">
-        <img src="{{url('images/logosua.png')}}" width="150">
+        <img src="{{url('images/h2softduoi.png')}}" width="150">
 		<!--img src="{{ url('images/LIFESOFT.png')}}"  width="250" alt="Công ty TNHH phát triển phần mềm Cuộc Sống"/-->
 	</a>
 </div>

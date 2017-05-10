@@ -157,13 +157,14 @@ class dmdonviController extends Controller
             $inputs = $request->all();
 
             $model=new dmdonvi();
-            $model->macqcq=$inputs['macqcq'];
+            $model->level=$inputs['level'];
             $model->madv=$inputs['madv'];
             $model->tendv=$inputs['tendv'];
             $model->diachi=$inputs['diachi'];
             $model->diadanh=$inputs['diadanh'];
             $model->khoiphongban=$inputs['khoiphongban'];
             $model->diadanh=$inputs['diadanh'];
+            $model->macqcq=isset($inputs['macqcq'])?isset($inputs['macqcq']):NULL;
             $model->save();
 
             return redirect('/he_thong/quan_tri/don_vi');
