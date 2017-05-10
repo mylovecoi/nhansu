@@ -3,110 +3,32 @@ function getPermissionDefault($level) {
     $roles = array();
 
     $roles['T'] = array(
-        'kkdvlt' => array(
+        'hsns' => array(
             'index' => 1,
             'create' => 0,
             'edit' => 0,
             'delete' => 0,
             'approve'=> 1
-        ),
-        'kkdvvtxk' => array(
-            'index' => 1,
-            'create' => 0,
-            'edit' => 0,
-            'delete' => 0,
-            'approve'=> 1
-        ),
-        'kkdvvtxb' => array(
-            'index' => 1,
-            'create' => 0,
-            'edit' => 0,
-            'delete' => 0,
-            'approve'=> 1
-        ),
-        'kkdvvtxtx' => array(
-            'index' => 1,
-            'create' => 0,
-            'edit' => 0,
-            'delete' => 0,
-            'approve'=> 1
-        ),
-        'kkdvvtch' => array(
-            'index' => 1,
-            'create' => 0,
-            'edit' => 0,
-            'delete' => 0,
-            'approve'=> 1
-        ),
+        )
     );
-    $roles['DVLT'] = array(
-        'dvlt' => array(
+
+    $roles['H'] = array(
+        'hsns' => array(
             'index' => 1,
-            'create' => 1,
-            'edit' => 1,
-            'delete' => 1,
-        ),
-        'kkdvlt' => array(
-            'index' => 1,
-            'create' => 1,
-            'edit' => 1,
-            'delete' => 1,
+            'create' => 0,
+            'edit' => 0,
+            'delete' => 0,
             'approve'=> 1
-        ),
+        )
     );
-    $roles['DVVT'] = array(
-        'dvvtxk' => array(
+
+    $roles['X'] = array(
+        'hsns' => array(
             'index' => 1,
             'create' => 1,
             'edit' => 1,
             'delete' => 1,
-        ),
-        'kkdvvtxk' => array(
-            'index' => 1,
-            'create' => 1,
-            'edit' => 1,
-            'delete' => 1,
-            'approve'=> 1
-        ),
-        'dvvtxb' => array(
-            'index' => 1,
-            'create' => 1,
-            'edit' => 1,
-            'delete' => 1,
-        ),
-        'kkdvvtxb' => array(
-            'index' => 1,
-            'create' => 1,
-            'edit' => 1,
-            'delete' => 1,
-            'approve'=> 1
-        ),
-        'dvvtxtx' => array(
-            'index' => 1,
-            'create' => 1,
-            'edit' => 1,
-            'delete' => 1,
-        ),
-        'kkdvvtxtx' => array(
-            'index' => 1,
-            'create' => 1,
-            'edit' => 1,
-            'delete' => 1,
-            'approve'=> 1
-        ),
-        'dvvtch' => array(
-            'index' => 1,
-            'create' => 1,
-            'edit' => 1,
-            'delete' => 1,
-        ),
-        'kkdvvtch' => array(
-            'index' => 1,
-            'create' => 1,
-            'edit' => 1,
-            'delete' => 1,
-            'approve'=> 1
-        ),
+        )
     );
     return json_encode($roles[$level]);
 }

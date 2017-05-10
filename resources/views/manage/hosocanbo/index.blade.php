@@ -56,7 +56,7 @@
                             <tr>
                             <td class="text-center">{{++$stt}}</td>
                             <td name="anh">
-                                <a href="{{url('/nghiepvu/hoso/'.$hs->id)}}">
+                                <a href="{{url($url.'maso='.$hs->id.'')}}">
                                     @if($hs->anh != '')
                                         <img src="{{ url($hs->anh)}}" width="96">
                                     @else
@@ -65,7 +65,7 @@
                                 </a>
                             </td>
                             <td>
-                                <a href="{{url('/nghiepvu/hoso/'.$hs->id)}}"><b>{{$hs->tencanbo}}</b></a>
+                                <a href="{{url($url.'maso='.$hs->id.'')}}"><b>{{$hs->tencanbo}}</b></a>
                                 <p style="margin-top: 5px">Phòng ban: {{$hs->tenpb}}</p>
                                 <p style="margin-top: 5px">Chức vụ: {{$hs->tencvcq}}</p>
                             </td>

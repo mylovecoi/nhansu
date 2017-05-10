@@ -252,4 +252,40 @@ class dmdonviController extends Controller
         }else
             return view('errors.notlogin');
     }
+
+    public function permission_list($id){
+        if (Session::has('admin')) {
+            $model=Users::findorfail($id);
+            $permission = !empty($model->permission)  ? $model->permission : getPermissionDefault($model->level);
+            return view('system.users.perms')
+                ->with('model',$model)
+                ->with('permission',json_decode($permission))
+                ->with('url','/he_thong/quan_tri/')
+                ->with('pageTitle','Phân quyền cho tài khoản');
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function permission_update(Request $request){
+        if (Session::has('admin')) {
+            $update = $request->all();
+            $id = $request['id'];
+
+            $model = Users::findOrFail($id);
+            //dd($model);
+            if(isset($model)){
+
+                $update['roles'] = isset($update['roles']) ? $update['roles'] : null;
+                $model->permission = json_encode($update['roles']);
+                $model->save();
+
+                return redirect('he_thong/quan_tri/don_vi/maso='.$model->maxa);
+
+            }else
+                dd('Tài khoản không tồn tại');
+
+        }else
+            return view('errors.notlogin');
+
+    }
 }
