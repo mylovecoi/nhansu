@@ -43,8 +43,8 @@ License: You must have a valid license purchased only from themeforest(the above
 	<link href="{{url('assets/admin/layout/css/custom.css')}}" rel="stylesheet" type="text/css"/>
 	<!-- END THEME STYLES -->
 	<!--link rel="shortcut icon" href="favicon.ico"/-->
-    <link rel="shortcut icon" href="{{ url('images/logovang.png')}}" type="image/x-icon">
-    <!--link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon"-->
+    <!--link rel="shortcut icon" href="{{ url('images/logovang.png')}}" type="image/x-icon"-->
+    <link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -52,8 +52,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN LOGO -->
 <div class="logo">
 	<a href="">
-        <img src="{{url('images/h2softduoi.png')}}" width="150">
-		<!--img src="{{ url('images/LIFESOFT.png')}}"  width="250" alt="Công ty TNHH phát triển phần mềm Cuộc Sống"/-->
+        <!--img src="{{url('images/h2softduoi.png')}}" width="150"-->
+		<img src="{{ url('images/LIFESOFT.png')}}"  width="250" alt="Công ty TNHH phát triển phần mềm Cuộc Sống"/>
 	</a>
 </div>
 <!-- END LOGO -->
@@ -103,38 +103,11 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END LOGIN -->
 <!-- BEGIN COPYRIGHT -->
 <div class="copyright">
-	2016 &copy; H2Soft <a href="" >Tiện ích hơn - Hiệu quả hơn</a>
+    <!--2016 &copy; H2Soft <a href="" >Tiện ích hơn - Hiệu quả hơn</a>-->
+    2016 &copy; LifeSoft <a href="" >Tiện ích hơn - Hiệu quả hơn</a>
 </div>
 <!--Modal đăng ký-->
-<div id="dangky-doanhnghiep" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-	<div class="modal-dialog">
-		{!! Form::open(['url'=>'reports/dvlt/BC1','target'=>'_blank' , 'id' => 'frm_BC1', 'class'=>'form-horizontal form-validate']) !!}
-		<div class="modal-content">
-			<div class="modal-header modal-header-primary">
-				<button type="button" data-dismiss="modal" aria-hidden="true"
-						class="close">&times;</button>
-				<h4 id="modal-header-primary-label" class="modal-title">Doanh nghiệp của bạn cung cấp dịch vụ???</h4>
-			</div>
-			<div class="modal-body">
-				<div class="form-horizontal">
-					<div class="form-group">
-						<div class="col-md-12" align="center">
-							<a class="btn btn-primary" data-toggle="modal" href="{{url('register/dich_vu_luu_tru')}}">
-								Dịch vụ lưu trú </a>
-							<a class="btn btn-success" data-toggle="modal" href="{{url('register/dich_vu_van_tai')}}">
-								Dịch vụ vận tải </a>
-						</div>
-					</div>
 
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
-			</div>
-			{!! Form::close() !!}
-		</div>
-	</div>
-</div>
 <!--end Modol-->
 
 

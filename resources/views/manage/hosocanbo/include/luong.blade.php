@@ -94,7 +94,7 @@
                     <label class="col-sm-6 control-label">Phần trăm hưởng </label>
 
                     <div class="col-sm-6 controls">
-                        {!!Form::text('pthuong', null, array('id' => 'pthuong','class' => 'form-control', 'data-mask'=>'fdecimal'))!!}
+                        {!!Form::text('pthuong', '100', array('id' => 'pthuong','class' => 'form-control', 'data-mask'=>'fdecimal'))!!}
                     </div>
                 </div>
             </div>
