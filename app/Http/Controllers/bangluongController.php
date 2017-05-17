@@ -25,6 +25,7 @@ class bangluongController extends Controller
                 ->with('furl','/chuc_nang/bang_luong/')
                 ->with('furl_ajax','/ajax/bang_luong/')
                 ->with('model',$model)
+                ->with('tendv',getTenDV(session('admin')->maxa))
                 ->with('pageTitle','Danh sách bảng lương');
         } else
             return view('errors.notlogin');

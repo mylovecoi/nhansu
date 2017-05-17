@@ -22,6 +22,7 @@ class dshuutriController extends Controller
                 ->with('furl','/chuc_nang/huu_tri/')
                 ->with('furl_ajax','/ajax/huu_tri/')
                 ->with('model',$model)
+                ->with('tendv',getTenDV(session('admin')->maxa))
                 ->with('pageTitle','Danh sách hưu trí');
         } else
             return view('errors.notlogin');

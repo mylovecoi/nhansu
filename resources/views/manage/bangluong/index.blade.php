@@ -31,7 +31,7 @@
         <div class="col-md-12">
             <div class="portlet light bordered">
                 <div class="portlet-title">
-                    <div class="caption">DANH SÁCH BẢNG LƯƠNG CỦA CÁN BỘ</div>
+                    <div class="caption">DANH SÁCH BẢNG LƯƠNG - {{$tendv}}</div>
                     <div class="actions">
                         <button type="button" id="_btnadd" class="btn btn-default btn-xs" onclick="add()"><i class="fa fa-plus"></i>&nbsp;Thêm mới bảng lương</button>
                     </div>

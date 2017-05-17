@@ -21,6 +21,7 @@ class dshettapsuController extends Controller
                 ->with('furl','/chuc_nang/het_tap_su/')
                 ->with('furl_ajax','/ajax/het_tap_su/')
                 ->with('model',$model)
+                ->with('tendv',getTenDV(session('admin')->maxa))
                 ->with('pageTitle','Danh sách xét hết tập sự');
         } else
             return view('errors.notlogin');

@@ -31,7 +31,7 @@
         <div class="col-md-12">
             <div class="portlet light bordered">
                 <div class="portlet-title">
-                    <div class="caption"> DANH SÁCH CÁN BỘ HẾT TẬP SỰ </div>
+                    <div class="caption"> DANH SÁCH CÁN BỘ HẾT TẬP SỰ - {{$tendv}}</div>
                     <div class="actions">
                         <button type="button" id="_btnadd" class="btn btn-success btn-xs" onclick="add()"><i class="fa fa-plus"></i>&nbsp;Tạo danh sách</button>
                     </div>

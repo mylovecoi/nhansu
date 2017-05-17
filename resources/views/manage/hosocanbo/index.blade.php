@@ -32,7 +32,7 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-list-alt"></i>DANH SÁCH HỒ SƠ CÁN BỘ
+                        <i class="fa fa-list-alt"></i>DANH SÁCH HỒ SƠ CÁN BỘ - {{$tendv}}
                     </div>
                     <div class="actions">
                         <a class="btn btn-default btn-xs" href="{{url($url.'create')}}"><i class="fa fa-plus"></i>&nbsp;Thêm mới hồ sơ</a>

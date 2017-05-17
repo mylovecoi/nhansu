@@ -23,6 +23,7 @@ class dsnangluongController extends Controller
                 ->with('furl','/chuc_nang/nang_luong/')
                 ->with('furl_ajax','/ajax/nang_luong/')
                 ->with('model',$model)
+                ->with('tendv',getTenDV(session('admin')->maxa))
                 ->with('pageTitle','Danh sách nâng lương');
         } else
             return view('errors.notlogin');

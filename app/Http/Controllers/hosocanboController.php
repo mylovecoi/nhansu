@@ -43,7 +43,6 @@ class hosocanboController extends Controller
                 ->orderby('dmchucvucq.sapxep')
                 ->get();
 
-
             $dmphongban=dmphongban::all('mapb','tenpb')->toArray();
             $dmchucvud=dmchucvud::all('tencv', 'macvd')->toArray();
             $dmchucvucq=dmchucvucq::all('tencv', 'macvcq')->toArray();
@@ -53,12 +52,12 @@ class hosocanboController extends Controller
                 $hs->tencvd=getInfoChucVuD($hs,$dmchucvud);
                 $hs->tencvcq=getInfoChucVuCQ($hs,$dmchucvucq);
             }
-
             //dd($m_hs);
 
             return view('manage.hosocanbo.index')
                 ->with('model',$m_hs)
                 ->with('url','/nghiep_vu/ho_so/')
+                ->with('tendv',getTenDV(session('admin')->maxa))
                 ->with('pageTitle','Danh sách cán bộ');
         } else
             return view('errors.notlogin');
