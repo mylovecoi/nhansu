@@ -67,6 +67,11 @@
                                                 <a class="btn btn-default" href="{{url($url.'don_vi/maso='.$value->madv)}}">
                                                     <i class="fa fa-credit-card"></i> Tài khoản
                                                 </a>
+                                                @if(session('admin')->sadmin=='ssa')
+                                                    <a class="btn btn-default" href="{{url($url.'don_vi/maso='.$value->madv.'/don_vi')}}">
+                                                        <i class="fa fa-edit"></i> Chỉnh sửa
+                                                    </a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

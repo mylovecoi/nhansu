@@ -304,4 +304,38 @@ class dmdonviController extends Controller
             return view('errors.notlogin');
 
     }
+
+    public function edit_information($madv){
+        if (Session::has('admin')) {
+            $model=dmdonvi::where('madv',$madv)->first();
+            $model_cqcq=dmdonvi::where('level','H')->get();
+            return view('system.manage.edit_information')
+                ->with('model',$model)
+                ->with('model_cqcq',$model_cqcq)
+                ->with('url','/he_thong/quan_tri/')
+                ->with('pageTitle','Chỉnh sửa thông tin đơn vị');
+        } else
+            return view('errors.notlogin');
+    }
+
+    function update_information(Request $request, $madv){
+        if (Session::has('admin')) {
+            $inputs=$request->all();
+            $model=dmdonvi::where('madv',$madv)->first();
+            $model->macqcq=$inputs['macqcq']=='all'?'':$inputs['macqcq'];
+            $model->tendv=$inputs['tendv'];
+            $model->diachi=$inputs['diachi'];
+            $model->sodt=$inputs['sodt'];
+            $model->lanhdao=$inputs['lanhdao'];
+            $model->diadanh=$inputs['diadanh'];
+            $model->cdlanhdao=$inputs['cdlanhdao'];
+            $model->nguoilapbieu=$inputs['nguoilapbieu'];
+            $model->khoiphongban=$inputs['khoiphongban'];
+            $model->diadanh=$inputs['diadanh'];
+            $model->save();
+            return redirect('/he_thong/quan_tri/don_vi');
+
+        } else
+            return view('errors.notlogin');
+    }
 }

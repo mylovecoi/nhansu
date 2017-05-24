@@ -73,8 +73,8 @@
             }
         }
     </script>
-    <!--link rel="shortcut icon" href="{{ url('images/logovang.png')}}" type="image/x-icon"-->
-    <link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url('images/logovang.png')}}" type="image/x-icon">
+    <!--link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon"-->
 </head>
 <!-- END HEAD -->
 
@@ -87,8 +87,8 @@
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
 			<a href="{{url('')}}">
-                <!--img src="{{url('images/logo_dai.png')}}" alt="logo" class="logo-default" style="margin-top: 5px;"-->
-                <img src="{{url('images/LOGO_LIFE.png')}}" alt="logo" class="logo-default" style="margin-top: 5px;">
+                <img src="{{url('images/logo_dai.png')}}" alt="logo" class="logo-default" style="margin-top: 5px;">
+                <!--img src="{{url('images/LOGO_LIFE.png')}}" alt="logo" class="logo-default" style="margin-top: 5px;"-->
 			</a>
 			<div class="menu-toggler sidebar-toggler">
 				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -298,7 +298,9 @@
                             <ul class="sub-menu" style="margin-left: 15px;">
                                 <li><a href="{{url('he_thong/don_vi/don_vi')}}">Thông tin đơn vị</a></li>
                                 <li><a href="{{url('he_thong/don_vi/chung')}}">Thông tin chung</a></li>
-                                <li><a href="{{url('he_thong/quan_tri/don_vi')}}">Quản lý tài khoản</a></li>
+                                @if(session('admin')->sadmin == 'sa' || session('admin')->sadmin == 'ssa')
+                                    <li><a href="{{url('he_thong/quan_tri/don_vi')}}">Quản lý tài khoản</a></li>
+                                @endif
                             </ul>
                         </li>
                         @if(session('admin')->level != 'X')
@@ -351,8 +353,8 @@
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
     <div class="page-footer-tools">
-         2016 &copy; LifeSoft <a href="" >Tiện ích hơn - Hiệu quả hơn</a>
-        <!--  Số đăng ký bản quyền: 282/2015/QTG, Khai Thác và Phần Phối bởi H2SOFT -->
+        <!--  2016 &copy; LifeSoft <a href="" >Tiện ích hơn - Hiệu quả hơn</a>-->
+       Số đăng ký bản quyền: 282/2015/QTG, Khai Thác và Phần Phối bởi H2SOFT
       </div>
       <div class="scroll-to-top">
           <i class="icon-arrow-up"></i>

@@ -434,6 +434,9 @@ Route::group(['prefix'=>'he_thong'],function(){
 
         Route::get('don_vi/maso={id}/phan_quyen','dmdonviController@permission_list');
         Route::post('don_vi/maso={id}/up_perm','dmdonviController@permission_update');
+
+        Route::get('don_vi/maso={madv}/don_vi','dmdonviController@edit_information');
+        Route::patch('don_vi/maso={madv}','dmdonviController@update_information');
     });
 });
 
