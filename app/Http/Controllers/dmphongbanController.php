@@ -10,6 +10,7 @@ class dmphongbanController extends Controller
 {
     public function index(){
         if (Session::has('admin')) {
+            /*
             switch(session('admin')->level){
                 case 'H':{
                     $m_pb=dmphongban::where('madv',session('admin')->mahuyen)->orderby('sapxep')->get();
@@ -24,7 +25,8 @@ class dmphongbanController extends Controller
                     break;
                 }
             }
-
+            */
+            $m_pb=dmphongban::all();
             return view('system.danhmuc.phongban.index')
                 ->with('model',$m_pb)
                 ->with('furl','/danh_muc/phong_ban/')
