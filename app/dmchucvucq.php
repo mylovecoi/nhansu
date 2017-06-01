@@ -14,6 +14,8 @@ class dmchucvucq extends Model
         'ghichu',
         'sapxep',
         'madv',
+        'phannhom',
+        'makhoipb'
     ];
 
     public function bangluong_ct(){

@@ -66,7 +66,11 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Khối phòng ban</label>
-                                        {!!Form::text('khoiphongban', null, array('id' => 'khoiphongban','class' => 'form-control'))!!}
+                                        {!! Form::select(
+                                        'makhoipb',
+                                        $model_kpb,null,
+                                        array('id' => 'makhoipb', 'class' => 'form-control select2me','required'=>'required'))
+                                        !!}
                                     </div>
                                 </div>
                             </div>

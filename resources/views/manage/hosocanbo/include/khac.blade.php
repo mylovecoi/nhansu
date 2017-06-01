@@ -100,17 +100,11 @@
                     <label class="col-sm-4 control-label">Chức vụ Đảng </label>
 
                     <div class="col-sm-8">
-                        <select class="form-control" name="macvd" id="macvd">
-                            <option value="all">-- Chọn chức vụ --</option>
-                            @if($type=='create')
-                                @foreach($m_cvd as $cv)
-                                    <option value="{{$cv->macvd}}">{{$cv->tencv}}</option>
-                                @endforeach
-                            @else
-                                @foreach($m_cvd as $cv)
-                                    <option value="{{$cv->macvd}}" {{$model->macvd==$cv->macvd?'selected':''}}>{{$cv->tencv}}</option>
-                                @endforeach
-                            @endif
+                        <select class="form-control select2me" name="macvd" id="macvd">
+                            <option value="">-- Chọn chức vụ --</option>
+                            @foreach($m_cvd as $cv)
+                                <option value="{{$cv->macvd}}">{{$cv->tencv}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -176,19 +170,11 @@
                     <label class="col-sm-4 control-label">Nhóm máu </label>
 
                     <div class="col-sm-8">
-                        <select name="nhommau" class="form-control">
-                            @if($type=='create')
-                                <option value="Nhóm máu A">Nhóm máu A</option>
-                                <option value="Nhóm máu AB">Nhóm máu AB</option>
-                                <option value="Nhóm máu B">Nhóm máu B</option>
-                                <option value="Nhóm máu O">Nhóm máu O</option>
-                            @else
-                                <option value="Nhóm máu A" {{$model->nhommau=='Nhóm máu A'?'selected':''}}>Nhóm máu A</option>
-                                <option value="Nhóm máu AB" {{$model->nhommau=='Nhóm máu AB'?'selected':''}}>Nhóm máu AB</option>
-                                <option value="Nhóm máu B" {{$model->nhommau=='Nhóm máu B'?'selected':''}}>Nhóm máu B</option>
-                                <option value="Nhóm máu O" {{$model->nhommau=='Nhóm máu O'?'selected':''}}>Nhóm máu O</option>
-                            @endif
-
+                        <select name="nhommau" class="form-control select2me">
+                            <option value="Nhóm máu A">Nhóm máu A</option>
+                            <option value="Nhóm máu AB">Nhóm máu AB</option>
+                            <option value="Nhóm máu B">Nhóm máu B</option>
+                            <option value="Nhóm máu O">Nhóm máu O</option>
                         </select>
                     </div>
                 </div>

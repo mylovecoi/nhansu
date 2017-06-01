@@ -87,11 +87,9 @@ function getPhongBanX(){
 function getCanBoX(){
     $m_cb = \Illuminate\Support\Facades\DB::table('hosocanbo')
         ->join('dmchucvucq', 'hosocanbo.macvcq', '=', 'dmchucvucq.macvcq')
-        ->join('hosotinhtrangct', 'hosocanbo.macanbo', '=', 'hosotinhtrangct.macanbo')
         ->select('hosocanbo.macanbo','hosocanbo.tencanbo','hosocanbo.mapb', 'dmchucvucq.sapxep')
         ->where('hosocanbo.madv',session('admin')->maxa)
-        ->where('hosotinhtrangct.hientai','1')
-        ->where('hosotinhtrangct.phanloaict','Đang công tác')
+        ->where('hosocanbo.theodoi','1')
         ->orderby('dmchucvucq.sapxep')
         ->get();
     return $m_cb;
@@ -101,4 +99,23 @@ function getTenDV($madv){
     $model = App\dmdonvi::select('tendv')->where('madv',$madv)->first();
     return count($model)>0?Illuminate\Support\Str::upper($model->tendv):'';
 }
+
+function getTheoDoi($tenct){
+    $kq=1;
+    $model = App\dmphanloaict::where('tenct',$tenct)->first();
+    if(count($model)>0){
+      if($model->nhomct >= 2){$kq=0;}
+    }
+    return $kq;
+}
+
+function getMaKhoiPB($madv){
+    $kq='';
+    $model = App\dmdonvi::where('madv',$madv)->first();
+    if(count($model)>0){
+        $kq=$model->makhoipb;
+    }
+    return $kq;
+}
+
 ?>

@@ -17,17 +17,10 @@
                     <label class="col-sm-4 control-label">Phòng ban <span class="require">*</span></label>
 
                     <div class="col-sm-8 controls">
-                        <select name="mapb" id="mapb" class="form-control" autofocus="autofocus" required="required">
-                            @if($type=='create')
-                                <!--option value="">-- Chọn phòng ban ---</option-->
-                                @foreach($m_pb as $pb)
-                                    <option value="{{$pb->mapb}}">{{$pb->tenpb}}</option>
-                                @endforeach
-                            @else
-                                @foreach($m_pb as $pb)
-                                    <option value="{{$pb->mapb}}" {{$model->mapb == $pb->mapb ? 'selected' : ''}}>{{$pb->tenpb}}</option>
-                                @endforeach
-                            @endif
+                        <select name="mapb" id="mapb" class="form-control select2me" autofocus="autofocus" required="required">
+                            @foreach($m_pb as $pb)
+                                <option value="{{$pb->mapb}}">{{$pb->tenpb}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -37,17 +30,10 @@
                     <label class="col-sm-4 control-label">Chức vụ <span class="require">*</span> </label>
 
                     <div class="col-sm-8">
-                        <select name="macvcq" id="macvcq" class="form-control" required="required">
-                            @if($type=='create')
-                                <!--option value="">-- Chọn chức vụ ---</option-->
-                                @foreach($m_cvcq as $cv)
-                                    <option value="{{$cv->macvcq}}">{{$cv->tencv}}</option>
-                                @endforeach
-                            @else
-                                @foreach($m_cvcq as $cv)
-                                    <option value="{{$cv->macvcq}}" {{$model->macvcq==$cv->macvcq?'selected':''}}>{{$cv->tencv}}</option>
-                                @endforeach
-                            @endif
+                        <select name="macvcq" id="macvcq" class="form-control select2me" required="required">
+                            @foreach($m_cvcq as $cv)
+                                <option value="{{$cv->macvcq}}">{{$cv->tencv}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -119,17 +105,13 @@
                     <label class="col-sm-4 control-label">Dân tộc <span class="require">*</span></label>
 
                     <div class="col-sm-8 controls">
-                        <select name="dantoc" id="dantoc" class="form-control" required="required">
-                            @if($type=='create')
-                                @foreach($m_dt as $dt)
-                                    <option value="{{$dt->dantoc}}">{{$dt->dantoc}}</option>
-                                @endforeach
-                            @else
-                                @foreach($m_dt as $dt)
-                                    <option value="{{$dt->dantoc}}" {{$model->dantoc==$dt->dantoc?'selected':''}}>{{$dt->dantoc}}</option>
-                                @endforeach
-                            @endif
-                        </select>
+
+                        {!! Form::select(
+                        'dantoc',
+                        $model_dt,null,
+                        array('id' => 'dantoc', 'class' => 'form-control select2me','required'=>'required'))
+                        !!}
+
                     </div>
                 </div>
             </div>
@@ -303,8 +285,8 @@
 
 <script>
     $(function(){
-        $('#create-hscb :submit').click(function(){
-            var str = '',strb1='',strb2='',strb4='';
+        $('#create_hscb :submit').click(function(){
+            var str = '',strb1='',strb2='';
             var ok = true;
 
             if($('#mapb').val()==''){
@@ -331,12 +313,6 @@
                 ok = false;
             }
 
-            if($('#dantoc').val()==''){
-                strb1 += '  - Dân tộc \n';
-                $('#dantoc').parent().addClass('state-error');
-                ok = false;
-            }
-
             //Bước 2
             if(!$('#ngaybc').val()){
                 strb2 += ' - Ngày biên chế, hợp đồng \n';
@@ -344,48 +320,7 @@
                 ok = false;
             }
 
-            if($('#sunghiep').val()==''){
-                strb2 += '  - Sự nghiệp cán bộ \n';
-                $('#sunghiep').parent().addClass('state-error');
-                ok = false;
-            }
 
-            if($('#phanloaict').val()==''){
-                strb2 += '  - Phân loại công tác \n';
-                $('#phanloaict').parent().addClass('state-error');
-                ok = false;
-            }
-
-            if($('#kieuct').val()==''){
-                strb2 += '  - Kiểu công tác \n';
-                $('#kieuct').parent().addClass('state-error');
-                ok = false;
-            }
-
-            if($('#tenct').val()==''){
-                strb2 += '  - Tên công tác \n';
-                $('#tenct').parent().addClass('state-error');
-                ok = false;
-            }
-
-            //Bước 4
-            if(!$('#msngbac').val()){
-                strb4 += ' - Mã ngạch lương \n';
-                $('#msngbac').parent().addClass('state-error');
-                ok = false;
-            }
-
-            if(!$('#ngaytu').val()){
-                strb4 += ' - Thời gian hưởng lương: Từ ngày \n';
-                $('#ngaytu').parent().addClass('state-error');
-                ok = false;
-            }
-
-            if(!$('#ngayden').val()){
-                strb4 += ' - Thời gian hưởng lương: Đến ngày \n';
-                $('#ngayden').parent().addClass('state-error');
-                ok = false;
-            }
 
             //Kết quả
             if ( ok == false){
@@ -393,8 +328,7 @@
                     str+='Bước 1: \n '+strb1 ;
                 if(strb2!='')
                     str+='Bước 2: \n '+strb2 ;
-                if(strb4!='')
-                    str+='Bước 4: \n '+strb4 ;
+
                 alert('Các trường: \n' + str + 'Không được để trống');
                 $("form").submit(function (e) {
                     e.preventDefault();
@@ -402,33 +336,6 @@
             }
             else{
                 $("form").unbind('submit').submit();
-            }
-        });
-    });
-</script>
-
-<script>
-    jQuery(function($){
-        //Lấy thông tin kiểu công tác khi chọn phân loại công tác
-        $('select[name="phanloaict"]').change(function(){
-            if($(this).val() != 'all'){
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                $.ajax({
-                    url: '/ajax/kieuct/',
-                    type: 'GET',
-                    data: {
-                        _token: CSRF_TOKEN,
-                        phanloaict: $(this).val()
-                    },
-                    dataType: 'JSON',
-                    success: function (data) {
-                        if(data.status == 'success')
-                            $('select[name="kieuct"]').replaceWith(data.message);
-                    }
-                });
-            } else {
-                $('select[name="kieuct"]').val('all');
-                $('select[name="tenct"]').val('all');
             }
         });
     });

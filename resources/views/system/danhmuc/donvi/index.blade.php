@@ -56,7 +56,7 @@
                                             <td class="text-center">{{$key+1}}</td>
                                             <td>{{$value->madv}}</td>
                                             <td
-                                                @if(session('admin')->maxa == $value->madv)
+                                                @if(session('admin')->madv == $value->madv)
                                                     class="active"
                                                 @endif
                                                     >{{$value->tendv}}</td>
@@ -64,7 +64,7 @@
                                             <td>{{$value->sodt}}</td>
                                             <td>{{$value->lanhdao}}</td>
                                             <td>
-                                                @if(session('admin')->maxa != $value->madv)
+                                                @if(session('admin')->madv != $value->madv)
                                                     <a class="btn btn-default btn-xs mbs" href="{{url('danh_muc/don_vi/change/maso='.$value->madv)}}">
                                                         <i class="fa fa-credit-card"></i> Xem dữ liệu
                                                     </a>

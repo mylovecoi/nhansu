@@ -21,7 +21,21 @@
         jQuery(document).ready(function() {
             FormWizard.init();
         });
+
+        <!--Gán các giá trị và các ô select box -->
+        $('#tenct').val('{{$model->tenct}}').trigger('change');
+        $('#lvhd').val('{{$model->lvhd}}').trigger('change');
+        $('#lvtd').val('{{$model->lvtd}}').trigger('change');
+        $('#sunghiep').val('{{$model->sunghiep}}').trigger('change');
+        $('#macvcq').val('{{$model->macvcq}}').trigger('change');
+        $('#mapb').val('{{$model->mapb}}').trigger('change');
+        $('#nhommau').val('{{$model->nhommau}}').trigger('change');
+        $('#macvd').val('{{$model->macvd}}').trigger('change');
+        $('#bac').val('{{$model->bac}}').trigger('change');
+        $('#tennb').val('{{$model->msngbac}}').trigger('change');
     </script>
+
+
 @stop
 
 
@@ -37,7 +51,7 @@
                     </div>
                 </div>
 
-                <div class="portlet-body form">
+                <div class="portlet-body form" id="form_wizard">
                     {!! Form::model($model, ['url'=>'/nghiep_vu/ho_so/update/'.$model->id, 'method' => 'PATCH', 'files'=>true, 'id' => 'create-hscb', 'class'=>'horizontal-form form-validate', 'enctype'=>'multipart/form-data']) !!}
                     <div class="form-body">
                         <ul class="nav nav-pills nav-justified steps">
@@ -103,23 +117,11 @@
                                 <button type="submit" class="btn btn-success">Lưu hồ sơ</button>
                             </div>
                         </div>
-
-                        <!--div class="row">
-                            <div class="col-md-offset-3 col-md-9">
-                                <a href="javascript:;" class="btn default button-previous">
-                                    <i class="m-icon-swapleft"></i> Back </a>
-                                <a href="javascript:;" class="btn blue button-next">
-                                    Continue <i class="m-icon-swapright m-icon-white"></i>
-                                </a>
-                                <a href="javascript:;" class="btn green button-submit">
-                                    Submit <i class="m-icon-swapright m-icon-white"></i>
-                                </a>
-                            </div>
-                        </div-->
                     </div>
                             {!! Form::close() !!}
                 </div>
             </div>
         </div>
     </div>
+
 @stop

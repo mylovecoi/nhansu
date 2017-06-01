@@ -22,6 +22,7 @@
             FormWizard.init();
         });
     </script>
+    $('#tennb').val('').trigger('change');
 @stop
 
 @section('content')
@@ -38,9 +39,8 @@
                         </div>
                     </div>
 
-                    <div class="portlet-body form">
-                        {!! Form::open(['url'=>'/nghiep_vu/ho_so/store','method'=>'post' , 'files'=>true, 'id' => 'create-hscb','class'=>'form-horizontal','enctype'=>'multipart/form-data']) !!}
-
+                    <div class="portlet-body form" id="form_wizard">
+                        {!! Form::open(['url'=>'/nghiep_vu/ho_so/store','method'=>'post' , 'files'=>true, 'id' => 'create_hscb','class'=>'form-horizontal','enctype'=>'multipart/form-data']) !!}
                             <div class="form-body">
                                 <ul class="nav nav-pills nav-justified steps">
                                     <li><a href="#tab1" data-toggle="tab" class="step">
@@ -105,21 +105,9 @@
                                         <button type="submit" class="btn btn-success">Tạo hồ sơ</button>
                                     </div>
                                 </div>
-
-                                <!--div class="row">
-                                    <div class="col-md-offset-3 col-md-9">
-                                        <a href="javascript:;" class="btn default button-previous">
-                                            <i class="m-icon-swapleft"></i> Back </a>
-                                        <a href="javascript:;" class="btn blue button-next">
-                                            Continue <i class="m-icon-swapright m-icon-white"></i>
-                                        </a>
-                                        <a href="javascript:;" class="btn green button-submit">
-                                            Submit <i class="m-icon-swapright m-icon-white"></i>
-                                        </a>
-                                    </div>
-                                </div-->
                             </div>
                         {!! Form::close() !!}
+
                     </div>
                 </div>
             </div>

@@ -115,7 +115,9 @@ class hosocanbo extends Model
         'pccovu',
         'pclt',
         'pcd',
-        'pctr'
+        'pctr',
+        'theodoi',
+        'tenct'
     ];
 
     // <editor-fold defaultstate="collapsed" desc="--hasMany--">

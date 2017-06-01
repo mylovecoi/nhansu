@@ -65,14 +65,18 @@ Route::group(['prefix'=>'user'],function(){
 Route::group(['prefix'=>'danh_muc'],function(){
     Route::group(['prefix'=>'phong_ban'],function(){
         Route::get('index','dmphongbanController@index');
-        Route::get('store','dmphongbanController@store');
         Route::get('del/{id}','dmphongbanController@destroy');
+        Route::get('add','dmphongbanController@store');
+        Route::get('update','dmphongbanController@update');
+        Route::get('get','dmphongbanController@getinfo');
     });
 
     Route::group(['prefix'=>'chuc_vu_cq'],function(){
         Route::get('index','dmchucvucqController@index');
-        Route::get('store','dmchucvucqController@store');
         Route::get('del/{id}','dmchucvucqController@destroy');
+        Route::get('add','dmchucvucqController@store');
+        Route::get('update','dmchucvucqController@update');
+        Route::get('get','dmchucvucqController@getinfo');
     });
 
     Route::group(['prefix'=>'chuc_vu_d'],function(){
@@ -110,6 +114,12 @@ Route::group(['prefix'=>'danh_muc'],function(){
         Route::get('store','dmdonviController@store');
         Route::get('del/{id}','dmdonviController@destroy');
         Route::get('change/maso={madv}','dmdonviController@change');
+    });
+
+    Route::group(['prefix'=>'khoi_pb'],function(){
+        Route::get('index','dmkhoipbController@index');
+        Route::get('store','dmkhoipbController@store');
+        Route::get('del/{id}','dmkhoipbController@destroy');
     });
 });
 
@@ -400,6 +410,11 @@ Route::group(['prefix'=>'ajax'],function(){
         Route::get('add','dshuutriController@store');
         Route::get('update','dshuutriController@update');
         Route::get('get','dshuutriController@getinfo');
+    });
+    Route::group(['prefix'=>'khoi_pb'],function(){
+        Route::get('add','dmkhoipbController@store');
+        Route::get('update','dmkhoipbController@update');
+        Route::get('get','dmkhoipbController@getinfo');
     });
 });
 

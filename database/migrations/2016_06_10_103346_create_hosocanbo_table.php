@@ -127,7 +127,11 @@ class CreateHosocanboTable extends Migration
             $table->double('pclt')->default(0);
             $table->double('pcd')->default(0);
             $table->double('pctr')->default(0);
-
+            //gộp bảng hosotinhtrangct vào để theo dõi
+            $table->string('phanloaict')->nullable();
+            $table->string('kieuct')->nullable();
+            $table->string('tenct')->nullable();
+            $table->string('theodoi',5)->default(1)->nullable();
             $table->timestamps();
         });
     }

@@ -67,8 +67,7 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    tennb: $('#tennb').val(),
-                    plnb: $('#plnb').val(),
+                    msngbac: $('#tennb').val(),
                     bac: $('#bac').val()
                 },
                 dataType: 'JSON',
@@ -77,6 +76,10 @@
                         var heso = data.message.split(';');
                         $('#heso').val(heso[0]);
                         $('#vuotkhung').val(heso[1]);
+                    }else{
+                        toastr.error('Không tìm thấy hệ số lương cho bậc lương này.','Lỗi!')
+                        $('#heso').val(0);
+                        $('#vuotkhung').val(0);
                     }
                 }
             });
@@ -85,4 +88,10 @@
             $('#vuotkhung').val(0);
         }
     }
+
+    function setMSNGBAC(){
+        $('#msngbac').val($('#tennb').val());
+        getHS();
+    }
+
 </script>

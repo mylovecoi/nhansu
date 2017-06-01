@@ -36,7 +36,7 @@ class dmchucvudController extends Controller
         //Thêm mới dịch vụ
         if ($inputs['id'] == 0) {
             $model = new dmchucvud();
-            $model->macvd = session('admin')->maxa .'.'.getdate()[0];
+            $model->macvd = session('admin')->madv .'.'.getdate()[0];
             $model->tencv = $inputs['tencv'];
             $model->ghichu = $inputs['ghichu'];
             $model->sapxep = $inputs['sapxep'];

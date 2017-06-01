@@ -17,6 +17,7 @@ class Users extends Model
         'madv',
         'maxa',
         'mahuyen',
+        'matinh',
         'level',
         'sadmin',
         'permission',

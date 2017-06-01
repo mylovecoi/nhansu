@@ -52,7 +52,7 @@ class baocaoController extends Controller
 
             $thongtin=array('ngaybaocao'=>$inputs['ngaybaocao'],
                 'nguoilap'=>session('admin')->name);
-            $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
+            $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
 
             return view('reports.donvi.BcSLCBm1')
@@ -112,7 +112,7 @@ class baocaoController extends Controller
 
             $thongtin=array('ngaybaocao'=>$inputs['ngaybaocao'],
                 'nguoilap'=>session('admin')->name);
-            $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
+            $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
 
             return view('reports.donvi.BcSLCBm2')
@@ -158,7 +158,7 @@ class baocaoController extends Controller
 
             $thongtin=array('ngaybaocao'=>$inputs['ngaybaocao'],
                 'nguoilap'=>session('admin')->name);
-            $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
+            $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
 
             return view('reports.donvi.BcSLCBm3')
@@ -232,7 +232,7 @@ class baocaoController extends Controller
 
             $thongtin=array('ngaybaocao'=>$inputs['ngaybaocao'],
                 'nguoilap'=>session('admin')->name);
-            $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
+            $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
 
             return view('reports.donvi.BcCLDangVien')
@@ -282,7 +282,7 @@ class baocaoController extends Controller
             $thongtin=array('ngaytu'=>$inputs['ngaytu'],
                 'ngayden'=>$inputs['ngayden'],
                 'nguoilap'=>session('admin')->name);
-            $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
+            $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
 
             return view('reports.mauchuan.BcDSTuyenDungTT08')
@@ -328,7 +328,7 @@ class baocaoController extends Controller
             $thongtin=array('ngaytu'=>$inputs['ngaytu'],
                 'ngayden'=>$inputs['ngayden'],
                 'nguoilap'=>session('admin')->name);
-            $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
+            $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
 
             return view('reports.mauchuan.BcDSTuyenDungTT10')
@@ -361,7 +361,7 @@ class baocaoController extends Controller
 
             $thongtin=array('ngaybaocao'=>$inputs['ngaybaocao'],
                 'nguoilap'=>session('admin')->name);
-            $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
+            $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
 
             return view('reports.mauchuan.BcDSCC')
@@ -391,7 +391,7 @@ class baocaoController extends Controller
 
             $thongtin=array('ngaybaocao'=>$inputs['ngaybaocao'],
                 'nguoilap'=>session('admin')->name);
-            $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
+            $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
 
             return view('reports.mauchuan.BcDSVC')
@@ -478,7 +478,7 @@ class baocaoController extends Controller
 
             $thongtin=array('ngaybaocao'=>$inputs['ngaybaocao'],
                 'nguoilap'=>session('admin')->name);
-            $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
+            $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
 
             return view('reports.mauchuan.BcSLCLCC')
@@ -565,7 +565,7 @@ class baocaoController extends Controller
 
             $thongtin=array('ngaybaocao'=>$inputs['ngaybaocao'],
                 'nguoilap'=>session('admin')->name);
-            $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
+            $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
 
             return view('reports.mauchuan.BcSLCLVC')
@@ -598,7 +598,7 @@ class baocaoController extends Controller
 
             $thongtin=array('ngaybaocao'=>$inputs['ngaybaocao'],
                 'nguoilap'=>session('admin')->name);
-            $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
+            $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
 
             return view('reports.mauchuan.BcDSCCCVCC')
@@ -631,7 +631,7 @@ class baocaoController extends Controller
 
             $thongtin=array('ngaybaocao'=>$inputs['ngaybaocao'],
                 'nguoilap'=>session('admin')->name);
-            $m_dv=dmdonvi::where('madv',session('admin')->maxa)->first();
+            $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
 
             return view('reports.mauchuan.BcDSVCCVCC')
@@ -646,13 +646,12 @@ class baocaoController extends Controller
 
     //<editor-fold desc="Các hàm lấy dữ liệu">
     function getDSChuan($inputs){
-        $data=hosocanbo::join('hosotinhtrangct', 'hosotinhtrangct.macanbo', '=', 'hosocanbo.macanbo')
-            ->join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
+        $data=hosocanbo::join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
             ->select('hosocanbo.tencanbo','hosocanbo.macanbo','hosocanbo.mapb','hosocanbo.macvcq','hosocanbo.ngaysinh'
                 ,'hosocanbo.gioitinh','hosocanbo.ngaybc','hosocanbo.tdcm','hosocanbo.msngbac','hosocanbo.heso','hosocanbo.httd')
             ->whereBetween ('hosocanbo.ngaybc',[$inputs['ngaytu'],$inputs['ngayden']])
-            ->where('hosocanbo.madv',session('admin')->maxa)
-            ->where('hosotinhtrangct.phanloaict','Like','Đang công tác')
+            ->where('hosocanbo.madv',session('admin')->madv)
+            ->where('hosocanbo.theodoi','1')
             ->where('hosocanbo.mapb','Like',$inputs['phongban'].'%')
             ->orderby('dmchucvucq.sapxep')
             ->get()->toarray();
@@ -661,20 +660,19 @@ class baocaoController extends Controller
 
     function getDS($inputs){
         if(isset($inputs['dangct'])){
-            $data=hosocanbo::join('hosotinhtrangct', 'hosotinhtrangct.macanbo', '=', 'hosocanbo.macanbo')
-                ->join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
-                ->select('hosocanbo.macanbo','hosotinhtrangct.kieuct','hosotinhtrangct.tenct','hosocanbo.mapb','hosocanbo.macvcq','hosocanbo.ngaysinh'
+            $data=hosocanbo::join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
+                ->select('hosocanbo.macanbo','hosocanbo.kieuct','hosocanbo.tenct','hosocanbo.mapb','hosocanbo.macvcq','hosocanbo.ngaysinh'
                     ,'hosocanbo.gioitinh','hosocanbo.ngayvdct','hosocanbo.dantoc','hosocanbo.tdcm')
                 ->where('hosocanbo.ngaybc','<=',$inputs['ngaybaocao'])
-                ->where('hosotinhtrangct.phanloaict','Like','Đang công tác%')
+                ->where('hosocanbo.theodoi','1')
                 ->orderby('dmchucvucq.sapxep')
                 ->get()->toarray();
         }else{
-            $data=hosocanbo::join('hosotinhtrangct', 'hosotinhtrangct.macanbo', '=', 'hosocanbo.macanbo')
-                ->join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
-                ->select('hosocanbo.macanbo','hosotinhtrangct.kieuct','hosotinhtrangct.tenct','hosocanbo.mapb','hosocanbo.macvcq','hosocanbo.ngaysinh'
+            $data=hosocanbo::join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
+                ->select('hosocanbo.macanbo','hosocanbo.kieuct','hosocanbo.tenct','hosocanbo.mapb','hosocanbo.macvcq','hosocanbo.ngaysinh'
                     ,'hosocanbo.gioitinh','hosocanbo.ngayvdct','hosocanbo.dantoc','hosocanbo.tdcm')
                 ->where('hosocanbo.ngaybc','<=',$inputs['ngaybaocao'])
+                ->where('hosocanbo.theodoi','0')
                 ->orderby('dmchucvucq.sapxep')
                 ->get()->toarray();
         }
@@ -683,24 +681,23 @@ class baocaoController extends Controller
 
     function getDSDV($inputs){
         if(isset($inputs['dangct'])){
-            $data=hosocanbo::join('hosotinhtrangct', 'hosotinhtrangct.macanbo', '=', 'hosocanbo.macanbo')
-                ->join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
+            $data=hosocanbo::join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
                 ->select('hosocanbo.macanbo','hosocanbo.macvcq','hosocanbo.ngaysinh'
                     ,'hosocanbo.gioitinh','hosocanbo.ngayvdct','hosocanbo.dantoc','hosocanbo.tdcm')
                 ->where('hosocanbo.ngaybc','<=',$inputs['ngaybaocao'])
                 ->where('hosocanbo.ngayvdct','<>','0000-00-00')
                 ->where('hosocanbo.ngayvdct','<=',$inputs['ngaybaocao'])
-                ->where('hosotinhtrangct.phanloaict','Like','Đang công tác%')
+                ->where('hosocanbo.theodoi','1')
                 ->orderby('dmchucvucq.sapxep')
                 ->get()->toarray();
         }else{
-            $data=hosocanbo::join('hosotinhtrangct', 'hosotinhtrangct.macanbo', '=', 'hosocanbo.macanbo')
-                ->join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
+            $data=hosocanbo::join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
                 ->select('hosocanbo.macanbo','hosocanbo.macvcq','hosocanbo.ngaysinh'
                     ,'hosocanbo.gioitinh','hosocanbo.ngayvdct','hosocanbo.dantoc','hosocanbo.tdcm')
                 ->where('hosocanbo.ngaybc','<=',$inputs['ngaybaocao'])
                 ->where('hosocanbo.ngayvdct','<>','0000-00-00')
                 ->where('hosocanbo.ngayvdct','<=',$inputs['ngaybaocao'])
+                ->where('hosocanbo.theodoi','0')
                 ->orderby('dmchucvucq.sapxep')
                 ->get()->toarray();
         }
@@ -708,8 +705,7 @@ class baocaoController extends Controller
     }
     //Danh sách công chức, viên chức
     function getDSth($inputs,$phanloai='Công chức'){
-        $data=hosocanbo::join('hosotinhtrangct', 'hosotinhtrangct.macanbo', '=', 'hosocanbo.macanbo')
-            ->join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
+        $data=hosocanbo::join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
             ->select('hosocanbo.tencanbo','hosocanbo.macanbo','hosocanbo.mapb','hosocanbo.macvcq','hosocanbo.ngaysinh'
                 ,'hosocanbo.gioitinh','hosocanbo.ngaybc','hosocanbo.tdcm','hosocanbo.msngbac','hosocanbo.heso','hosocanbo.ngaytu',
                 'hosocanbo.ngoaingu','hosocanbo.trinhdonn','hosocanbo.llct','hosocanbo.qlnhanuoc','hosocanbo.trinhdoth','hosocanbo.dantoc',
@@ -717,7 +713,7 @@ class baocaoController extends Controller
             ->where('hosocanbo.ngaybc','<=',$inputs['ngaybaocao'])
             ->where('hosocanbo.sunghiep',$phanloai)
             ->where('hosocanbo.mapb','Like',$inputs['phongbanth'].'%')
-            ->where('hosotinhtrangct.phanloaict','Like','Đang công tác%')
+            ->where('hosocanbo.theodoi','1')
             ->orderby('dmchucvucq.sapxep')
             ->get()->toarray();
 
@@ -726,8 +722,7 @@ class baocaoController extends Controller
 
     //Danh sách công chức, viên chức chuyên viên cao cấp
     function getDSCVCCth($inputs,$phanloai='Công chức'){
-        $data=hosocanbo::join('hosotinhtrangct', 'hosotinhtrangct.macanbo', '=', 'hosocanbo.macanbo')
-            ->join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
+        $data=hosocanbo::join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
             ->join('phanloaingach', 'phanloaingach.msngbac', '=', 'hosocanbo.msngbac')
             ->select('hosocanbo.tencanbo','hosocanbo.macanbo','hosocanbo.mapb','hosocanbo.macvcq','hosocanbo.ngaysinh'
                 ,'hosocanbo.gioitinh','hosocanbo.ngaybc','hosocanbo.tdcm','hosocanbo.msngbac','hosocanbo.heso','hosocanbo.ngaytu',
@@ -736,7 +731,7 @@ class baocaoController extends Controller
             ->where('hosocanbo.ngaybc','<=',$inputs['ngaybaocao'])
             ->where('hosocanbo.sunghiep',$phanloai)
             ->where('hosocanbo.mapb','Like',$inputs['phongbanth'].'%')
-            ->where('hosotinhtrangct.phanloaict','Like','Đang công tác%')
+            ->where('hosocanbo.theodoi','1')
             ->where(function($query){
                 $query->where('phanloaingach.phanloai','Chuyên viên cao cấp')
                     ->orwhere('phanloaingach.phanloai','Chuyên viên chính');

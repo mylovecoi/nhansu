@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\dmdonvi;
+use App\dmkhoipb;
 use App\GeneralConfigs;
 use App\Users;
 use Illuminate\Http\Request;
@@ -25,9 +26,9 @@ class dmdonviController extends Controller
     public function change($madv){
         if (Session::has('admin')) {
             $model = Users::find(session('admin')->id);
-            $model->maxa=$madv;
+            $model->madv=$madv;
             $model->save();
-            session('admin')->maxa=$madv;
+            session('admin')->madv=$madv;
             return redirect('danh_muc/don_vi/index');
         } else
             return view('errors.notlogin');
@@ -35,7 +36,7 @@ class dmdonviController extends Controller
 
     public function information_local(){
         if (Session::has('admin')) {
-            $model=dmdonvi::where('madv',session('admin')->maxa)->first();
+            $model=dmdonvi::where('madv',session('admin')->madv)->first();
             return view('system.general.local.index')
                 ->with('model',$model)
                 ->with('url','/he_thong/don_vi/')
@@ -47,7 +48,7 @@ class dmdonviController extends Controller
     function edit_local($madv){
         if (Session::has('admin')) {
             if((session('admin')->level=='X'&&session('admin')->maxa==$madv)
-                || (session('admin')->level=='T'&&session('admin')->mahuyen==$madv)
+                || (session('admin')->level=='T'&&session('admin')->matinh==$madv)
                 || (session('admin')->level=='H'&&session('admin')->mahuyen==$madv)){
                 $model=dmdonvi::where('madv',$madv)->first();
                 return view('system.general.local.edit')
@@ -63,7 +64,7 @@ class dmdonviController extends Controller
     function update_local(Request $request, $madv){
         if (Session::has('admin')) {
             if((session('admin')->level=='X'&&session('admin')->maxa==$madv)
-                || (session('admin')->level=='T'&&session('admin')->mahuyen==$madv)
+                || (session('admin')->level=='T'&&session('admin')->matinh==$madv)
                 || (session('admin')->level=='H'&&session('admin')->mahuyen==$madv)){
                 $inputs=$request->all();
 
@@ -144,8 +145,10 @@ class dmdonviController extends Controller
     public function create_manage(){
         if (Session::has('admin')) {
             $model=dmdonvi::where('level','H')->get();
+            $model_kpb=array_column(dmkhoipb::select('makhoipb','tenkhoipb')->get()->toarray(),'tenkhoipb','makhoipb');
             return view('system.manage.create')
                 ->with('model',$model)
+                ->with('model_kpb',$model_kpb)
                 ->with('url','/he_thong/quan_tri/')
                 ->with('pageTitle','Thêm mới đơn vị');
         } else
@@ -162,7 +165,7 @@ class dmdonviController extends Controller
             $model->tendv=$inputs['tendv'];
             $model->diachi=$inputs['diachi'];
             $model->diadanh=$inputs['diadanh'];
-            $model->khoiphongban=$inputs['khoiphongban'];
+            $model->makhoipb=$inputs['makhoipb'];
             $model->diadanh=$inputs['diadanh'];
             $model->macqcq=isset($inputs['macqcq'])?isset($inputs['macqcq']):NULL;
             if($model->save()){
@@ -181,6 +184,42 @@ class dmdonviController extends Controller
             }
 
             return redirect('/he_thong/quan_tri/don_vi');
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function edit_information($madv){
+        if (Session::has('admin')) {
+            $model=dmdonvi::where('madv',$madv)->first();
+            $model_cqcq=dmdonvi::where('level','H')->get();
+            $model_kpb=array_column(dmkhoipb::select('makhoipb','tenkhoipb')->get()->toarray(),'tenkhoipb','makhoipb');
+            return view('system.manage.edit_information')
+                ->with('model',$model)
+                ->with('model_cqcq',$model_cqcq)
+                ->with('model_kpb',$model_kpb)
+                ->with('url','/he_thong/quan_tri/')
+                ->with('pageTitle','Chỉnh sửa thông tin đơn vị');
+        } else
+            return view('errors.notlogin');
+    }
+
+    function update_information(Request $request, $madv){
+        if (Session::has('admin')) {
+            $inputs=$request->all();
+            $model=dmdonvi::where('madv',$madv)->first();
+            $model->macqcq=$inputs['macqcq']=='all'?'':$inputs['macqcq'];
+            $model->tendv=$inputs['tendv'];
+            $model->diachi=$inputs['diachi'];
+            $model->sodt=$inputs['sodt'];
+            $model->lanhdao=$inputs['lanhdao'];
+            $model->diadanh=$inputs['diadanh'];
+            $model->cdlanhdao=$inputs['cdlanhdao'];
+            $model->nguoilapbieu=$inputs['nguoilapbieu'];
+            $model->makhoipb=$inputs['makhoipb'];
+            $model->diadanh=$inputs['diadanh'];
+            $model->save();
+            return redirect('/he_thong/quan_tri/don_vi');
+
         } else
             return view('errors.notlogin');
     }
@@ -247,7 +286,10 @@ class dmdonviController extends Controller
             $model=Users::findorfail($id);
             $model->name=$inputs['name'];
             $model->username=$inputs['username'];
-            $model->password=md5($inputs['newpass']);
+
+            if($inputs['newpass']!=''){
+                $model->password= md5($inputs['newpass']);
+            }
             $model->phone=$inputs['phone'];
             $model->email=$inputs['email'];
             $model->status=$inputs['status'];
@@ -262,7 +304,7 @@ class dmdonviController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = Users::findOrFail($inputs['iddelete']);
-            $maxa=$model->maxa;
+            $maxa=$model->madv;
             $model->delete();
             return redirect('/he_thong/quan_tri/don_vi/maso='.$maxa);
         }else
@@ -303,39 +345,5 @@ class dmdonviController extends Controller
         }else
             return view('errors.notlogin');
 
-    }
-
-    public function edit_information($madv){
-        if (Session::has('admin')) {
-            $model=dmdonvi::where('madv',$madv)->first();
-            $model_cqcq=dmdonvi::where('level','H')->get();
-            return view('system.manage.edit_information')
-                ->with('model',$model)
-                ->with('model_cqcq',$model_cqcq)
-                ->with('url','/he_thong/quan_tri/')
-                ->with('pageTitle','Chỉnh sửa thông tin đơn vị');
-        } else
-            return view('errors.notlogin');
-    }
-
-    function update_information(Request $request, $madv){
-        if (Session::has('admin')) {
-            $inputs=$request->all();
-            $model=dmdonvi::where('madv',$madv)->first();
-            $model->macqcq=$inputs['macqcq']=='all'?'':$inputs['macqcq'];
-            $model->tendv=$inputs['tendv'];
-            $model->diachi=$inputs['diachi'];
-            $model->sodt=$inputs['sodt'];
-            $model->lanhdao=$inputs['lanhdao'];
-            $model->diadanh=$inputs['diadanh'];
-            $model->cdlanhdao=$inputs['cdlanhdao'];
-            $model->nguoilapbieu=$inputs['nguoilapbieu'];
-            $model->khoiphongban=$inputs['khoiphongban'];
-            $model->diadanh=$inputs['diadanh'];
-            $model->save();
-            return redirect('/he_thong/quan_tri/don_vi');
-
-        } else
-            return view('errors.notlogin');
     }
 }

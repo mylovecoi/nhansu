@@ -20,14 +20,13 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('status');
+            $table->string('madv')->nullable();
             $table->string('maxa')->nullable();
             $table->string('mahuyen')->nullable();
+            $table->string('matinh')->nullable();
             $table->string('level');
             $table->string('sadmin');
             $table->string('permission')->nullable();
-            $table->integer('page')->default(0); //dùng cho trạng thái
-            $table->integer('length')->default(10); ////dùng cho trạng thái
-            $table->boolean('status_page')->default(0);//dùng cho trạng thái
             $table->timestamps();
         });
     }

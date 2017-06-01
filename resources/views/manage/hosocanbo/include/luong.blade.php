@@ -11,43 +11,27 @@
                     </div>
                 </div>
             </div>
-            <!-- 1. Tham chiếu thông tin bên bảng ngachbac -->
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label class="col-sm-6 control-label">Nhóm ngạch bậc </label>
 
-                    <div class="col-sm-6">
-                        <select class="form-control" name="plnb" id="plnb" onchange="getPLNB()">
-                            <option value="">-- Chọn nhóm ngạch bậc --</option>
-                            @if(!isset($m_msnb))
-                                @foreach($m_plnb as $nb)
-                                    <option value="{{$nb->plnb}}">{{$nb->plnb}}</option>
-                                @endforeach
-                            @else
-                                @foreach($m_plnb as $nb)
-                                    <option value="{{$nb->plnb}}" {{$m_msnb->plnb==$nb->plnb?'selected':''}} >{{$nb->plnb}}</option>
-                                @endforeach
-                            @endif
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <div class="form-group">
-                    <label class="col-sm-6 control-label">Tên ngạch bậc </label>
-                    <div class="col-sm-6">
-                        <select class="form-control" name="tennb" id="tennb" onchange="getBac()">
-                            <option value="">-- Chọn tên ngạch bậc --</option>
-                            @if(isset($m_msnb))
-                                @foreach($m_pln as $nb)
-                                    <option value="{{$nb->tennb}}" {{$m_msnb->tennb==$nb->tennb?'selected':''}} >{{$nb->tennb}}</option>
-                                @endforeach
-                            @endif
+                    <label class="col-sm-3 control-label">Ngạch bậc </label>
+                    <div class="col-sm-9">
+                        <select class="form-control select2me" name="tennb" id="tennb" required="required" onchange="setMSNGBAC()">
+                            @foreach($m_plnb as $plnb)
+                                <optgroup label="{{$plnb->plnb}}">
+                                    <?php
+                                    $mode_ct=$m_pln->where('plnb',$plnb->plnb);
+                                    ?>
+                                    @foreach($mode_ct as $ct)
+                                        <option value="{{$ct->msngbac}}">{{$ct->tennb}}</option>
+                                    @endforeach
+                                </optgroup>
+                            @endforeach
                         </select>
+
                     </div>
                 </div>
             </div>
-            <!-- Hết 1. -->
         </div>
 
         <div class="row">
@@ -56,13 +40,10 @@
                     <label class="col-sm-6 control-label">Bậc lương </label>
 
                     <div class="col-sm-6 controls">
-                        <select class="form-control" name="bac" id="bac" onchange="getHS()">
-                            <option value="">-- Chọn bậc lương --</option>
-                            @if(isset($m_msnb))
-                                @foreach($m_bac as $nb)
-                                    <option value="{{$nb->bac}}" {{$model->bac==$nb->bac?'selected':''}} >{{$nb->bac}}</option>
-                                @endforeach
-                            @endif
+                        <select class="form-control select2me" name="bac" id="bac" onchange="getHS()">
+                            @foreach($m_bac as $nb)
+                                <option value="{{$nb->bac}}">{{$nb->bac}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -72,7 +53,7 @@
                     <label class="col-sm-6 control-label">Hệ số lương </label>
 
                     <div class="col-sm-6 controls">
-                        {!!Form::text('heso', null, array('id' => 'heso','class' => 'form-control', 'data-mask'=>'fdecimal'))!!}
+                        {!!Form::text('heso', 0, array('id' => 'heso','class' => 'form-control', 'data-mask'=>'fdecimal'))!!}
                     </div>
                 </div>
             </div>
@@ -82,7 +63,7 @@
                     <label class="col-sm-6 control-label">Hệ số vượt khung </label>
 
                     <div class="col-sm-6 controls">
-                        {!!Form::text('vuotkhung', null, array('id' => 'vuotkhung','class' => 'form-control', 'data-mask'=>'fdecimal'))!!}
+                        {!!Form::text('vuotkhung', 0, array('id' => 'vuotkhung','class' => 'form-control', 'data-mask'=>'fdecimal'))!!}
                     </div>
                 </div>
             </div>

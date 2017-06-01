@@ -103,6 +103,7 @@
                                     <option value="Tại chức">Tại chức</option>
                                     <option value="Chuyên tu">Chuyên tu</option>
                                     <option value="Bồi dưỡng">Bồi dưỡng</option>
+                                    <option value="Đào tạo từ xa">Đào tạo từ xa</option>
                                 </select>
                             </div>
                         </div>

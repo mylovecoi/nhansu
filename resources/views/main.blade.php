@@ -271,13 +271,15 @@
                                 <i class="fa fa-list-alt"></i> Danh mục <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu" style="margin-left: 15px;">
-                                <li><a href="{{url('danh_muc/dan_toc/index')}}">Dân tộc</a></li>
+
+                                <li><a href="{{url('danh_muc/khoi_pb/index')}}">Khối phòng ban</a></li>
                                 <li><a href="{{url('danh_muc/phong_ban/index')}}">Phòng ban</a></li>
-                                <li><a href="{{url('danh_muc/phu_cap/index')}}">Phụ cấp</a></li>
-                                <li><a href="{{url('danh_muc/chuc_vu_d/index')}}">Chức vụ đảng</a></li>
                                 <li><a href="{{url('danh_muc/chuc_vu_cq/index')}}">Chức vụ chính quyền</a></li>
+                                <li><a href="{{url('danh_muc/chuc_vu_d/index')}}">Chức vụ đảng</a></li>
                                 <li><a href="{{url('danh_muc/quan_he_gd/index')}}">Quan hệ gia đình</a></li>
                                 <li><a href="{{url('danh_muc/cong_tac/index')}}">Phân loại công tác</a></li>
+                                <li><a href="{{url('danh_muc/phu_cap/index')}}">Phụ cấp</a></li>
+                                <li><a href="{{url('danh_muc/dan_toc/index')}}">Dân tộc</a></li>
                             </ul>
                         </li>
                         <li>

@@ -24,7 +24,7 @@ class CreateDmdonviTable extends Migration
             $table->string('diadanh')->nullable();
             $table->string('cdlanhdao')->nullable();
             $table->string('nguoilapbieu')->nullable();
-            $table->string('khoiphongban')->nullable();
+            $table->string('makhoipb')->nullable();
             $table->string('level')->nullable();
             $table->timestamps();
         });

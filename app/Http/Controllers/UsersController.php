@@ -18,6 +18,9 @@ class UsersController extends Controller
 {
     public function login()
     {
+        if (Session::has('admin')) {
+            Session::flush();
+        }
         return view('system.users.login')
             ->with('pageTitle', 'Đăng nhập hệ thống');
     }
@@ -107,23 +110,6 @@ class UsersController extends Controller
         }
     }
 
-    public function checkmasothue(Request $request)
-    {
-        $input = $request->all();
-        if ($input['pl'] == 'DVLT') {
-            $model = DnDvLt::where('masothue', $input['masothue'])
-                ->first();
-        }elseif($input['pl']=='DVVT'){
-            $model = DonViDvVt::where('masothue',$input['masothue'])
-                ->first();
-        }
-        if (isset($model)) {
-            echo 'cancel';
-        } else {
-            echo 'ok';
-        }
-    }
-
     public function logout()
     {
         if (Session::has('admin')) {
@@ -134,63 +120,6 @@ class UsersController extends Controller
         }
     }
 
-    public function index($pl)
-    {
-        if (Session::has('admin')) {
-            if ($pl == 'quan_ly')
-                $level = 'T';
-            elseif ($pl == 'dich_vu_luu_tru')
-                $level = 'DVLT';
-            elseif ($pl == 'dich_vu_van_tai')
-                $level = 'DVVT';
-
-            $model = Users::where('level', $level)
-                ->get();
-            $index_unset = 0;
-            foreach ($model as $user) {
-                if ($user->sadmin == 'ssa' || $user->sadmin == 'sa') {
-                    unset($model[$index_unset]);
-                }
-                $index_unset++;
-            }
-
-            return view('system.users.index')
-                ->with('model', $model)
-                ->with('pl', $pl)
-                ->with('pageTitle', 'Danh sách tài khoản');
-
-        } else {
-            return redirect('');
-        }
-    }
-
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         if (Session::has('admin')) {

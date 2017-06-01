@@ -18,7 +18,8 @@ class hosochucvu extends Model
         'soqd',
         'ngayqd',
         'nguoiky',
-        'madv'
+        'madv',
+        'makhoipb'
     ];
 
     public function hosocanbo(){

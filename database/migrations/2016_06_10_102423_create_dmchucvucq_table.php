@@ -19,6 +19,8 @@ class CreateDmchucvucqTable extends Migration
             $table->string('ghichu')->nullable();
             $table->integer('sapxep')->default(99);
             $table->string('madv', 50)->nullable();
+            $table->string('makhoipb', 50)->nullable();
+            $table->string('phannhom', 50)->nullable();
             $table->timestamps();
         });
     }

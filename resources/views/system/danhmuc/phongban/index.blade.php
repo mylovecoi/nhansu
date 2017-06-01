@@ -58,7 +58,7 @@
                                         <td name="diengiai">{{$value->diengiai}}</td>
                                         <td class="text-center" name="sapxep">{{$value->sapxep}}</td>
                                         <td>
-                                            <button type="button" onclick="editPB(this,'{{$value->mapb}}', {{$value->id}})" class="btn btn-info btn-xs mbs">
+                                            <button type="button" onclick="editPB('{{$value->mapb}}')" class="btn btn-info btn-xs mbs">
                                                 <i class="fa fa-edit"></i>&nbsp; Chỉnh sửa</button>
                                             <button type="button" onclick="cfDel('/danh_muc/phong_ban/del/{{$value->id}}')" class="btn btn-danger btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
                                                 <i class="fa fa-trash-o"></i>&nbsp; Xóa</button>
@@ -97,19 +97,33 @@
             //var date=new Date();
             $('#tenpb').val('');
             $('#diengiai').val('');
-            $('#sapxep').attr('value','');
+            $('#sapxep').attr('value','99');
             $('#mapb').val('');
             $('#id_pb').val(0);
             $('#phongban-modal').modal('show');
         }
 
-        function editPB(e, mapb, id){
-            var tr = $(e).closest('tr');
-            $('#tenpb').val($(tr).find('td[name=tenpb]').text());
-            $('#diengiai').val($(tr).find('td[name=diengiai]').text());
-            $('#sapxep').attr('value',$(tr).find('td[name=sapxep]').text());
-            $('#mapb').val(mapb);
-            $('#id_pb').val(id);
+        function editPB(mapb){
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                url: '{{$furl}}' + 'get',
+                type: 'GET',
+                data: {
+                    _token: CSRF_TOKEN,
+                    mapb: mapb
+                },
+                dataType: 'JSON',
+                success: function (data) {
+                    $('#tenpb').val(data.tenpb);
+                    $('#diengiai').val(data.diengiai);
+                    $('#sapxep').val(data.sapxep);
+                    $('#mapb').val(mapb);
+                },
+                error: function(message){
+                    toastr.error(message,'Lỗi!');
+                }
+            });
+            //$('#id_pb').val(id);
             $('#phongban-modal').modal('show');
         }
 
@@ -117,6 +131,7 @@
             var valid=true;
             var message='';
 
+            var mapb=$('#mapb').val();
             var tenpb=$('#tenpb').val();
             var diengiai=$('#diengiai').val();
             var sapxep=$('#sapxep').val();
@@ -129,29 +144,51 @@
 
             if(valid){
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                $.ajax({
-                    url: '/danh_muc/phong_ban/store',
-                    type: 'GET',
-                    data: {
+                if(mapb==''){//Thêm mới
+                    $.ajax({
+                        url: '{{$furl}}' + 'add',
+                        type: 'GET',
+                        data: {
                             _token: CSRF_TOKEN,
                             tenpb: tenpb,
                             diengiai: diengiai,
-                            sapxep: sapxep,
-                            id: id
-                            },
-                    dataType: 'JSON',
-                    success: function (data) {
-                        if (data.status == 'success') {
-                            location.reload();
+                            sapxep: sapxep
+                        },
+                        dataType: 'JSON',
+                        success: function (data) {
+                            if (data.status == 'success') {
+                                location.reload();
+                            }
+                        },
+                        error: function(message){
+                            toastr.error(message);
                         }
-                    },
-                    error: function(message){
-                        alert(message);
-                    }
-                });
+                    });
+                }else{//Cập nhật
+                    $.ajax({
+                        url: '{{$furl}}' + 'update',
+                        type: 'GET',
+                        data: {
+                            _token: CSRF_TOKEN,
+                            mapb: mapb,
+                            tenpb: tenpb,
+                            diengiai: diengiai,
+                            sapxep: sapxep
+                        },
+                        dataType: 'JSON',
+                        success: function (data) {
+                            if (data.status == 'success') {
+                                location.reload();
+                            }
+                        },
+                        error: function(message){
+                            toastr.error(message,'Lỗi!!');
+                        }
+                    });
+                }
                 $('#phongban-modal').modal('hide');
             }else{
-                alert(message);
+                toastr.error(message,'Lỗi!.');
             }
 
             return valid;

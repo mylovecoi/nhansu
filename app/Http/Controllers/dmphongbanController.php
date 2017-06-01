@@ -10,9 +10,24 @@ class dmphongbanController extends Controller
 {
     public function index(){
         if (Session::has('admin')) {
-            $m_pb=dmphongban::orderby('sapxep')->get();
+            switch(session('admin')->level){
+                case 'H':{
+                    $m_pb=dmphongban::where('madv',session('admin')->mahuyen)->orderby('sapxep')->get();
+                    break;
+                }
+                case 'T':{
+                    $m_pb=dmphongban::where('madv',session('admin')->matinh)->orderby('sapxep')->get();
+                    break;
+                }
+                default:{
+                    $m_pb=dmphongban::where('madv',session('admin')->maxa)->orderby('sapxep')->get();
+                    break;
+                }
+            }
+
             return view('system.danhmuc.phongban.index')
                 ->with('model',$m_pb)
+                ->with('furl','/danh_muc/phong_ban/')
                 ->with('pageTitle','Danh mục phòng ban');
         } else
             return view('errors.notlogin');
@@ -33,22 +48,13 @@ class dmphongbanController extends Controller
         }
         $inputs = $request->all();
 
-        //Thêm mới dịch vụ
-        if ($inputs['id'] == 0) {
-            $model = new dmphongban();
-            $model->mapb = session('admin')->maxa .'.'.getdate()[0];
-            $model->tenpb = $inputs['tenpb'];
-            $model->diengiai = $inputs['diengiai'];
-            $model->sapxep = $inputs['sapxep'];
-            $model->save();
-        } else {
-            $id=$inputs['id'];
-            $model =  dmphongban::findOrFail($id);
-            $model->tenpb = $inputs['tenpb'];
-            $model->diengiai = $inputs['diengiai'];
-            $model->sapxep = $inputs['sapxep'];
-            $model->save();
-        }
+        $model = new dmphongban();
+        $model->mapb = session('admin')->madv .'.'.getdate()[0];
+        $model->tenpb = $inputs['tenpb'];
+        $model->diengiai = $inputs['diengiai'];
+        $model->sapxep = $inputs['sapxep'];
+        $model->madv = session('admin')->madv;
+        $model->save();
 
         //Trả lại kết quả
         $result['message'] = 'Thao tác thành công.';
@@ -64,5 +70,44 @@ class dmphongbanController extends Controller
             return redirect('/danh_muc/phong_ban/index');
         }else
             return view('errors.notlogin');
+    }
+
+    function update(Request $request){
+        $result = array(
+            'status' => 'fail',
+            'message' => 'error',
+        );
+        if(!Session::has('admin')) {
+            $result = array(
+                'status' => 'fail',
+                'message' => 'permission denied',
+            );
+            die(json_encode($result));
+        }
+
+        $inputs = $request->all();
+        $model = dmphongban::where('mapb',$inputs['mapb'])->first();
+        $model->tenpb = $inputs['tenpb'];
+        $model->diengiai = $inputs['diengiai'];
+        $model->sapxep = $inputs['sapxep'];
+        $model->save();
+
+        $result['message'] = "Cập nhật thành công.";
+        $result['status'] = 'success';
+        die(json_encode($result));
+    }
+
+    function getinfo(Request $request){
+        if(!Session::has('admin')) {
+            $result = array(
+                'status' => 'fail',
+                'message' => 'permission denied',
+            );
+            die(json_encode($result));
+        }
+
+        $inputs = $request->all();
+        $model = dmphongban::where('mapb',$inputs['mapb'])->first();
+        die($model);
     }
 }

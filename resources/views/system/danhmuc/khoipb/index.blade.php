@@ -32,10 +32,10 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption">
-                        <b>DANH MỤC CHỨC VỤ CHÍNH QUYỀN</b>
+                        DANH MỤC KHỐI PHÒNG BAN
                     </div>
                     <div class="actions">
-                        <button type="button" id="_btnaddPB" class="btn btn-success btn-xs" onclick="addCV()"><i class="fa fa-plus"></i>&nbsp;Thêm mới chức vụ</button>
+                        <button type="button" id="_btnaddPB" class="btn btn-success btn-xs" onclick="addPB()"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                     </div>
                 </div>
                 <div class="portlet-body form-horizontal">
@@ -43,9 +43,9 @@
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 10%">STT</th>
-                                <th class="text-center">Tên chức vụ</th>
-                                <th class="text-center">Mô tả chức vụ</th>
-                                <th class="text-center" style="width: 10%">Sắp xếp</th>
+                                <th class="text-center">Mã số</th>
+                                <th class="text-center">Tên khối phòng ban</th>
+                                <th class="text-center">Ghi chú</th>
                                 <th class="text-center">Thao tác</th>
                             </tr>
                         </thead>
@@ -54,15 +54,10 @@
                                 @foreach($model as $key=>$value)
                                     <tr>
                                         <td class="text-center">{{$key+1}}</td>
-                                        <td name="tencv">{{$value->tencv}}</td>
-                                        <td name="ghichu">{{$value->ghichu}}</td>
-                                        <td class="text-center" name="sapxep">{{$value->sapxep}}</td>
-                                        <td>
-                                            <button type="button" onclick="editCV('{{$value->macvcq}}')" class="btn btn-info btn-xs mbs">
-                                                <i class="fa fa-edit"></i>&nbsp; Chỉnh sửa</button>
-                                            <button type="button" onclick="cfDel('/danh_muc/chuc_vu_cq/del/{{$value->id}}')" class="btn btn-danger btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
-                                                <i class="fa fa-trash-o"></i>&nbsp; Xóa</button>
-                                        </td>
+                                        <td>{{$value->makhoipb}}</td>
+                                        <td>{{$value->tenkhoipb}}</td>
+                                        <td>{{$value->ghichu}}</td>
+                                        @include('includes.crumbs.bt_editdel')
                                     </tr>
                                 @endforeach
                             @endif
@@ -73,86 +68,97 @@
         </div>
     </div>
 
-    <!--Modal thông tin chức vụ -->
-    <div id="chucvu-modal" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <!--Modal thông tin phòng ban -->
+    <div id="phongban-modal" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
                     <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-                    <h4 id="modal-header-primary-label" class="modal-title">Thông tin chức vụ chính quyền</h4>
+                    <h4 id="modal-header-primary-label" class="modal-title">Thông tin khối phòng ban</h4>
                 </div>
                 <div class="modal-body">
-                @include('templates.tem_chucvucq')
+                    <label class="form-control-label">Mã số<span class="require">*</span></label>
+                    {!!Form::text('makhoipb', null, array('id' => 'makhoipb','class' => 'form-control required'))!!}
+
+                    <label class="form-control-label">Tên khối phòng ban<span class="require">*</span></label>
+                    {!!Form::text('tenkhoipb', null, array('id' => 'tenkhoipb','class' => 'form-control required'))!!}
+
+                    <label class="form-control-label">Ghi chú</label>
+                    {!!Form::textarea('ghichu', null, array('id' => 'ghichu','class' => 'form-control','rows'=>'3'))!!}
+
+                    <input type="hidden" id="id" name="id"/>
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
-                    <button type="submit" id="submit" name="submit" value="submit" class="btn btn-primary" onclick="cfCV()">Đồng ý</button>
+                    <button type="submit" id="submit" name="submit" value="submit" class="btn btn-primary" onclick="cfPB()">Đồng ý</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        function addCV(){
-            var date=new Date();
-            $('#tencv').val('');
+        function addPB(){
+            $('#makhoipb').val('');
+            $('#tenkhoipb').val('');
             $('#ghichu').val('');
-            $('#sapxep').attr('value','99');
-            $('#macvcq').val('');
-            $('#id_cv').val(0);
-            $('#chucvu-modal').modal('show');
+            $('#id').val(0);
+            $('#phongban-modal').modal('show');
         }
 
-        function editCV(macvcq){
+        function edit(id){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '{{$furl}}' + 'get',
+                url: '{{$furl_ajax}}' + 'get',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    mapb: mapb
+                    id: id
                 },
                 dataType: 'JSON',
                 success: function (data) {
-                    $('#tencv').val(data.tencv);
+                    $('#makhoipb').val(data.makhoipb);
+                    $('#tenkhoipb').val(data.tenkhoipb);
                     $('#ghichu').val(data.ghichu);
-                    $('#sapxep').val(data.sapxep);
-                    $('#macvcq').val(macvcq);
                 },
                 error: function(message){
                     toastr.error(message,'Lỗi!');
                 }
             });
 
-            $('#chucvu-modal').modal('show');
+            $('#id').val(id);
+            $('#phongban-modal').modal('show');
         }
 
-        function cfCV(){
+        function cfPB(){
             var valid=true;
             var message='';
-            var macvcq=$('#macvcq').val();
-            var makhoipb=$('#makhoipb').val();
-            var tencv=$('#tencv').val();
-            var ghichu=$('#ghichu').val();
-            var sapxep=$('#sapxep').val();
-            var id=$('#id_cv').val();
 
-            if(tencv==''){
+            var makhoipb=$('#makhoipb').val();
+            var tenkhoipb=$('#tenkhoipb').val();
+            var ghichu=$('#ghichu').val();
+            var id=$('#id').val();
+
+            if(makhoipb==''){
                 valid=false;
-                message +='Tên chức vụ không được bỏ trống \n';
+                message +='Mã số không được bỏ trống \n';
             }
+
+            if(tenkhoipb==''){
+                valid=false;
+                message +='Tên khối phòng ban không được bỏ trống \n';
+            }
+
             if(valid){
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                if(macvcq==''){//Thêm mới
+                if(id==0){//Thêm mới
                     $.ajax({
-                        url: '{{$furl}}' + 'add',
+                        url: '{{$furl_ajax}}' + 'add',
                         type: 'GET',
                         data: {
                             _token: CSRF_TOKEN,
                             makhoipb: makhoipb,
-                            tencv: tencv,
-                            ghichu: ghichu,
-                            sapxep: sapxep
+                            tenkhoipb: tenkhoipb,
+                            ghichu: ghichu
                         },
                         dataType: 'JSON',
                         success: function (data) {
@@ -161,20 +167,19 @@
                             }
                         },
                         error: function(message){
-                            toastr.error(message);
+                            alert(message);
                         }
                     });
                 }else{//Cập nhật
                     $.ajax({
-                        url: '{{$furl}}' + 'update',
+                        url: '{{$furl_ajax}}' + 'update',
                         type: 'GET',
                         data: {
                             _token: CSRF_TOKEN,
-                            macvcq: macvcq,
                             makhoipb: makhoipb,
-                            tencv: tencv,
+                            tenkhoipb: tenkhoipb,
                             ghichu: ghichu,
-                            sapxep: sapxep
+                            id: id
                         },
                         dataType: 'JSON',
                         success: function (data) {
@@ -189,35 +194,9 @@
                 }
                 $('#phongban-modal').modal('hide');
             }else{
-                toastr.error(message,'Lỗi!.');
-            }
-
-            if(valid){
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                $.ajax({
-                    url: '/danh_muc/chuc_vu_cq/store',
-                    type: 'GET',
-                    data: {
-                        _token: CSRF_TOKEN,
-                        tencv: tencv,
-                        ghichu: ghichu,
-                        sapxep: sapxep,
-                        id: id
-                            },
-                    dataType: 'JSON',
-                    success: function (data) {
-                        if (data.status == 'success') {
-                            location.reload();
-                        }
-                    },
-                    error: function(message){
-                        alert(message);
-                    }
-                });
-                $('#chucvu-modal').modal('hide');
-            }else{
                 alert(message);
             }
+
             return valid;
         }
     </script>

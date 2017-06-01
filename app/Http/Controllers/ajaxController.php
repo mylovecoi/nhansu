@@ -154,19 +154,19 @@ class ajaxController extends Controller
         }
 
         $inputs = $request->all();
+        $model=ngachbac::select('heso', 'ptvk')
+            ->where('msngbac', '=', $inputs['msngbac'])
+            ->where('bac', '=', $inputs['bac'])
+            ->first();
 
-        if (isset($inputs['plnb']) && isset($inputs['tennb']) && isset($inputs['bac'])) {
-            $m_nbs = ngachbac::select('heso', 'ptvk')
-                ->where('plnb', '=', $inputs['plnb'])
-                ->where('tennb', '=', $inputs['tennb'])
-                ->where('bac', '=', $inputs['bac'])
-                ->first();
-
-            if (count($m_nbs) > 0) {
-                $result['message'] = $m_nbs->heso . ';' . $m_nbs->ptvk;
-                $result['status'] = 'success';
-            }
+        if (count($model) > 0) {
+            $result['message'] = $model->heso . ';' . $model->ptvk;
+            $result['status'] = 'success';
+        }else{
+            $result['message'] = '0;0';
+            $result['status'] = 'error';
         }
+
         die(json_encode($result));
     }
 
