@@ -110,7 +110,7 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    mapb: mapb
+                    macvcq: macvcq
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -191,34 +191,6 @@
             }else{
                 toastr.error(message,'Lỗi!.');
             }
-
-            if(valid){
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                $.ajax({
-                    url: '/danh_muc/chuc_vu_cq/store',
-                    type: 'GET',
-                    data: {
-                        _token: CSRF_TOKEN,
-                        tencv: tencv,
-                        ghichu: ghichu,
-                        sapxep: sapxep,
-                        id: id
-                            },
-                    dataType: 'JSON',
-                    success: function (data) {
-                        if (data.status == 'success') {
-                            location.reload();
-                        }
-                    },
-                    error: function(message){
-                        alert(message);
-                    }
-                });
-                $('#chucvu-modal').modal('hide');
-            }else{
-                alert(message);
-            }
-            return valid;
         }
     </script>
 

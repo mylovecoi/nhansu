@@ -128,7 +128,7 @@ class dmchucvucqController extends Controller
         }
 
         $inputs = $request->all();
-        $model = dmchucvucq::find($inputs['id']);
+        $model = dmchucvucq::where('macvcq',$inputs['macvcq'])->first();
         die($model);
     }
 }
