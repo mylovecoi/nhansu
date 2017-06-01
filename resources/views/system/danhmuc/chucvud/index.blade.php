@@ -82,7 +82,17 @@
                     <h4 id="modal-header-primary-label" class="modal-title">Thông tin chức vụ chính quyền</h4>
                 </div>
                 <div class="modal-body">
-                @include('templates.tem_chucvucq')
+                    <label class="form-control-label">Mã chức vụ<span class="require">*</span></label>
+                    {!!Form::text('macvcq', null, array('id' => 'macvcq','class' => 'form-control','readonly'=>'true'))!!}
+
+                    <label class="form-control-label">Tên chức vụ<span class="require">*</span></label>
+                    {!!Form::text('tencv', null, array('id' => 'tencv','class' => 'form-control','required'=>'required'))!!}
+
+                    <label class="form-control-label">Mô tả chức vụ</label>
+                    {!!Form::textarea('ghichu', null, array('id' => 'ghichu','class' => 'form-control','rows'=>'3'))!!}
+
+                    <label class="form-control-label">Sắp xếp</label>
+                    {!!Form::text('sapxep', null, array('id' => 'sapxep','class' => 'form-control'))!!}
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
