@@ -32,7 +32,7 @@
     <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
         <tr>
             <td colspan="2" width="65%" style="text-align: left; font:normal 12px Times, serif; font-weight: bold">
-                (Mẫu 2a - BNV/2007 ban hành theo QĐ số 06/2007/QĐ- BNV ngày 18/6/2007 của Bộ trưởng Bộ nội vụ)
+                (Mẫu 2c - BNV/2008 ban hành kèm theo Quyết định số 02/2008/QĐ-BNV ngày 06/10/2008 của Bộ trưởng Bộ Nội vụ)
             </td>
         </tr>
         <tr>

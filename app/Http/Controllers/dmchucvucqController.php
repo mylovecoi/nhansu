@@ -58,23 +58,13 @@ class dmchucvucqController extends Controller
             die(json_encode($result));
         }
         $inputs = $request->all();
-
-        //Thêm mới dịch vụ
-        if ($inputs['id'] == 0) {
-            $model = new dmchucvucq();
-            $model->macvcq = session('admin')->madv .'.'.getdate()[0];
-            $model->tencv = $inputs['tencv'];
-            $model->ghichu = $inputs['ghichu'];
-            $model->sapxep = $inputs['sapxep'];
-            $model->save();
-        } else {
-            $id=$inputs['id'];
-            $model =  dmchucvucq::findOrFail($id);
-            $model->tencv = $inputs['tencv'];
-            $model->ghichu = $inputs['ghichu'];
-            $model->sapxep = $inputs['sapxep'];
-            $model->save();
-        }
+        $model = new dmchucvucq();
+        $model->macvcq = session('admin')->madv .'.'.getdate()[0];
+        $model->tencv = $inputs['tencv'];
+        $model->ghichu = $inputs['ghichu'];
+        $model->sapxep = $inputs['sapxep'];
+        $model->makhoipb = $inputs['makhoipb'];
+        $model->save();
 
         //Trả lại kết quả
         $result['message'] = 'Thao tác thành công.';
