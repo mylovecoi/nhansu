@@ -78,7 +78,7 @@
 
                                 <!--button type="button" onclick="cfChiTiet('{{$url.'bsll/'.$hs->id}}','{{$hs->id}}')" class="btn btn-default btn-xs mbs" data-target="#chitiet-modal" data-toggle="modal">
                                     <i class="fa fa-navicon"></i>&nbsp; Bổ sung lý lịch</button-->
-                                <button type="button" onclick="cfDel('{{$url.'del/'.$hs->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
+                                <button type="button" onclick="cfDel('{{$url.'del/maso='.$hs->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
                                     <i class="fa fa-times"></i>&nbsp; Xóa</button>
                             </td>
                         </tr>

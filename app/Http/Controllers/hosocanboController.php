@@ -193,7 +193,7 @@ class hosocanboController extends Controller
             $model->cannang = $insert['cannang'];
             $model->nhommau = $insert['nhommau'];
             $model->tenct = $insert['tenct'];
-            $model->theodoi =getTheoDoi($insert['tenct']);
+            $model->theodoi = getTheoDoi($insert['tenct']);
             $model->save();
 
             return redirect('nghiep_vu/ho_so/danh_sach');
@@ -512,6 +512,15 @@ class hosocanboController extends Controller
                 ->with('m_kl',$m_kl)
                 ->with('m_donvi',$m_donvi)
                 ->with('pageTitle','Phiếu bổ sung lý lịch');
+        } else
+            return view('errors.notlogin');
+    }
+
+    function destroy($id){
+        if (Session::has('admin')) {
+            $model = hosocanbo::find($id);
+            $model->delete();
+            return redirect('nghiep_vu/ho_so/danh_sach');
         } else
             return view('errors.notlogin');
     }
