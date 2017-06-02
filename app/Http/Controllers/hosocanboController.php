@@ -193,7 +193,10 @@ class hosocanboController extends Controller
             $model->cannang = $insert['cannang'];
             $model->nhommau = $insert['nhommau'];
             $model->tenct = $insert['tenct'];
-            $model->theodoi = getTheoDoi($insert['tenct']);
+
+            list($theodoi, $kieuct) = getTheoDoi($insert['tenct']);
+            $model->theodoi = $theodoi;
+            $model->kieuct = $kieuct;
             $model->save();
 
             return redirect('nghiep_vu/ho_so/danh_sach');
@@ -332,7 +335,9 @@ class hosocanboController extends Controller
                 $model->macvd = $update['macvd'];
             }
             $model->tenct = $update['tenct'];
-            $model->theodoi = getTheoDoi($update['tenct']);
+            list($theodoi, $kieuct) = getTheoDoi($update['tenct']);
+            $model->theodoi = $theodoi;
+            $model->kieuct = $kieuct;
 
             $model->qhcn = $update['qhcn'];
             $model->dhpt = $update['dhpt'];

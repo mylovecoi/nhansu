@@ -16,7 +16,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Ngạch bậc </label>
                     <div class="col-sm-9">
-                        <select class="form-control select2me" name="tennb" id="tennb" required="required" onchange="setMSNGBAC()">
+                        <select class="form-control select2me" name="tennb" id="tennb" onchange="setMSNGBAC()">
                             @foreach($m_plnb as $plnb)
                                 <optgroup label="{{$plnb->plnb}}">
                                     <?php

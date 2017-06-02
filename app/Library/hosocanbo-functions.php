@@ -102,11 +102,16 @@ function getTenDV($madv){
 
 function getTheoDoi($tenct){
     $kq=1;
+    $kieuct='Biên chế';
+
     $model = App\dmphanloaict::where('tenct',$tenct)->first();
     if(count($model)>0){
-      if($model->nhomct >= 2){$kq=0;}
+        $kieuct=$model->kieuct;
+      if($model->phanloaict != 'Đang công tác'){
+          $kq=0;
+      }
     }
-    return $kq;
+    return array($kq, $kieuct);
 }
 
 function getMaKhoiPB($madv){
