@@ -51,8 +51,12 @@ class dmdonviController extends Controller
                 || (session('admin')->level=='T'&&session('admin')->matinh==$madv)
                 || (session('admin')->level=='H'&&session('admin')->mahuyen==$madv)){
                 $model=dmdonvi::where('madv',$madv)->first();
+                $makpb=getMaKhoiPB(session('admin')->maxa);
+                $model_kpb=dmkhoipb::select('makhoipb','tenkhoipb')->where('makhoipb',$makpb)->get()->toarray();
+
                 return view('system.general.local.edit')
                     ->with('model',$model)
+                    ->with('model_kpb',array_column($model_kpb,'tenkhoipb','makhoipb'))
                     ->with('url','/he_thong/don_vi/')
                     ->with('pageTitle','Chỉnh sửa thông tin đơn vị');
             }else{return view('errors.noperm');}
@@ -75,7 +79,7 @@ class dmdonviController extends Controller
                 $model->diadanh=$inputs['diadanh'];
                 $model->cdlanhdao=$inputs['cdlanhdao'];
                 $model->nguoilapbieu=$inputs['nguoilapbieu'];
-                $model->khoiphongban=$inputs['khoiphongban'];
+                $model->makhoipb=$inputs['makhoipb'];
                 $model->diadanh=$inputs['diadanh'];
                 $model->save();
                 return redirect('/he_thong/don_vi/don_vi');

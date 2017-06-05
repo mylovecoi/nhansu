@@ -170,7 +170,7 @@
                     <label class="col-sm-4 control-label">Nhóm máu </label>
 
                     <div class="col-sm-8">
-                        <select name="nhommau" class="form-control select2me">
+                        <select name="nhommau" id="nhommau" class="form-control select2me">
                             <option value="Nhóm máu A">Nhóm máu A</option>
                             <option value="Nhóm máu AB">Nhóm máu AB</option>
                             <option value="Nhóm máu B">Nhóm máu B</option>
