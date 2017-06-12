@@ -138,6 +138,9 @@ class dsnangluongController extends Controller
                 ->orderby('dmchucvucq.sapxep')
                 ->get();
 
+            $m_plnb=ngachbac::select('plnb')->distinct()->get();
+            $m_pln=ngachbac::select('tennb','plnb','msngbac')->distinct()->get();
+            $m_bac=ngachbac::select('bac')->distinct()->get();
             $dmchucvucq=dmchucvucq::all('tencv', 'macvcq')->toArray();
             foreach($model as $hs){
                 $hs->tencv=getInfoChucVuCQ($hs,$dmchucvucq);
@@ -146,6 +149,9 @@ class dsnangluongController extends Controller
                 ->with('furl','/chuc_nang/nang_luong/')
                 ->with('furl_ajax', '/ajax/luong/')
                 ->with('model',$model)
+                ->with('m_plnb',$m_plnb)
+                ->with('m_pln',$m_pln)
+                ->with('m_bac',$m_bac)
                 ->with('pageTitle','Chi tiết danh sách nâng lương');
         } else
             return view('errors.notlogin');
