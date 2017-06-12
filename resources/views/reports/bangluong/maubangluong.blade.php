@@ -43,7 +43,7 @@
             <b>Đơn vị chủ quản: {{$m_dv->tenct}}</b>
         </td>
         <td  style="text-align: center;">
-            <!--b>Mẫu số C02-X</b-->
+            <b>Mẫu số C02a - HD</b>
         </td>
     </tr>
     <tr>
@@ -51,7 +51,7 @@
             <b>Đơn vị: {{$m_dv->tendv}}</b>
         </td>
         <td style="text-align: center; font-style: italic">
-
+            (Đã ban hành theo QĐ số: 19/2006/QĐ- BTC ngày 30/03/2006 của Bộ trưởng BTC)
         </td>
     </tr>
 </table>
