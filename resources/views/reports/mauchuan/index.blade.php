@@ -32,7 +32,7 @@
                                     <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcDSCCCVCC'}}')">Báo cáo danh sách công chức ngạch chuyên viên chính và chuyên viên cao cấp (Mẫu 6/TT10)</a></li>
                                     <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcDSVCCVCC'}}')">Báo cáo danh sách viên chức ngạch chuyên viên chính và chuyên viên cao cấp (Mẫu 6/TT10)</a></li>
 
-                                <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcDSCCCVCC'}}')">Báo cáo số lượng, chất lượng cán bộ, công chức xã (Mẫu 02/TT11)</a></li>
+                                <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcSLCLCC_TT11'}}')">Báo cáo số lượng, chất lượng cán bộ, công chức xã (Mẫu 02/TT11)</a></li>
                             </ol>
                         </div>
                     </div>
