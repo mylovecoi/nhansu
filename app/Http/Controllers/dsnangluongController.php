@@ -39,7 +39,7 @@ class dsnangluongController extends Controller
         }
 
         $inputs=$request->all();
-        $manl=session('admin')->maxa .'.'.getdate()[0];
+        $manl=session('admin')->madv .'.'.getdate()[0];
 
         $model = new dsnangluong();
         $model->manl=$manl;
@@ -50,7 +50,7 @@ class dsnangluongController extends Controller
         $model->noidung=$inputs['noidung'];
         $model->ngayxet=$inputs['ngayxet'];
         $model->kemtheo=$inputs['kemtheo'];
-        $model->madv=session('admin')->maxa;
+        $model->madv=session('admin')->madv;
         $model->save();
 
         $m_ngachbac=ngachbac::select('msngbac','namnb','bac','heso','ptvk')
@@ -58,7 +58,8 @@ class dsnangluongController extends Controller
                 $query->select('msngbac')->from('hosocanbo')->distinct();
             })->get()->toarray();
 
-        $m_cb=hosocanbo::where('ngayden','<',$inputs['ngayxet'])->get();
+        $m_cb=hosocanbo::where('ngayden','<',$inputs['ngayxet'])
+            ->where('madv',session('admin')->madv)->get();
 
         foreach($m_cb as $cb){
             $m_luong=new hosoluong();
