@@ -87,7 +87,7 @@
                 $('#msngbac').val('');
                 $('#ngaytu').val('');
                 $('#ngayden').val('');
-                $('#bac').val('');
+                $('#bac').val('1');
                 $('#heso').val('');
                 $('#vuotkhung').val('');
                 $('#pthuong').val(100);

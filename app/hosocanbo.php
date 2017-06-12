@@ -117,7 +117,9 @@ class hosocanbo extends Model
         'pcd',
         'pctr',
         'theodoi',
-        'tenct'
+        'tenct',
+        'sodinhdanhcanhan',
+        'macvcqkn'//chức vụ kiêm nhiệm
     ];
 
     // <editor-fold defaultstate="collapsed" desc="--hasMany--">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\dmdonvi;
 use App\dmphanloaict;
+use App\dmphucap;
 use App\ngachbac;
 use Illuminate\Http\Request;
 
@@ -204,6 +205,26 @@ class ajaxController extends Controller
         } else {
             echo 'true';
         }
+    }
+
+    function getPhuCap(Request $request)
+    {
+        $result = array(
+            'status' => 'fail',
+            'message' => 'error',
+        );
+        if (!Session::has('admin')) {
+            $result = array(
+                'status' => 'fail',
+                'message' => 'permission denied',
+            );
+            die(json_encode($result));
+        }
+
+        $inputs = $request->all();
+        $model=dmphucap::where('mapc', $inputs['mapc'])->first();
+        $model->status = 'success';
+        die($model);
     }
 
 }

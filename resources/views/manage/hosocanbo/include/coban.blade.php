@@ -7,7 +7,11 @@
                     <label class="col-sm-4 control-label">Mã số cán bộ </label>
 
                     <div class="col-sm-8 controls">
-                        {!!Form::text('macanbo', null, array('id' => 'macanbo','class' => 'form-control','readonly'=>'true'))!!}
+                        @if($type=='create')
+                            {!!Form::text('macanbo', $macanbo, array('id' => 'macanbo','class' => 'form-control','readonly'=>'true'))!!}
+                        @else
+                            {!!Form::text('macanbo', null, array('id' => 'macanbo','class' => 'form-control','readonly'=>'true'))!!}
+                        @endif
                     </div>
                 </div>
             </div>

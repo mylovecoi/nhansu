@@ -21,6 +21,7 @@ class CreateBangluongTable extends Migration
             $table->date('ngaylap')->nullable();
             $table->string('nguoilap')->nullable();
             $table->string('ghichu')->nullable();
+            $table->double('luongcb')->default(0)->nullable(); //lưu lại ko hiển thị ra màn hình
             $table->string('madv',50);
             $table->timestamps();
         });

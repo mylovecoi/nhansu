@@ -73,8 +73,8 @@
             }
         }
     </script>
-    <link rel="shortcut icon" href="{{ url('images/logovang.png')}}" type="image/x-icon">
-    <!--link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon"-->
+    <!--link rel="shortcut icon" href="{{ url('images/logovang.png')}}" type="image/x-icon"-->
+    <link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon">
 </head>
 <!-- END HEAD -->
 
@@ -87,8 +87,8 @@
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
 			<a href="{{url('')}}">
-                <img src="{{url('images/logo_dai.png')}}" alt="logo" class="logo-default" style="margin-top: 5px;">
-                <!--img src="{{url('images/LOGO_LIFE.png')}}" alt="logo" class="logo-default" style="margin-top: 5px;"-->
+                <!--img src="{{url('images/logo_dai.png')}}" alt="logo" class="logo-default" style="margin-top: 5px;"-->
+                <img src="{{url('images/LOGO_LIFE.png')}}" alt="logo" class="logo-default" style="margin-top: 5px;">
 			</a>
 			<div class="menu-toggler sidebar-toggler">
 				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -168,12 +168,24 @@
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
-						<li>
-							<a href="{{url('/nghiep_vu/ho_so/danh_sach')}}">
-							<i class="icon-users"></i>
-							Danh sách cán bộ</a>
-						</li>
                         <li>
+                            <a href="javascript:;">
+                                <i class="fa fa-folder-open-o"></i> Danh sách cán bộ <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu" style="margin-left: 15px;">
+                                <li>
+                                    <a href="{{url('/nghiep_vu/ho_so/danh_sach')}}">
+                                    <i class="icon-users"></i>
+                                    Cán bộ đang công tác</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/nghiep_vu/ho_so/thoi_cong_tac')}}">
+                                        <i class="icon-users"></i>
+                                        Cán bộ đã thôi công tác</a>
+                                </li>
+                            </ul>
+                         </li>
+                         <li>
                             <a href="javascript:;">
                                 <i class="fa fa-folder-open-o"></i> Quản lý hồ sơ <span class="arrow"></span>
                             </a>
@@ -229,6 +241,17 @@
                         <li>
                             <a href="{{url('chuc_nang/het_tap_su/danh_sach')}}">Hết tập sư</a>
                         </li>
+                        <!--
+                        <li>
+                            <a href="{{url('chuc_nang/dao_tao_boi_duong/danh_sach')}}">Đào tạo, bồi dưỡng</a>
+                        </li>
+                        <li>
+                            <a href="{{url('chuc_nang/thuyen_chuyen/danh_sach')}}">Thuyên chuyển, điều động</a>
+                        </li>
+                        <li>
+                            <a href="{{url('chuc_nang/buoc_thoi_viec/danh_sach')}}">Buộc thôi việc</a>
+                        </li>
+                        -->
                         <li>
                             <a href="{{url('chuc_nang/huu_tri/danh_sach')}}">Nghỉ hưu</a>
                         </li>
@@ -259,6 +282,20 @@
                         <li><a href="{{url('bao_cao/mau_chuan')}}">Báo cáo theo thông tư, quyết định</a></li>
 					</ul>
 				</li>
+                <!-- dành cho đơn vị chủ quản -->
+
+                <li>
+                    <a href="javascript:;">
+                        <i class="fa fa-file-text"></i>
+                        <span class="title">Báo cáo tổng hợp</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li><a href="{{url('tong_hop_bao_cao/don_vi')}}">Báo cáo số lượng, chất lượng cán bộ</a></li>
+                        <li><a href="{{url('tong_hop_bao_cao/mau_chuan')}}">Báo cáo theo thông tư, quyết định</a></li>
+                    </ul>
+                </li>
+
 				<li class="last">
 					<a href="javascript:;">
 					<i class="fa fa-gear"></i>
@@ -325,7 +362,7 @@
 
     <!-- BEGIN CONTENT -->
 	<div class="page-content-wrapper">
-        <div class="page-content">
+        <div class="page-content"  style="padding-top: 0px;">
             <!-- BEGIN PAGE BREADCRUMB -->
             <!--div class="page-bar">
                 <ul class="page-breadcrumb breadcrumb">
@@ -355,14 +392,14 @@
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
     <div class="page-footer-tools">
-        <!--  2016 &copy; LifeSoft <a href="" >Tiện ích hơn - Hiệu quả hơn</a>-->
-       Số đăng ký bản quyền: 282/2015/QTG, Khai Thác và Phần Phối bởi H2SOFT
-      </div>
-      <div class="scroll-to-top">
-          <i class="icon-arrow-up"></i>
-      </div>
-  </div>
-  <!-- END FOOTER -->
+        2016 &copy; LifeSoft <a href="" >Tiện ích hơn - Hiệu quả hơn</a>
+        <!--Số đăng ký bản quyền: 282/2015/QTG, Khai Thác và Phần Phối bởi H2SOFT-->
+       </div>
+       <div class="scroll-to-top">
+           <i class="icon-arrow-up"></i>
+       </div>
+   </div>
+   <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
 <!--[if lt IE 9]>

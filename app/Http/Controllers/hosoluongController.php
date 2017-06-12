@@ -18,9 +18,11 @@ class hosoluongController extends Controller
     {
         if (Session::has('admin')) {
             $model = hosoluong::where('macanbo', $macanbo)->get();
-            $m_plnb = ngachbac::select('plnb')->distinct()->get();
             $m_pb = getPhongBanX();
             $m_cb = getCanBoX();
+            $m_plnb=ngachbac::select('plnb')->distinct()->get();
+            $m_pln=ngachbac::select('tennb','plnb','msngbac')->distinct()->get();
+            $m_bac=ngachbac::select('bac')->distinct()->get();
 
             return view('manage.luong.index')
                 ->with('furl', '/nghiep_vu/qua_trinh/luong/')
@@ -29,7 +31,9 @@ class hosoluongController extends Controller
                 ->with('m_pb', $m_pb)
                 ->with('m_cb', $m_cb)
                 ->with('model', $model)
-                ->with('m_plnb', $m_plnb)
+                ->with('m_plnb',$m_plnb)
+                ->with('m_pln',$m_pln)
+                ->with('m_bac',$m_bac)
                 ->with('pageTitle', 'Danh sách quá trình hưởng lương');
         } else
             return view('errors.notlogin');

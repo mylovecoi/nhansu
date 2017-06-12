@@ -23,6 +23,7 @@
         });
     </script>
     $('#tennb').val('').trigger('change');
+    //$('#macanbo').val('{{$macanbo}}');
 @stop
 
 @section('content')

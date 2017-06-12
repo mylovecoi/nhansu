@@ -11,15 +11,23 @@
 @section('custom-style')
     <link href="{{url('assets/global/css/plugins.css')}}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
 @stop
 
 @section('custom-script')
     <script type="text/javascript" src="{{url('assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.js') }}"></script>
     <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{url('assets/admin/pages/scripts/form-wizard.js')}}"></script>
-    <script>
+
+    <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
+
+    <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script><script>
         jQuery(document).ready(function() {
             FormWizard.init();
+            TableManaged.init();
         });
 
         <!--Gán các giá trị và các ô select box -->
@@ -53,6 +61,7 @@
 
                 <div class="portlet-body form" id="form_wizard">
                     {!! Form::model($model, ['url'=>'/nghiep_vu/ho_so/update/'.$model->id, 'method' => 'PATCH', 'files'=>true, 'id' => 'create-hscb', 'class'=>'horizontal-form form-validate', 'enctype'=>'multipart/form-data']) !!}
+                    <input type="hidden" name="macanbo" id="macanbo" value="{{$model->macanbo}}" />
                     <div class="form-body">
                         <ul class="nav nav-pills nav-justified steps">
                             <li><a href="#tab1" data-toggle="tab" class="step">
@@ -114,7 +123,8 @@
                                 <button id="btnnext" type="button" name="next" value="Next" class="btn btn-info button-next mlm">
                                     Tiếp theo<i class="fa fa-arrow-circle-o-right mlx"></i></button>
                                 <!-- Kiem tra co quyen moi dc sửa, ko thì chỉ là xem -->
-                                <button type="submit" class="btn btn-success">Lưu hồ sơ</button>
+                                <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Lưu hồ sơ</button>
+                                <a href="{{url('/nghiep_vu/ho_so/danh_sach')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                             </div>
                         </div>
                     </div>

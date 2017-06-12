@@ -93,6 +93,7 @@
 
                     <label class="form-control-label">Sắp xếp</label>
                     {!!Form::text('sapxep', null, array('id' => 'sapxep','class' => 'form-control'))!!}
+                    <input id="id_cv" type="hidden"/>
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>

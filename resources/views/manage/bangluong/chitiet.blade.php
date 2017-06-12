@@ -1,5 +1,29 @@
 @extends('main')
 
+@section('custom-style')
+    <link href="{{url('assets/global/css/plugins.css')}}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
+@stop
+
+@section('custom-script')
+    <script type="text/javascript" src="{{url('assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.js') }}"></script>
+    <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
+
+    <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script><script>
+        jQuery(document).ready(function() {
+            TableManaged.init();
+        });
+    </script>
+
+
+@stop
+
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -14,6 +38,8 @@
                 </div>
                 <div class="portlet-body">
                     {!! Form::model($model, ['url'=>'/chuc_nang/bang_luong/updatect/'.$model->id, 'method' => 'POST', 'files'=>true, 'id' => 'create-hscb', 'class'=>'horizontal-form form-validate', 'enctype'=>'multipart/form-data']) !!}
+                        <input name="mabl" id="mabl" type="hidden" value="{{$model->mabl}}" />
+                        <input name="macanbo" id="macanbo" type="hidden" value="{{$model->macanbo}}" />
                         <div class="form-horizontal">
                             <div class="row">
                                 <div class="col-md-4">
@@ -63,134 +89,6 @@
 
                                         <div class="col-sm-6 controls">
                                             {!!Form::text('vuotkhung', null, array('id' => 'vuotkhung','class' => 'form-control heso', 'data-mask'=>'fdecimal'))!!}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-sm-6 control-label">Phụ cấp chức vụ </label>
-
-                                        <div class="col-sm-6 controls">
-                                            {!!Form::text('pccv', null, array('id' => 'pccv','class' => 'form-control heso', 'data-mask'=>'fdecimal'))!!}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-sm-6 control-label">PC thâm niên nghề </label>
-
-                                        <div class="col-sm-6 controls">
-                                            {!!Form::text('pctnn', null, array('id' => 'pctnn','class' => 'form-control heso', 'data-mask'=>'fdecimal'))!!}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-sm-6 control-label">PC thâm niên VK </label>
-
-                                        <div class="col-sm-6 controls">
-                                            {!!Form::text('pcvk', null, array('id' => 'pcvk','class' => 'form-control heso', 'data-mask'=>'fdecimal'))!!}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-sm-6 control-label">Phụ cấp kiêm nhiệm </label>
-
-                                        <div class="col-sm-6 controls">
-                                            {!!Form::text('pckn', null, array('id' => 'pckn','class' => 'form-control heso', 'data-mask'=>'fdecimal'))!!}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-sm-6 control-label">Phụ cấp trách nhiệm </label>
-
-                                        <div class="col-sm-6 controls">
-                                            {!!Form::text('pctn', null, array('id' => 'pctn','class' => 'form-control heso', 'data-mask'=>'fdecimal'))!!}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-sm-6 control-label">Phụ cấp khu vực </label>
-
-                                        <div class="col-sm-6 controls">
-                                            {!!Form::text('pckv', null, array('id' => 'pckv','class' => 'form-control heso', 'data-mask'=>'fdecimal'))!!}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-sm-6 control-label">Phụ cấp thu hút </label>
-
-                                        <div class="col-sm-6 controls">
-                                            {!!Form::text('pcth', null, array('id' => 'pcth','class' => 'form-control heso', 'data-mask'=>'fdecimal'))!!}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-sm-6 control-label">Phụ cấp ưu đãi </label>
-
-                                        <div class="col-sm-6 controls">
-                                            {!!Form::text('pcudn', null, array('id' => 'pcudn','class' => 'form-control heso', 'data-mask'=>'fdecimal'))!!}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-sm-6 control-label">Phụ cấp đặc biệt </label>
-
-                                        <div class="col-sm-6 controls">
-                                            {!!Form::text('pcdbn', null, array('id' => 'pcdbn','class' => 'form-control heso', 'data-mask'=>'fdecimal'))!!}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-sm-6 control-label">Phụ cấp lưu động </label>
-
-                                        <div class="col-sm-6 controls">
-                                            {!!Form::text('pcld', null, array('id' => 'pcld','class' => 'form-control heso', 'data-mask'=>'fdecimal'))!!}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-sm-6 control-label">Phụ cấp độc hại </label>
-
-                                        <div class="col-sm-6 controls">
-                                            {!!Form::text('pcdh', null, array('id' => 'pcdh','class' => 'form-control heso', 'data-mask'=>'fdecimal'))!!}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-sm-6 control-label">Phụ cấp khác </label>
-
-                                        <div class="col-sm-6 controls">
-                                            {!!Form::text('pck', null, array('id' => 'pck','class' => 'form-control heso', 'data-mask'=>'fdecimal'))!!}
                                         </div>
                                     </div>
                                 </div>
@@ -358,9 +256,52 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row" style="margin-left: 0px">
+                                <div class="col-md-12">
+                                    <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-success btn-xs" onclick="clearForm()"><i class="fa fa-plus"></i>&nbsp;Thêm mới phụ cấp</button>
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-12" id="thongtinphucap">
+                                    <table id="sample_3" class="table table-hover table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center" style="width: 5%">STT</th>
+                                            <th class="text-center">Mã số</th>
+                                            <th class="text-center">Tên phụ cấp</th>
+                                            <th class="text-center">Hệ số</th>
+                                            <th class="text-center">Nộp bảo hiểm</th>
+                                            <th class="text-center">Thao tác</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php $stt=1; ?>
+                                        @if(isset($model_phucap))
+                                            @foreach($model_phucap as $key=>$value)
+                                                <tr>
+                                                    <td class="text-center">{{$stt++}}</td>
+                                                    <td>{{$value->mapc}}</td>
+                                                    <td>{{$value->tenpc}}</td>
+                                                    <td>{{$value->hesopc}}</td>
+                                                    <td>{{$value->baohiem==1?'Có nộp bảo hiểm':'Không nộp bảo hiểm'}}</td>
+                                                    <td>
+                                                        <button type="button" onclick="edit_phucap({{$value->id}})" class="btn btn-info btn-xs mbs">
+                                                            <i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>
+                                                        <button type="button" onclick="del_phucap('{{$value->id}}')" class="btn btn-danger btn-xs mbs" data-target="#modal-delete" data-toggle="modal">
+                                                            <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                         <div style="text-align: center; border-top: 1px solid #eee;">
-                            <button style="margin-top: 10px" type="submit" class="btn btn-success">Hoàn thành<i class="fa fa-save mlx"></i></button>
+                            <button type="submit" class="btn btn-success">Tính lại lương<i class="fa fa-save mlx"></i></button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Lưu hồ sơ</button>
+                            <a href="{{url('/nghiep_vu/ho_so/danh_sach')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                         </div>
                     {!! Form::close() !!}
                 </div>
@@ -369,69 +310,195 @@
 
         </div>
     </div>
+
+    <div id="modal-create" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+        <div class="modal-dialog modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                <h4 id="modal-header-primary-label" class="modal-title">THÔNG TIN PHỤ CẤP</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"> Phụ cấp</label>
+                        <div class="col-md-8">
+                            <select name="mapc" id="mapc" class="form-control" onchange="getphucap()">
+                                <option value="">--Chọn phụ cấp--</option>
+                                @if(isset($m_pc))
+                                    @foreach($m_pc as $pc)
+                                        <option data-number="{{$pc['hesopc']}}" value="{{$pc['mapc']}}">{{$pc['tenpc']}}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"> Hệ số phụ cấp</label>
+                        <div class="col-md-8">
+                            {!!Form::text('hesopc', null, array('id' => 'hesopc','class' => 'form-control','data-mask'=>'fdecimal'))!!}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"> Nộp bảo hiểm</label>
+                        <div class="col-md-8">
+                            <select name="baohiem" id="baohiem" class="form-control">
+                                <option value="1">Có nộp bảo hiểm</option>
+                                <option value="0">Không nộp bảo hiểm</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                <button type="button" class="btn btn-primary" onclick="confirm()">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Đồng ý xóa thông tin phụ cấp?</h4>
+                </div>
+                <input type="hidden" id="id_del_pc" name="id_del_pc">
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Thoát</button>
+                    <button type="button" class="btn btn-primary" onclick="deleteRow()">Đồng ý</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
     <script>
-        function getdl(str){
-            var kq=0;
-            str=str.replace(',','');
-            if(!isNaN(str)){
-                kq=str;
-            }
-            return parseFloat(kq);
-        }
-
-        function tonghs() {
-            var hs = 0;
-            $('.heso').each(function () {
-                hs += getdl($(this).val());
+        function getphucap(){
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                url: '/ajax/phucap/',
+                type: 'GET',
+                data: {
+                    _token: CSRF_TOKEN,
+                    mapc: $('#mapc').val()
+                },
+                dataType: 'JSON',
+                success: function (data) {
+                    if(data.status == 'success'){
+                        $('#hesopc').val(data.hesopc);
+                        $('#baohiem').val(data.baohiem);
+                    }
+                }
             });
-            $('#tonghs').val(hs.toFixed(2));
         }
 
-        function tongtl(){
-            var hs=$('#tonghs').val();
-            var luong = {{getGeneralConfigs()['luongcb']}};
-            return (hs*luong);
+        function del_phucap(id){
+            document.getElementById("id_del_pc").value=id;
         }
 
-        function baohiem(){
-            var stbhxh=getdl($('#stbhxh').val());
-            var stbhyt=getdl($('#stbhyt').val());
-            var stkpcd=getdl($('#stkpcd').val());
-            var stbhtn=getdl($('#stbhtn').val());
-            //alert(stbhxh);
-            return stbhxh+stbhyt+stkpcd+stbhtn;
+        function clearForm(){
+            $('#mapc').val('');
+            $('#hesopc').val('');
         }
 
-        function giamtru(){
-            var giaml=getdl($('#giaml').val());
-            var bhct=getdl($('#bhct').val());
-            return bhct-giaml;
+        function edit_phucap(id){
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                url: '{{$furl}}'+'get_phucap',
+                type: 'GET',
+                data: {
+                    _token: CSRF_TOKEN,
+                    id: id
+                },
+                dataType: 'JSON',
+                success: function (data) {
+                    $('#mapc').val(data.mapc);
+                    $('#hesopc').val(data.hesopc);
+                    $('#baohiem').val(data.baohiem);
+                },
+                error: function(message){
+                    toastr.error(message,'Lỗi!');
+                }
+            });
+
+            $('#modal-create').modal('show');
         }
 
-        function luongtn() {
-            var ttl = parseFloat(tongtl().toFixed(0));
-            var bh = baohiem();
-            var gt =giamtru();
-            $('#ttl').val(ttl);
-            $('#ttbh').val(bh);
-            $('#luongtn').val(ttl + gt - bh);
+        function confirm(){
+            var valid=true;
+            var message='';
+            var mapc=$('#mapc').val();
+            var hesopc=$('#hesopc').val();
+
+            if(mapc==''){
+                valid=false;
+                message +='Tên phụ cấp không được bỏ trống \n';
+            }
+            if(valid){
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                    url: '{{$furl}}'+'phucap',
+                    type: 'GET',
+                    data: {
+                        _token: CSRF_TOKEN,
+                        macanbo: $('#macanbo').val(),
+                        mabl: $('#mabl').val(),
+                        mapc: mapc,
+                        hesopc: hesopc,
+                        baohiem:$('#baohiem').val()
+                    },
+                    dataType: 'JSON',
+                    success: function (data) {
+                        if (data.status == 'success') {
+                            $('#thongtinphucap').replaceWith(data.message);
+                            jQuery(document).ready(function() {
+                                TableManaged.init();
+                            });
+                        }
+                    },
+                    error: function(message){
+                        toastr.error(message);
+                    }
+                });
+                $('#modal-create').modal('hide');
+            }else{
+                toastr.error(message);
+            }
+            return valid;
         }
-        $('.heso').change(function(){
-            tonghs();
-            luongtn();
-        })
 
-        $('.tienluong').change(function(){
-            luongtn();
-        })
-
-        $('.baohiem_dv').change(function(){
-            var stbhxh_dv=getdl($('#stbhxh_dv').val());
-            var stbhyt_dv=getdl($('#stbhyt_dv').val());
-            var stkpcd_dv=getdl($('#stkpcd_dv').val());
-            var stbhtn_dv=getdl($('#stbhtn_dv').val());
-            $('#ttbh_dv').val(stbhxh_dv+stbhyt_dv+stkpcd_dv+stbhtn_dv);
-        })
+        function deleteRow(){
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                url: '{{$furl}}'+'del_phucap',
+                type: 'GET',
+                data: {
+                    _token: CSRF_TOKEN,
+                    id: $('#id_del_pc').val(),
+                    macanbo: $('#macanbo').val(),
+                    mabl: $('#mabl').val()
+                },
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.status == 'success') {
+                        $('#thongtinphucap').replaceWith(data.message);
+                        jQuery(document).ready(function() {
+                            TableManaged.init();
+                        });
+                    }
+                },
+                error: function(message){
+                    toastr.error(message,'Lỗi!');
+                }
+            });
+            $('#modal-delete').modal('hide');
+        }
 
     </script>
     @include('includes.script.scripts')

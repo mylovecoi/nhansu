@@ -50,10 +50,10 @@ class hosophucapController extends Controller
         $model = new hosophucap();
 
         $model->macanbo = $inputs['macanbo'];
-        $model->ngaytu  = getDateTime($inputs['ngaytu']);
-        $model->ngayden  = getDateTime($inputs['ngayden']);
-        $model->mapc  = $inputs['mapc'];
-        $model->hesopc  = $inputs['hesopc'];
+        $model->ngaytu = getDateTime($inputs['ngaytu']);
+        $model->ngayden = getDateTime($inputs['ngayden']);
+        $model->mapc = $inputs['mapc'];
+        $model->hesopc = $inputs['hesopc'];
 
         $model->save();
 

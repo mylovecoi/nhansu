@@ -132,6 +132,11 @@ class CreateHosocanboTable extends Migration
             $table->string('kieuct')->nullable();
             $table->string('tenct')->nullable();
             $table->string('theodoi',5)->default(1)->nullable();
+            $table->string('sodinhdanhcanhan')->nullable();
+            $table->string('macvcqkn', 50)->nullable();//chức vụ kiêm nhiệm
+            $table->date('ngaybonhiemlandau')->nullable();//ngày bổ nhiệm lần đầu chức vụ chính quyền
+            $table->date('ngaybonhiemlai')->nullable();//ngày bổ nhiệm lại chức vụ
+            $table->string('nhiemky')->nullable();//nhiệm kỳ đối với cán bộ chuyên trách
             $table->timestamps();
         });
     }

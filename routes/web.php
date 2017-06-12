@@ -132,9 +132,15 @@ Route::group(['prefix'=>'nghiep_vu'],function(){
         Route::get('del/maso={id}','hosocanboController@destroy');
         Route::post('store','hosocanboController@store');
 
+        Route::get('phucap','hosocanboController@phucap');
+        Route::get('get_phucap','hosocanboController@get_phucap');
+        Route::get('del_phucap','hosocanboController@detroys_phucap');
+
         Route::get('syll/{id}','hosocanboController@syll');
         Route::get('ttts/{id}','hosocanboController@tomtatts');
         Route::post('bsll/{id}','hosocanboController@bsll');
+
+        Route::get('thoi_cong_tac','hosocanboController@index_thoicongtac');
     });
 
     Route::group(['prefix'=>'quan_ly'],function(){
@@ -223,9 +229,13 @@ Route::group(['prefix'=>'chuc_nang'],function(){
         Route::get('/maso={mabl}','bangluongController@show');
         Route::get('in/maso={mabl}','bangluongController@inbangluong');
         Route::get('in_bh/maso={mabl}','bangluongController@inbaohiem');
-        Route::get('/maso={mabl}/id={id}','bangluongController@detail');
+        Route::get('/maso={mabl}/can_bo','bangluongController@detail');
         Route::post('updatect/{id}','bangluongController@updatect');
         Route::get('del/{id}','bangluongController@destroy');
+
+        Route::get('get_phucap','bangluongController@get_phucap');
+        Route::get('phucap','bangluongController@phucap');
+        Route::get('del_phucap','bangluongController@detroys_phucap');
     });
     Route::group(['prefix'=>'nang_luong'],function(){
         Route::get('danh_sach','dsnangluongController@index');
@@ -273,6 +283,28 @@ Route::group(['prefix'=>'bao_cao'],function(){
     });
 });
 
+Route::group(['prefix'=>'tong_hop_bao_cao'],function(){
+    Route::group(['prefix'=>'don_vi'],function(){
+        Route::get('','baocaotonghopController@donvi');
+        Route::post('mausl1','baocaotonghopController@BcSLCBm1');
+        Route::post('mausl2','baocaotonghopController@BcSLCBm2');
+        Route::post('mausl3','baocaotonghopController@BcSLCBm3');
+        Route::post('maudv','baocaotonghopController@BcCLDangVien');
+    });
+
+    Route::group(['prefix'=>'mau_chuan'],function(){
+        Route::get('','baocaotonghopController@mauchuan');
+        Route::post('BcDSTuyenDungTT08','baocaotonghopController@BcDSTuyenDungTT08');
+        Route::post('BcDSTuyenDungTT10','baocaotonghopController@BcDSTuyenDungTT10');
+        Route::post('BcDSCC','baocaotonghopController@BcDSCC');
+        Route::post('BcDSVC','baocaotonghopController@BcDSVC');
+        Route::post('BcSLCLCC','baocaotonghopController@BcSLCLCC');
+        Route::post('BcSLCLVC','baocaotonghopController@BcSLCLVC');
+        Route::post('BcDSCCCVCC','baocaotonghopController@BcDSCCCVCC');
+        Route::post('BcDSVCCVCC','baocaotonghopController@BcDSVCCVCC');
+    });
+});
+
 Route::group(['prefix'=>'tra_cuu'],function(){
     Route::group(['prefix'=>'ho_so'],function(){
         Route::get('','hosocanboController@search');
@@ -308,6 +340,7 @@ Route::group(['prefix'=>'ajax'],function(){
     Route::get('heso','ajaxController@getHS');
     Route::get('msnb','ajaxController@getMSNB');
     Route::get('checkmadv','ajaxController@checkmadv');
+    Route::get('phucap','ajaxController@getPhuCap');
 
     Route::group(['prefix'=>'tai_lieu'],function(){
         Route::get('add','hosotailieuController@store');

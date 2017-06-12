@@ -77,7 +77,7 @@ function getPhongBanX(){
    $m_pb = App\dmphongban::select('mapb','tenpb')->wherein('mapb',function($query){
         $query->select('mapb')
             ->from('hosocanbo')
-            ->where('madv',session('admin')->maxa)
+            ->where('madv',session('admin')->madv)
             ->distinct();
     })->orderby('sapxep')->get();
     return $m_pb;
@@ -88,7 +88,7 @@ function getCanBoX(){
     $m_cb = \Illuminate\Support\Facades\DB::table('hosocanbo')
         ->join('dmchucvucq', 'hosocanbo.macvcq', '=', 'dmchucvucq.macvcq')
         ->select('hosocanbo.macanbo','hosocanbo.tencanbo','hosocanbo.mapb', 'dmchucvucq.sapxep')
-        ->where('hosocanbo.madv',session('admin')->maxa)
+        ->where('hosocanbo.madv',session('admin')->madv)
         ->where('hosocanbo.theodoi','1')
         ->orderby('dmchucvucq.sapxep')
         ->get();

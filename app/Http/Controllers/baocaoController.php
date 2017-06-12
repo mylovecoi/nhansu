@@ -665,6 +665,7 @@ class baocaoController extends Controller
                     ,'hosocanbo.gioitinh','hosocanbo.ngayvdct','hosocanbo.dantoc','hosocanbo.tdcm')
                 ->where('hosocanbo.ngaybc','<=',$inputs['ngaybaocao'])
                 ->where('hosocanbo.theodoi','1')
+                ->where('hosocanbo.madv',session('admin')->madv)
                 ->orderby('dmchucvucq.sapxep')
                 ->get()->toarray();
         }else{
@@ -674,6 +675,7 @@ class baocaoController extends Controller
                 ->where('hosocanbo.ngaybc','<=',$inputs['ngaybaocao'])
                 ->where('hosocanbo.theodoi','0')
                 ->orderby('dmchucvucq.sapxep')
+                ->where('hosocanbo.madv',session('admin')->madv)
                 ->get()->toarray();
         }
         return $data;
@@ -688,6 +690,7 @@ class baocaoController extends Controller
                 ->where('hosocanbo.ngayvdct','<>','0000-00-00')
                 ->where('hosocanbo.ngayvdct','<=',$inputs['ngaybaocao'])
                 ->where('hosocanbo.theodoi','1')
+                ->where('hosocanbo.madv',session('admin')->madv)
                 ->orderby('dmchucvucq.sapxep')
                 ->get()->toarray();
         }else{
@@ -698,6 +701,7 @@ class baocaoController extends Controller
                 ->where('hosocanbo.ngayvdct','<>','0000-00-00')
                 ->where('hosocanbo.ngayvdct','<=',$inputs['ngaybaocao'])
                 ->where('hosocanbo.theodoi','0')
+                ->where('hosocanbo.madv',session('admin')->madv)
                 ->orderby('dmchucvucq.sapxep')
                 ->get()->toarray();
         }
@@ -714,6 +718,7 @@ class baocaoController extends Controller
             ->where('hosocanbo.sunghiep',$phanloai)
             ->where('hosocanbo.mapb','Like',$inputs['phongbanth'].'%')
             ->where('hosocanbo.theodoi','1')
+            ->where('hosocanbo.madv',session('admin')->madv)
             ->orderby('dmchucvucq.sapxep')
             ->get()->toarray();
 
@@ -732,6 +737,7 @@ class baocaoController extends Controller
             ->where('hosocanbo.sunghiep',$phanloai)
             ->where('hosocanbo.mapb','Like',$inputs['phongbanth'].'%')
             ->where('hosocanbo.theodoi','1')
+            ->where('hosocanbo.madv',session('admin')->madv)
             ->where(function($query){
                 $query->where('phanloaingach.phanloai','Chuyên viên cao cấp')
                     ->orwhere('phanloaingach.phanloai','Chuyên viên chính');

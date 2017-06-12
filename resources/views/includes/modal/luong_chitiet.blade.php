@@ -23,36 +23,32 @@
                             {!!Form::text('msngbac', null, array('id' => 'msngbac','class' => 'form-control', 'readonly'=>'true'))!!}
                         </div>
                     </div>
-
                     <div class="form-group">
-                        <label class="col-md-4 control-label"> Nhóm ngạch bậc<span class="require">*</span></label>
+                        <label class="col-sm-4 control-label">Ngạch bậc </label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="plnb" id="plnb" onchange="getPLNB()">
-                                <option value="">-- Chọn nhóm ngạch bậc --</option>
-                                @if(isset($m_plnb))
-                                    @foreach($m_plnb as $pl)
-                                        <option value="{{$pl->plnb}}">{{$pl->plnb}}</option>;
-                                    @endforeach
-                                @endif
+                            <select class="form-control select2me" name="tennb" id="tennb" onchange="setMSNGBAC()">
+                                @foreach($m_plnb as $plnb)
+                                    <optgroup label="{{$plnb->plnb}}">
+                                        <?php
+                                        $mode_ct=$m_pln->where('plnb',$plnb->plnb);
+                                        ?>
+                                        @foreach($mode_ct as $ct)
+                                            <option value="{{$ct->msngbac}}">{{$ct->tennb}}</option>
+                                        @endforeach
+                                    </optgroup>
+                                @endforeach
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label">Tên ngạch bậc </label>
-                        <div class="col-sm-8">
-                            <select class="form-control" name="tennb" id="tennb" onchange="getBac()">
-                                <option value="">-- Chọn tên ngạch bậc --</option>
-                            </select>
-                        </div>
-                    </div>
+                        <label class="col-sm-4 control-label">Bậc lương </label>
 
-
-                    <div class="form-group">
-                        <label class="col-md-4 control-label"> Bậc lương</label>
-                        <div class="col-md-8">
-                            <select class="form-control" name="bac" id="bac" onchange="getHS()">
-                                <option value="">-- Chọn bậc lương --</option>
+                        <div class="col-sm-8 controls">
+                            <select class="form-control select2me" name="bac" id="bac" onchange="getHS()">
+                                @foreach($m_bac as $nb)
+                                    <option value="{{$nb->bac}}">{{$nb->bac}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
