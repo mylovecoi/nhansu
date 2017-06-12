@@ -411,8 +411,7 @@ class baocaotonghopController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model=$this->getDSth($inputs);
-            //dd($model);
-            //$model=a_unique(a_split($data,array('mapb','macvcq')));
+
             $m_dmcv=array_column((dmchucvucq::select('macvcq','tencv')->get()->toarray()),'tencv', 'macvcq');
             $m_dmpb=array_column((dmphongban::select('mapb','tenpb')->get()->toarray()),'tenpb', 'mapb');
             for($i=0;$i<count($model);$i++){
@@ -434,6 +433,7 @@ class baocaotonghopController extends Controller
                     $qr->select('madv')
                         ->from('hosocanbo')
                         ->where ('ngaybc','<=',$ngaybaocao)
+                        ->where('sunghiep','Công chức')
                         ->where('theodoi','1')
                         ->distinct()->get();
                 })->get();
@@ -459,7 +459,19 @@ class baocaotonghopController extends Controller
             $inputs = $request->all();
             $model=$this->getDSth($inputs,'Viên chức');
 
-            //$model=a_unique(a_split($data,array('mapb','macvcq')));
+            $makhoipb=$inputs['makhoipb'].'%';
+            $ngaybaocao=$inputs['ngaybaocao'];
+            $model_kpb=dmkhoipb::where('makhoipb','like',$makhoipb)->get();
+            $model_dv=dmdonvi::where('makhoipb','like',$makhoipb)
+                ->wherein('madv', function($qr) use($ngaybaocao){
+                    $qr->select('madv')
+                        ->from('hosocanbo')
+                        ->where ('ngaybc','<=',$ngaybaocao)
+                        ->where('sunghiep','Viên chức')
+                        ->where('theodoi','1')
+                        ->distinct()->get();
+                })->get();
+
             $m_dmcv=array_column((dmchucvucq::select('macvcq','tencv')->get()->toarray()),'tencv', 'macvcq');
             $m_dmpb=array_column((dmphongban::select('mapb','tenpb')->get()->toarray()),'tenpb', 'mapb');
             for($i=0;$i<count($model);$i++){
@@ -475,10 +487,12 @@ class baocaotonghopController extends Controller
             $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
 
-            return view('reports.mauchuan.BcDSVC')
+            return view('reports.mauchuan_caphuyen.BcDSVC')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)
+                ->with('model_kpb',$model_kpb)
+                ->with('model_dv',$model_dv)
                 ->with('pageTitle','Báo cáo danh sách cán bộ tuyển dụng');
         } else
             return view('errors.notlogin');
@@ -507,7 +521,7 @@ class baocaotonghopController extends Controller
                             'nhomtuoi'=>$nhom));
             }
 
-            $model=a_unique(a_split($data,array('mapb')));
+            $model=a_unique(a_split($data,array('madv')));
 
             for($i=0;$i<count($model);$i++){
                 $dt=a_getelement($data,$model[$i]);
@@ -560,12 +574,26 @@ class baocaotonghopController extends Controller
             $thongtin=array('ngaybaocao'=>$inputs['ngaybaocao'],
                 'nguoilap'=>session('admin')->name);
             $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
-            //dd($model);
+
+            $makhoipb=$inputs['makhoipb'].'%';
+            $ngaybaocao=$inputs['ngaybaocao'];
+            $model_kpb=dmkhoipb::where('makhoipb','like',$makhoipb)->get();
+            $model_dv=dmdonvi::where('makhoipb','like',$makhoipb)
+                ->wherein('madv', function($qr) use($ngaybaocao){
+                    $qr->select('madv')
+                        ->from('hosocanbo')
+                        ->where ('ngaybc','<=',$ngaybaocao)
+                        ->where('sunghiep','Công chức')
+                        ->where('theodoi','1')
+                        ->distinct()->get();
+                })->get();
 
             return view('reports.mauchuan_caphuyen.BcSLCLCC')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)
+                ->with('model_kpb',$model_kpb)
+                ->with('model_dv',$model_dv)
                 ->with('pageTitle','Báo cáo danh sách cán bộ tuyển dụng');
         } else
             return view('errors.notlogin');
@@ -594,7 +622,7 @@ class baocaotonghopController extends Controller
                         'nhomtuoi'=>$nhom));
             }
 
-            $model=a_unique(a_split($data,array('mapb')));
+            $model=a_unique(a_split($data,array('madv')));
 
             for($i=0;$i<count($model);$i++){
                 $dt=a_getelement($data,$model[$i]);
@@ -649,10 +677,25 @@ class baocaotonghopController extends Controller
             $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
 
+            $makhoipb=$inputs['makhoipb'].'%';
+            $ngaybaocao=$inputs['ngaybaocao'];
+            $model_kpb=dmkhoipb::where('makhoipb','like',$makhoipb)->get();
+            $model_dv=dmdonvi::where('makhoipb','like',$makhoipb)
+                ->wherein('madv', function($qr) use($ngaybaocao){
+                    $qr->select('madv')
+                        ->from('hosocanbo')
+                        ->where ('ngaybc','<=',$ngaybaocao)
+                        ->where('sunghiep','Viên chức')
+                        ->where('theodoi','1')
+                        ->distinct()->get();
+                })->get();
+
             return view('reports.mauchuan_caphuyen.BcSLCLVC')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)
+                ->with('model_kpb',$model_kpb)
+                ->with('model_dv',$model_dv)
                 ->with('pageTitle','Báo cáo danh sách cán bộ tuyển dụng');
         } else
             return view('errors.notlogin');
@@ -682,10 +725,25 @@ class baocaotonghopController extends Controller
             $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
 
+            $makhoipb=$inputs['makhoipb'].'%';
+            $ngaybaocao=$inputs['ngaybaocao'];
+            $model_kpb=dmkhoipb::where('makhoipb','like',$makhoipb)->get();
+            $model_dv=dmdonvi::where('makhoipb','like',$makhoipb)
+                ->wherein('madv', function($qr) use($ngaybaocao){
+                    $qr->select('madv')
+                        ->from('hosocanbo')
+                        ->where ('ngaybc','<=',$ngaybaocao)
+                        ->where('sunghiep','Công chức')
+                        ->where('theodoi','1')
+                        ->distinct()->get();
+                })->get();
+
             return view('reports.mauchuan_caphuyen.BcDSCCCVCC')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)
+                ->with('model_kpb',$model_kpb)
+                ->with('model_dv',$model_dv)
                 ->with('pageTitle','Báo cáo danh sách cán bộ tuyển dụng');
         } else
             return view('errors.notlogin');
@@ -715,10 +773,25 @@ class baocaotonghopController extends Controller
             $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
 
+            $makhoipb=$inputs['makhoipb'].'%';
+            $ngaybaocao=$inputs['ngaybaocao'];
+            $model_kpb=dmkhoipb::where('makhoipb','like',$makhoipb)->get();
+            $model_dv=dmdonvi::where('makhoipb','like',$makhoipb)
+                ->wherein('madv', function($qr) use($ngaybaocao){
+                    $qr->select('madv')
+                        ->from('hosocanbo')
+                        ->where ('ngaybc','<=',$ngaybaocao)
+                        ->where('sunghiep','Viên chức')
+                        ->where('theodoi','1')
+                        ->distinct()->get();
+                })->get();
+
             return view('reports.mauchuan_caphuyen.BcDSVCCVCC')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)
+                ->with('model_kpb',$model_kpb)
+                ->with('model_dv',$model_dv)
                 ->with('pageTitle','Báo cáo danh sách cán bộ tuyển dụng');
         } else
             return view('errors.notlogin');
@@ -785,10 +858,11 @@ class baocaotonghopController extends Controller
     //Danh sách công chức, viên chức
     function getDSth($inputs,$phanloai='Công chức'){
         $data=hosocanbo::join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
+            ->join('phanloaingach', 'phanloaingach.msngbac', '=', 'hosocanbo.msngbac')
             ->select('hosocanbo.madv','hosocanbo.tencanbo','hosocanbo.macanbo','hosocanbo.mapb','hosocanbo.macvcq','hosocanbo.ngaysinh'
                 ,'hosocanbo.gioitinh','hosocanbo.ngaybc','hosocanbo.tdcm','hosocanbo.msngbac','hosocanbo.heso','hosocanbo.ngaytu',
                 'hosocanbo.ngoaingu','hosocanbo.trinhdonn','hosocanbo.llct','hosocanbo.qlnhanuoc','hosocanbo.trinhdoth','hosocanbo.dantoc',
-                'hosocanbo.ngayvdct','hosocanbo.qqxa','hosocanbo.qqhuyen','hosocanbo.qqtinh','hosocanbo.lvhd')
+                'hosocanbo.ngayvdct','hosocanbo.qqxa','hosocanbo.qqhuyen','hosocanbo.qqtinh','hosocanbo.lvhd','phanloaingach.phanloai')
             ->where('hosocanbo.ngaybc','<=',$inputs['ngaybaocao'])
             ->where('hosocanbo.sunghiep',$phanloai)
             ->where('hosocanbo.theodoi','1')
@@ -802,7 +876,7 @@ class baocaotonghopController extends Controller
     function getDSCVCCth($inputs,$phanloai='Công chức'){
         $data=hosocanbo::join('dmchucvucq', 'dmchucvucq.macvcq', '=', 'hosocanbo.macvcq')
             ->join('phanloaingach', 'phanloaingach.msngbac', '=', 'hosocanbo.msngbac')
-            ->select('hosocanbo.tencanbo','hosocanbo.macanbo','hosocanbo.mapb','hosocanbo.macvcq','hosocanbo.ngaysinh'
+            ->select('hosocanbo.madv','hosocanbo.tencanbo','hosocanbo.macanbo','hosocanbo.mapb','hosocanbo.macvcq','hosocanbo.ngaysinh'
                 ,'hosocanbo.gioitinh','hosocanbo.ngaybc','hosocanbo.tdcm','hosocanbo.msngbac','hosocanbo.heso','hosocanbo.ngaytu',
                 'hosocanbo.ngoaingu','hosocanbo.trinhdonn','hosocanbo.llct','hosocanbo.qlnhanuoc','hosocanbo.trinhdoth','hosocanbo.dantoc',
                 'hosocanbo.ngayvdct','hosocanbo.qqxa','hosocanbo.qqhuyen','hosocanbo.qqtinh','hosocanbo.lvhd')
@@ -936,21 +1010,21 @@ class baocaotonghopController extends Controller
             'nb_cv'=>0,
             'nb_cs'=>0,
             'nb_cl'=>0);
-        if(strpos(strtolower($msngbac),strtolower('giáo dục'))!==false){
+        if(strpos(strtolower($msngbac),strtolower('chuyên viên cao cấp'))!==false){
             $aKQ['nb_cvcc']=1;
             return $aKQ;
         }
 
-        if(strpos(strtolower($msngbac),strtolower('y tế'))!==false){
-            $aKQ['nb_cvcc']=1;
+        if(strpos(strtolower($msngbac),strtolower('chuyên viên chính'))!==false){
+            $aKQ['nb_cvc']=1;
             return $aKQ;
         }
 
-        if(strpos(strtolower($msngbac),strtolower('khoa học'))!==false){
-            $aKQ['nb_cvcc']=1;
+        if(strpos(strtolower($msngbac),strtolower('chuyên viên'))!==false){
+            $aKQ['nb_cv']=1;
             return $aKQ;
         }
-        if(strpos(strtolower($msngbac),strtolower('văn hóa'))!==false){
+        if(strpos(strtolower($msngbac),strtolower('cán sự'))!==false){
             $aKQ['nb_cs']=1;
             return $aKQ;
         }

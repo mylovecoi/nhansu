@@ -118,8 +118,24 @@
         <th>{{$i}}</th>
         @endfor
     </tr>
-    <?php $stt=1; ?>
-    @foreach($model as $ct)
+    @foreach($model_kpb as $pb)
+        <?php $donvi=$model_dv->where('makhoipb',$pb->makhoipb); ?>
+        <tr style="font-weight: bold; text-align: center">
+            <td></td>
+            <td colspan="27" style="text-align: left">{{$pb->tenkhoipb.' ( '.$donvi->count().' đơn vị)'}}</td>
+
+        </tr>
+        <?php $i=1;?>
+        @foreach($donvi as $dv)
+            <tr style="font-weight: bold; text-align: center; font-style: italic">
+                <td>{{$i++}}</td>
+                <td colspan="27" style="text-align: left">{{$dv->tendv}}</td>
+
+            </tr>
+            <?php $stt=1; ?>
+
+            @foreach($model as $ct)
+                @if($ct['madv']==$dv->madv)
         <tr>
             <td>{{$stt++}}</td>
             <td>{{$ct['tencanbo']}}</td>
@@ -150,6 +166,9 @@
             <td>{{$ct['gt']}}</td>
             <td>{{$ct['dtin']}}</td>
         </tr>
+                    @endif
+                @endforeach
+            @endforeach
     @endforeach
     <tr style="font-weight: bold; text-align: center">
         <td colspan="9">Tổng cộng</td>

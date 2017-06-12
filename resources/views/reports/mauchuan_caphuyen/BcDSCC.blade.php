@@ -133,41 +133,41 @@
             </tr>
             <?php $stt=1; ?>
 
-    @foreach($model as $ct)
-                    @if($ct['madv']==$dv->madv)
-        <tr>
-            <td style="text-align: right">{{$stt++}}</td>
-            <td>{{$ct['tencanbo']}}</td>
-            <td>{{getDayVn($ct['ngaysinh'])}}</td>
-            <td>{{$ct['qqxa'].'-'.$ct['qqhuyen'].'-'.$ct['qqtinh']}}</td>
-            <td>{{$ct['tencv']}}</td>
-            <td>{{$ct['tenpb']}}</td>
-            <td>{{$ct['msngbac']}}</td>
-            <td>{{$ct['heso']}}</td>
-            <td>{{getDayVn($ct['ngaytu'])}}</td>
-            <td>{{$ct['ts']}}</td>
-            <td>{{$ct['ths']}}</td>
-            <td>{{$ct['dh']}}</td>
-            <td>{{$ct['cd']}}</td>
-            <td>{{$ct['th']}}</td>
-            <td>{{$ct['cl']}}</td>
-            <td>{{$ct['ct_cc']}}</td>
-            <td>{{$ct['ct_tc']}}</td>
-            <td>{{$ct['th_dh']}}</td>
-            <td>{{$ct['th_cc']}}</td>
-            <td>{{$ct['nn_dh']}}</td>
-            <td>{{$ct['nn_cc']}}</td>
-            <td>{{$ct['kh_dh']}}</td>
-            <td>{{$ct['kh_cc']}}</td>
-            <td>{{0}}</td>
-            <td>{{0}}</td>
-            <td>{{$ct['dv']}}</td>
-            <td>{{$ct['gt']}}</td>
-            <td>{{$ct['dtin']}}</td>
-        </tr>
-                    @endif
-                @endforeach
+            @foreach($model as $ct)
+                @if($ct['madv']==$dv->madv)
+                    <tr>
+                        <td style="text-align: right">{{$stt++}}</td>
+                        <td>{{$ct['tencanbo']}}</td>
+                        <td>{{getDayVn($ct['ngaysinh'])}}</td>
+                        <td>{{$ct['qqxa'].'-'.$ct['qqhuyen'].'-'.$ct['qqtinh']}}</td>
+                        <td>{{$ct['tencv']}}</td>
+                        <td>{{$ct['tenpb']}}</td>
+                        <td>{{$ct['msngbac']}}</td>
+                        <td>{{$ct['heso']}}</td>
+                        <td>{{getDayVn($ct['ngaytu'])}}</td>
+                        <td>{{$ct['ts']}}</td>
+                        <td>{{$ct['ths']}}</td>
+                        <td>{{$ct['dh']}}</td>
+                        <td>{{$ct['cd']}}</td>
+                        <td>{{$ct['th']}}</td>
+                        <td>{{$ct['cl']}}</td>
+                        <td>{{$ct['ct_cc']}}</td>
+                        <td>{{$ct['ct_tc']}}</td>
+                        <td>{{$ct['th_dh']}}</td>
+                        <td>{{$ct['th_cc']}}</td>
+                        <td>{{$ct['nn_dh']}}</td>
+                        <td>{{$ct['nn_cc']}}</td>
+                        <td>{{$ct['kh_dh']}}</td>
+                        <td>{{$ct['kh_cc']}}</td>
+                        <td>{{0}}</td>
+                        <td>{{0}}</td>
+                        <td>{{$ct['dv']}}</td>
+                        <td>{{$ct['gt']}}</td>
+                        <td>{{$ct['dtin']}}</td>
+                    </tr>
+                @endif
             @endforeach
+        @endforeach
     @endforeach
     <tr style="font-weight: bold; text-align: center">
         <td colspan="9">Tổng cộng</td>

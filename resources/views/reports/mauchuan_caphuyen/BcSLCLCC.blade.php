@@ -68,7 +68,7 @@
 <table id="noidung" cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;">
     <tr>
         <th style="width: 2%" rowspan="4">STT</th>
-        <th rowspan="4">Phòng ban</th>
+        <th rowspan="4">Khối phòng ban</br>Đơn vị</th>
         <th style="width: 2%" rowspan="4">Tổng số</th>
 
         <th colspan="5">Chia theo lĩnh vực</th>
@@ -136,9 +136,25 @@
         <th>{{$i}}</th>
         @endfor
     </tr>
-    <?php $stt=1; ?>
-    @foreach($model as $ct)
-        <tr style="text-align: center">
+    @foreach($model_kpb as $pb)
+        <?php $donvi=$model_dv->where('makhoipb',$pb->makhoipb); ?>
+        <tr style="font-weight: bold; text-align: center">
+            <td></td>
+            <td colspan="32" style="text-align: left">{{$pb->tenkhoipb.' ( '.$donvi->count().' đơn vị)'}}</td>
+
+        </tr>
+        <?php $i=1;?>
+        @foreach($donvi as $dv)
+            <tr style="font-weight: bold; text-align: center; font-style: italic">
+                <td>{{$i++}}</td>
+                <td colspan="32" style="text-align: left">{{$dv->tendv}}</td>
+
+            </tr>
+            <?php $stt=1; ?>
+
+            @foreach($model as $ct)
+                @if($ct['madv']==$dv->madv)
+                    <tr style="text-align: center">
             <td>{{$stt++}}</td>
             <td style="text-align: left">{{$ct['tenpb']}}</td>
             <td>{{$ct['tong']}}</td>
@@ -180,6 +196,9 @@
             <td>{{$ct['gt']}}</td>
             <td>{{$ct['dtin']}}</td>
         </tr>
+                @endif
+            @endforeach
+        @endforeach
     @endforeach
     <tr style="font-weight: bold; text-align: center">
         <td colspan="2">Tổng cộng</td>
