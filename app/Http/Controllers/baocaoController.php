@@ -953,21 +953,21 @@ class baocaoController extends Controller
             'nb_cv'=>0,
             'nb_cs'=>0,
             'nb_cl'=>0);
-        if(strpos(strtolower($msngbac),strtolower('giáo dục'))!==false){
+        if(strpos(strtolower($msngbac),strtolower('chuyên viên cao cấp'))!==false){
             $aKQ['nb_cvcc']=1;
             return $aKQ;
         }
 
-        if(strpos(strtolower($msngbac),strtolower('y tế'))!==false){
-            $aKQ['nb_cvcc']=1;
+        if(strpos(strtolower($msngbac),strtolower('chuyên viên chính'))!==false){
+            $aKQ['nb_cvc']=1;
             return $aKQ;
         }
 
-        if(strpos(strtolower($msngbac),strtolower('khoa học'))!==false){
-            $aKQ['nb_cvcc']=1;
+        if(strpos(strtolower($msngbac),strtolower('chuyên viên'))!==false){
+            $aKQ['nb_cv']=1;
             return $aKQ;
         }
-        if(strpos(strtolower($msngbac),strtolower('văn hóa'))!==false){
+        if(strpos(strtolower($msngbac),strtolower('cán sự'))!==false){
             $aKQ['nb_cs']=1;
             return $aKQ;
         }
