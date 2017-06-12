@@ -174,14 +174,10 @@
                             </a>
                             <ul class="sub-menu" style="margin-left: 15px;">
                                 <li>
-                                    <a href="{{url('/nghiep_vu/ho_so/danh_sach')}}">
-                                    <i class="icon-users"></i>
-                                    Cán bộ đang công tác</a>
+                                    <a href="{{url('/nghiep_vu/ho_so/danh_sach')}}">Cán bộ đang công tác</a>
                                 </li>
                                 <li>
-                                    <a href="{{url('/nghiep_vu/ho_so/thoi_cong_tac')}}">
-                                        <i class="icon-users"></i>
-                                        Cán bộ đã thôi công tác</a>
+                                    <a href="{{url('/nghiep_vu/ho_so/thoi_cong_tac')}}">Cán bộ đã thôi công tác</a>
                                 </li>
                             </ul>
                          </li>

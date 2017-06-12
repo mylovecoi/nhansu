@@ -24,14 +24,18 @@ class HomeController extends Controller
             if(session('admin')->username == 'sa')
                 return redirect('cau_hinh_he_thong');
             else{
+                /*
                 $model=hosocanbo::join('hosotinhtrangct', 'hosocanbo.macanbo', '=', 'hosotinhtrangct.macanbo')
                     ->select('hosocanbo.macanbo','hosocanbo.tencanbo','hosocanbo.ngaysinh','hosocanbo.gioitinh',
                         'hosotinhtrangct.tenct','hosocanbo.sunghiep','hosocanbo.ngayvd','hosocanbo.ngayden','hosocanbo.msngbac')
                     ->where('hosotinhtrangct.hientai','1')
                     ->where('hosotinhtrangct.phanloaict','Đang công tác')
-                    ->where('hosocanbo.madv',session('admin')->maxa)
+                    ->where('hosocanbo.madv',session('admin')->madv)
                     ->get();
-
+                */
+                $model=hosocanbo::where('theodoi','1')
+                    ->where('madv',session('admin')->madv)
+                    ->get();
                 $a_ketqua=array();
                 $a_ketqua['congchuc']=$model->where('sunghiep','Công chức')->count();
                 $a_ketqua['vienchuc']=$model->where('sunghiep','Viên chức')->count();
