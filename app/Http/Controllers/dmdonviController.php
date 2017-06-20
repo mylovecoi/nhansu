@@ -43,7 +43,7 @@ class dmdonviController extends Controller
             $model->madv=$madv;
             $model->save();
             session('admin')->madv=$madv;
-            return redirect('danh_muc/don_vi/index');
+            return redirect('danh_muc/don_vi/maso=all');
         } else
             return view('errors.notlogin');
     }
