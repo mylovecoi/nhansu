@@ -345,7 +345,7 @@
                                     <i class="icon-book-open"></i> Đơn vị <span class="arrow"></span>
                                 </a>
                                     <ul class="sub-menu" style="margin-left: 15px;">
-                                        <li><a href="{{url('danh_muc/don_vi/index')}}">Danh sách đơn vị</a></li>
+                                        <li><a href="{{url('danh_muc/don_vi/maso=all')}}">Danh sách đơn vị</a></li>
                                     </ul>
                             </li>
                         @endif

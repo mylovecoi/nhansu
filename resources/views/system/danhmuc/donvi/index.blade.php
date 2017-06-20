@@ -37,6 +37,19 @@
                     </div>
                 </div>
                 <div class="portlet-body form-horizontal">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Đơn vị quản lý </label>
+                            <div class="col-md-5">
+                                <select class="form-control select2me" class="col-md-5" id="cbmacb" name="cbmacb" onchange="getInfo()">
+                                    <option value="all" selected>-- Chọn đơn vị --</option>
+                                    @foreach($model_kpb as $kpb)
+                                        <option value="{{$kpb->makhoipb}}" {{$makhoipb==$kpb->makhoipb?'selected':''}}>{{$kpb->tenkhoipb}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <table id="sample_3" class="table table-hover table-striped table-bordered" style="min-height: 230px">
                         <thead>
                             <tr>
@@ -108,61 +121,8 @@
     </div>
 
     <script>
-        function addCV(){
-            var date=new Date();
-            $('#dantoc').val('');
-            $('#thieuso').attr('checked',true);
-            $('#id_dt').val(0);
-            $('#chucvu-modal').modal('show');
-        }
-
-        function editCV(e, macv, id){
-            var tr = $(e).closest('tr');
-            $('#dantoc').val($(tr).find('td[name=dantoc]').text());
-            $('#thieuso').prop('checked',$(tr).find('input[name=thieuso]').val()==1?true:false);
-            $('#id_dt').val(id);
-            $('#chucvu-modal').modal('show');
-        }
-
-        function cfCV(){
-            var valid=true;
-            var message='';
-
-            var dantoc=$('#dantoc').val();
-            var thieuso=$('#thieuso').prop('checked')==true?1:0;
-            var id=$('#id_dt').val();
-
-            if(dantoc==''){
-                valid=false;
-                message +='Tên dân tộc không được bỏ trống \n';
-            }
-
-            if(valid){
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                $.ajax({
-                    url: '/danh_muc/dan_toc/store',
-                    type: 'GET',
-                    data: {
-                        _token: CSRF_TOKEN,
-                        dantoc: dantoc,
-                        thieuso: thieuso,
-                        id: id
-                            },
-                    dataType: 'JSON',
-                    success: function (data) {
-                        if (data.status == 'success') {
-                            location.reload();
-                        }
-                    },
-                    error: function(message){
-                        alert(message);
-                    }
-                });
-                $('#chucvu-modal').modal('hide');
-            }else{
-                alert(message);
-            }
-            return valid;
+        function getInfo() {
+            window.location.href = '/danh_muc/don_vi/maso=' + $('#cbmacb').val();
         }
     </script>
 

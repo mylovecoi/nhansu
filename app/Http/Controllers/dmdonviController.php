@@ -13,16 +13,25 @@ use Illuminate\Support\Facades\Session;
 
 class dmdonviController extends Controller
 {
-    public function index(){
+    public function index($makhoipb){
         if (Session::has('admin')) {
             if(session('admin')->level=='T'){
+                $model_kpb=dmkhoipb::all();
                 $m_pb=dmdonvi::all();
+
             }else{//quyền này chỉ chạy cho H, T nen ko cần phần X
-                $m_pb=dmdonvi::where('macqcq',session('admin')->madv)->get();
+                $makpb=getMaKhoiPB(session('admin')->madv);
+                $model_kpb=dmkhoipb::where('makhoipb',$makpb)->get();
+                $m_pb=dmdonvi::where('makhoipb',$makpb)->get();
             }
 
+            if($makhoipb !='all'){
+                $m_pb= $m_pb->where('makhoipb',$makhoipb);
+            }
             return view('system.danhmuc.donvi.index')
+                ->with('makhoipb',$makhoipb)
                 ->with('model',$m_pb)
+                ->with('model_kpb',$model_kpb)
                 ->with('pageTitle','Danh mục đơn vị');
         } else
             return view('errors.notlogin');

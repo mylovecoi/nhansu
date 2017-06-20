@@ -110,7 +110,7 @@ Route::group(['prefix'=>'danh_muc'],function(){
     });
 
     Route::group(['prefix'=>'don_vi'],function(){
-        Route::get('index','dmdonviController@index');
+        Route::get('maso={maso}','dmdonviController@index');
         Route::get('store','dmdonviController@store');
         Route::get('del/{id}','dmdonviController@destroy');
         Route::get('change/maso={madv}','dmdonviController@change');
