@@ -305,7 +305,7 @@
                             </a>
                             <ul class="sub-menu" style="margin-left: 15px;">
                                 @if(session('admin')->level=='T')
-                                    <li><a href="{{url('danh_muc/khoi_pb/index')}}">Đơn vị trực thuộc</a></li>
+                                    <li><a href="{{url('danh_muc/khoi_pb/index')}}">Đơn vị quản lý</a></li>
                                 @endif
                                 <li><a href="{{url('danh_muc/phong_ban/index')}}">Phòng ban</a></li>
                                 <li><a href="{{url('danh_muc/chuc_vu_cq/index')}}">Chức vụ chính quyền</a></li>
@@ -334,7 +334,7 @@
                             <ul class="sub-menu" style="margin-left: 15px;">
                                 <li><a href="{{url('he_thong/don_vi/don_vi')}}">Thông tin đơn vị</a></li>
                                 <li><a href="{{url('he_thong/don_vi/chung')}}">Thông tin chung</a></li>
-                                @if(session('admin')->sadmin == 'sa' || session('admin')->sadmin == 'ssa')
+                                @if(session('admin')->sadmin == 'ssa')
                                     <li><a href="{{url('he_thong/quan_tri/don_vi')}}">Quản lý tài khoản</a></li>
                                 @endif
                             </ul>

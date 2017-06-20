@@ -32,7 +32,7 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption">
-                        DANH MỤC KHỐI PHÒNG BAN
+                        DANH MỤC ĐƠN VỊ QUẢN LÝ
                     </div>
                     <div class="actions">
                         <button type="button" id="_btnaddPB" class="btn btn-success btn-xs" onclick="addPB()"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
@@ -44,7 +44,7 @@
                             <tr>
                                 <th class="text-center" style="width: 10%">STT</th>
                                 <th class="text-center">Mã số</th>
-                                <th class="text-center">Tên khối phòng ban</th>
+                                <th class="text-center">Tên đơn vị</th>
                                 <th class="text-center">Ghi chú</th>
                                 <th class="text-center">Thao tác</th>
                             </tr>
