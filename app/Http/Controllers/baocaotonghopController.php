@@ -19,7 +19,13 @@ class baocaotonghopController extends Controller
     //<editor-fold desc="Mẫu báo cáo đơn vị">
     function donvi() {
         if (Session::has('admin')) {
-            $model_kpb=dmkhoipb::get();
+            if(session('admin')->level=='T'){
+                $model_kpb=dmkhoipb::get();
+            }else{
+                $makpb=getMaKhoiPB(session('admin')->madv);
+                $model_kpb=dmkhoipb::where('makhoipb',$makpb)->get();
+            }
+
             return view('reports.donvi_caphuyen.index')
                 ->with('furl','/tong_hop_bao_cao/don_vi/')
                 ->with('model_kpb',$model_kpb)
@@ -287,7 +293,13 @@ class baocaotonghopController extends Controller
     //các báo cáo lấy dữ liệu cán bộ chưa lọc theo khối phòng ban = >xây dựng lại để tối ưu sql
     function mauchuan() {
         if (Session::has('admin')) {
-            $model_kpb=dmkhoipb::get();
+            if(session('admin')->level=='T'){
+                $model_kpb=dmkhoipb::get();
+            }else{
+                $makpb=getMaKhoiPB(session('admin')->madv);
+                $model_kpb=dmkhoipb::where('makhoipb',$makpb)->get();
+            }
+
             return view('reports.mauchuan_caphuyen.index')
                 ->with('furl','/tong_hop_bao_cao/mau_chuan/')
                 ->with('model_kpb',$model_kpb)
