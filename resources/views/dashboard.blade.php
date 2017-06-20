@@ -99,26 +99,6 @@
             </div>
         </div>
 
-        <!--div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="dashboard-stat blue-madison">
-                            <div class="visual">
-                                <i class="fa fa-truck"></i>
-                            </div>
-                            <div class="details">
-                                <div class="number"></div>
-                                <div class="desc">
-                                    Giá vận tải chở hàng
-
-                                </div>
-                            </div>
-                            <a class="more" href="
-                                {{(session('admin')->level == 'T')? url('/dich_vu_van_tai/dich_vu_cho_hang/xet_duyet/'.'thang='.date('m').'&nam='.date('Y').'&pl=cho_nhan')
-                                : url('/dich_vu_van_tai/dich_vu_cho_hang/ke_khai')}}">
-                                Xem chi tiết<i class="m-icon-swapright m-icon-white"></i>
-                            </a>
-                        </div>
-                    </div-->
-
     </div>
 
     <div class="row">
@@ -227,8 +207,8 @@
                         @if(isset($m_sinhnhat))
                             @foreach($m_sinhnhat as $key=>$value)
                                 <tr>
+                                    <td>{{$key+1}}</td>
                                     <td>{{$value->tencanbo}}</td>
-                                    <td>{{$value->msngbac}}</td>
                                     <td>{{getDayVn($value->ngaysinh)}}</td>
                                 </tr>
                             @endforeach

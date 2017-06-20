@@ -26,6 +26,8 @@ class CreateDmdonviTable extends Migration
             $table->string('nguoilapbieu')->nullable();
             $table->string('makhoipb')->nullable();
             $table->string('level')->nullable();
+
+            $table->string('capdonvi')->nullable();//đơn vị cấp X, H, T
             $table->timestamps();
         });
     }

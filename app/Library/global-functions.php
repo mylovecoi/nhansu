@@ -247,4 +247,10 @@ function getConditions($inputs, $exists, $table)
     }
     return $s_sql;
 }
+function convert2date($ngaythang){
+    if($ngaythang==''){
+        return null;
+    }
+    return date('Y-m-d', strtotime(str_replace('/', '-', $ngaythang)));
+}
 ?>

@@ -239,7 +239,7 @@
                         </li>
                         <!--
                         <li>
-                            <a href="{{url('chuc_nang/dao_tao_boi_duong/danh_sach')}}">Đào tạo, bồi dưỡng</a>
+                            <a href="{{url('chuc_nang/dao_tao/danh_sach')}}">Đào tạo, bồi dưỡng</a>
                         </li>
                         <li>
                             <a href="{{url('chuc_nang/thuyen_chuyen/danh_sach')}}">Thuyên chuyển, điều động</a>
@@ -279,7 +279,7 @@
 					</ul>
 				</li>
                 <!-- dành cho đơn vị chủ quản -->
-
+@if(session('admin')->level=='T' || session('admin')->level=='H')
                 <li>
                     <a href="javascript:;">
                         <i class="fa fa-file-text"></i>
@@ -291,7 +291,7 @@
                         <li><a href="{{url('tong_hop_bao_cao/mau_chuan')}}">Báo cáo theo thông tư, quyết định</a></li>
                     </ul>
                 </li>
-
+@endif
 				<li class="last">
 					<a href="javascript:;">
 					<i class="fa fa-gear"></i>

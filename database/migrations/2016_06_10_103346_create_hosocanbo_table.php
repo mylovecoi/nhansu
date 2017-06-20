@@ -23,7 +23,6 @@ class CreateHosocanboTable extends Migration
             $table->foreign('macvd')->references('macvd')->on('dmchucvud')->onUpdate('cascade')->onDelete('set null');
 
             $table->string('macanbo', 50)->unique();
-
             $table->string('anh', 150)->nullable();
             $table->string('macongchuc', 50)->nullable();
             $table->string('sunghiep', 100)->nullable();
@@ -106,28 +105,7 @@ class CreateHosocanboTable extends Migration
             $table->double('heso')->default(0);
             $table->double('vuotkhung')->default(0);
             $table->double('pthuong')->default(100);
-            $table->double('pcct')->default(0);
-            $table->double('pckct')->default(0);
-            $table->double('pck')->default(0);
-            $table->double('pccv')->default(0);
-            $table->double('pckv')->default(0);
-            $table->double('pcth')->default(0);
-            $table->double('pcdd')->default(0);
-            $table->double('pcdh')->default(0);
-            $table->double('pcld')->default(0);
-            $table->double('pcdbqh')->default(0);
-            $table->double('pcudn')->default(0);
-            $table->double('pctn')->default(0);
-            $table->double('pctnn')->default(0);
-            $table->double('pcdbn')->default(0);
-            $table->double('pcvk')->default(0);
-            $table->double('pckn')->default(0);
-            $table->double('pcdang')->default(0);
-            $table->double('pccovu')->default(0);
-            $table->double('pclt')->default(0);
-            $table->double('pcd')->default(0);
-            $table->double('pctr')->default(0);
-            //gộp bảng hosotinhtrangct vào để theo dõi
+
             $table->string('phanloaict')->nullable();
             $table->string('kieuct')->nullable();
             $table->string('tenct')->nullable();
@@ -137,6 +115,8 @@ class CreateHosocanboTable extends Migration
             $table->date('ngaybonhiemlandau')->nullable();//ngày bổ nhiệm lần đầu chức vụ chính quyền
             $table->date('ngaybonhiemlai')->nullable();//ngày bổ nhiệm lại chức vụ
             $table->string('nhiemky')->nullable();//nhiệm kỳ đối với cán bộ chuyên trách
+            $table->string('capchuyenden')->nullable();//cán bộ luân chuyển cấp X, H, T
+            $table->double('heso_truythu')->default(0);//sau khi tạo bảng lương -> set = 0;
             $table->timestamps();
         });
     }

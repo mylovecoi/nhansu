@@ -259,6 +259,34 @@ Route::group(['prefix'=>'chuc_nang'],function(){
         Route::get('/maso={mahts}','dshettapsuController@show');
         Route::get('del/{id}','dshettapsuController@destroy');
     });
+
+    Route::group(['prefix'=>'dao_tao'],function(){
+        Route::get('danh_sach','dsdaotaoController@index');
+        Route::get('update/{id}','dsdaotaoController@update');
+        Route::get('create','dsdaotaoController@create');
+        Route::post('store','dsdaotaoController@store');
+        Route::get('/maso={mads}','dsdaotaoController@show');
+        Route::patch('/maso={mads}','dsdaotaoController@update');
+        Route::get('del/{id}','dsdaotaoController@destroy');
+
+        Route::get('get_canbo_temp','dsdaotaoController@get_canbo_temp');
+        Route::get('add_canbo_temp','dsdaotaoController@add_canbo_temp');
+        Route::get('del_canbo_temp','dsdaotaoController@del_canbo_temp');
+    });
+    Route::group(['prefix'=>'buoc_thoi_viec'],function(){
+        Route::get('danh_sach','dshettapsuController@index');
+        Route::get('update/{id}','dshettapsuController@update');
+        Route::get('create','dshettapsuController@create');
+        Route::get('/maso={mahts}','dshettapsuController@show');
+        Route::get('del/{id}','dshettapsuController@destroy');
+    });
+    Route::group(['prefix'=>'thuyen_chuyen'],function(){
+        Route::get('danh_sach','dshettapsuController@index');
+        Route::get('update/{id}','dshettapsuController@update');
+        Route::get('create','dshettapsuController@create');
+        Route::get('/maso={mahts}','dshettapsuController@show');
+        Route::get('del/{id}','dshettapsuController@destroy');
+    });
 });
 
 Route::group(['prefix'=>'bao_cao'],function(){

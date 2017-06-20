@@ -15,7 +15,12 @@ class dmdonviController extends Controller
 {
     public function index(){
         if (Session::has('admin')) {
-            $m_pb=dmdonvi::all();
+            if(session('admin')->level=='T'){
+                $m_pb=dmdonvi::all();
+            }else{//quyền này chỉ chạy cho H, T nen ko cần phần X
+                $m_pb=dmdonvi::where('macqcq',session('admin')->madv)->get();
+            }
+
             return view('system.danhmuc.donvi.index')
                 ->with('model',$m_pb)
                 ->with('pageTitle','Danh mục đơn vị');
@@ -137,7 +142,11 @@ class dmdonviController extends Controller
 
     public function information_manage(){
         if (Session::has('admin')) {
-            $model=dmdonvi::all();
+            if(session('admin')->level=='T'){
+                $model=dmdonvi::all();
+            }else{//quyền này chỉ chạy cho H, T nen ko cần phần X
+                $model=dmdonvi::where('macqcq',session('admin')->madv)->get();
+            }
             return view('system.manage.index')
                 ->with('model',$model)
                 ->with('url','/he_thong/quan_tri/')

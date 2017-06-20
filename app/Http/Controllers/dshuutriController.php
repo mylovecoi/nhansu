@@ -38,11 +38,11 @@ class dshuutriController extends Controller
         }
 
         $inputs=$request->all();
-        $maht = session('admin')->maxa .'.'.getdate()[0];
+        $maht = session('admin')->madv .'.'.getdate()[0];
 
         $model = new dshuutri();
         $model->maht=$maht;
-        $model->madv=session('admin')->maxa;
+        $model->madv=session('admin')->madv;
         $model->soqd=$inputs['soqd'];
         $model->ngayqd=$inputs['ngayqd'];
         $model->nguoiky=$inputs['nguoiky'];
