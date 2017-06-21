@@ -436,7 +436,7 @@ class hosocanboController extends Controller
         if (Session::has('admin')) {
             $_sql="select hosocanbo.id,hosocanbo.macanbo,hosocanbo.tencanbo,hosocanbo.anh,hosocanbo.macvcq,hosocanbo.mapb,hosocanbo.gioitinh,dmchucvucq.sapxep,hosocanbo.ngaysinh
                    from hosocanbo, dmchucvucq
-                   Where hosocanbo.macanbo=hosotinhtrangct.macanbo and hosocanbo.macvcq=dmchucvucq.macvcq and
+                   Where hosocanbo.macvcq=dmchucvucq.macvcq and
                       hosocanbo.theodoi ='1'";
 
             $inputs=$request->all();

@@ -137,12 +137,10 @@ class hosodaotaoController extends Controller
     function result(Request $request){
         if (Session::has('admin')) {
             $model=hosocanbo::join('dmchucvucq', 'hosocanbo.macvcq', '=', 'dmchucvucq.macvcq')
-                ->join('hosotinhtrangct', 'hosocanbo.macanbo', '=', 'hosotinhtrangct.macanbo')
                 ->join('hosodaotao', 'hosocanbo.macanbo', '=', 'hosodaotao.macanbo')
                 ->select('hosocanbo.macanbo','hosocanbo.tencanbo','hosocanbo.macvcq','hosocanbo.mapb','hosocanbo.gioitinh'
                     ,'hosodaotao.ngaytu','hosodaotao.ngayden','hosodaotao.vanbang','hosodaotao.phanloai','hosodaotao.hinhthuc')
-                ->where('hosotinhtrangct.hientai','1')
-                ->where('hosotinhtrangct.phanloaict','Đang công tác')
+                ->where('hosodaotao.theodoi','1')
                 ->get();
 
             $inputs=$request->all();
