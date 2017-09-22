@@ -272,9 +272,12 @@ class hosocanboController extends Controller
             $m_pln=ngachbac::select('tennb','plnb','msngbac')->distinct()->get();
             $m_bac=ngachbac::select('bac')->distinct()->get();
             $m_pc=dmphucap::all('mapc','tenpc','hesopc')->toArray();
+
+            /*
             $model_phucap= phucapdanghuong::join('dmphucap','phucapdanghuong.mapc','dmphucap.mapc')
                 ->select('phucapdanghuong.*','dmphucap.tenpc')
                 ->where('phucapdanghuong.macanbo',$model->macanbo)->get();
+            */
 
             //dd($m_hosoct);
             return view('manage.hosocanbo.edit')
@@ -291,7 +294,7 @@ class hosocanboController extends Controller
                 ->with('m_pln',$m_pln)
                 ->with('m_bac',$m_bac)
                 ->with('m_pc',$m_pc)
-                ->with('model_phucap',$model_phucap)
+                //->with('model_phucap',$model_phucap)
                 ->with('pageTitle','Sửa thông tin hồ sơ cán bộ');
         } else
             return view('errors.notlogin');

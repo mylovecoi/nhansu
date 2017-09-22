@@ -414,11 +414,11 @@ class baocaoController extends Controller
             for($i=0;$i<count($data);$i++){
                 $tuoi = $this->getage($data[$i]['ngaysinh'],$ngaybc);
                 $nhom = $this->getnhom($tuoi,$data[$i]['gioitinh'] );
-
+                $msngbac=isset($m_pl[$data[$i]['msngbac']])?$m_pl[$data[$i]['msngbac']]:'';
                 $data[$i]=array_merge($data[$i],$this->getChuyenMon($data[$i]['tdcm']),
                     $this->getTinHoc($data[$i]['trinhdoth']),$this->getChinhTri($data[$i]['llct']),
                     $this->getNgoaiNgu($data[$i]['trinhdonn'],$data[$i]['ngoaingu']),
-                    $this->getLinhVuc($data[$i]['lvhd']),$this->getNgach($m_pl[$data[$i]['msngbac']]),
+                    $this->getLinhVuc($data[$i]['lvhd']),$this->getNgach($msngbac),
                     $this->getTuoi($nhom),
                     array('dv'=>$data[$i]['ngayvdct']=='0000-00-00'?0:1,
                             'gt'=>$data[$i]['gioitinh']=='Nam'?0:1,
@@ -501,11 +501,11 @@ class baocaoController extends Controller
             for($i=0;$i<count($data);$i++){
                 $tuoi = $this->getage($data[$i]['ngaysinh'],$ngaybc);
                 $nhom = $this->getnhom($tuoi,$data[$i]['gioitinh'] );
-
+                $msngbac=$m_pl[$data[$i]['msngbac']];
                 $data[$i]=array_merge($data[$i],$this->getChuyenMon($data[$i]['tdcm']),
                     $this->getTinHoc($data[$i]['trinhdoth']),$this->getChinhTri($data[$i]['llct']),
                     $this->getNgoaiNgu($data[$i]['trinhdonn'],$data[$i]['ngoaingu']),
-                    $this->getLinhVuc($data[$i]['lvhd']),$this->getNgach($m_pl[$data[$i]['msngbac']]),
+                    $this->getLinhVuc($data[$i]['lvhd']),$this->getNgach($msngbac),
                     $this->getTuoi($nhom),
                     array('dv'=>$data[$i]['ngayvdct']=='0000-00-00'?0:1,
                         'gt'=>$data[$i]['gioitinh']=='Nam'?0:1,
@@ -651,14 +651,15 @@ class baocaoController extends Controller
             $m_pl=array_column((phanloaingach::select('phanloai','msngbac')->get()->toarray()),'phanloai','msngbac');
             $ngaybc=$inputs['ngaybaocao'];
 
+
             for($i=0;$i<count($data);$i++){
                 $tuoi = $this->getage($data[$i]['ngaysinh'],$ngaybc);
                 $nhom = $this->getnhom($tuoi,$data[$i]['gioitinh'] );
-
+                $msngbac=isset($m_pl[$data[$i]['msngbac']])?$m_pl[$data[$i]['msngbac']]:'';
                 $data[$i]=array_merge($data[$i],$this->getChuyenMon($data[$i]['tdcm']),
                     $this->getTinHoc($data[$i]['trinhdoth']),$this->getChinhTri($data[$i]['llct']),
                     $this->getNgoaiNgu($data[$i]['trinhdonn'],$data[$i]['ngoaingu']),
-                    $this->getLinhVuc($data[$i]['lvhd']),$this->getNgach($m_pl[$data[$i]['msngbac']]),
+                    $this->getLinhVuc($data[$i]['lvhd']),$this->getNgach($msngbac),
                     $this->getTuoi2($nhom),
                     array('dv'=>$data[$i]['ngayvdct']=='0000-00-00'?0:1,
                         'gt'=>$data[$i]['gioitinh']=='Nam'?0:1,

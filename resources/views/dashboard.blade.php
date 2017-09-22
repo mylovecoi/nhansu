@@ -126,9 +126,10 @@
                         </thead>
                         <tbody>
                         @if(isset($m_nangluong))
+                            <?php $i=1;?>
                             @foreach($m_nangluong as $key=>$value)
                                 <tr>
-                                    <td>{{$key+1}}</td>
+                                    <td>{{$i++}}</td>
                                     <td>{{$value->tencanbo}}</td>
                                     <td>{{$value->msngbac}}</td>
                                     <td>{{getDayVn($value->ngayden)}}</td>
@@ -205,9 +206,10 @@
                         </thead>
                         <tbody>
                         @if(isset($m_sinhnhat))
+                            <?php $i=1;?>
                             @foreach($m_sinhnhat as $key=>$value)
                                 <tr>
-                                    <td>{{$key+1}}</td>
+                                    <td>{{$i++}}</td>
                                     <td>{{$value->tencanbo}}</td>
                                     <td>{{getDayVn($value->ngaysinh)}}</td>
                                 </tr>
@@ -243,11 +245,12 @@
                         </thead>
                         <tbody>
                         @if(isset($m_hettapsu))
+                            <?php $i=1;?>
                             @foreach($m_hettapsu as $key=>$value)
                                 <tr>
+                                    <td>{{$i++}}</td>
                                     <td>{{$value->tencanbo}}</td>
                                     <td>{{$value->msngbac}}</td>
-                                    <td>{{''}}</td>
                                 </tr>
                             @endforeach
                         @else
