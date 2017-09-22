@@ -325,7 +325,8 @@ class baocaotonghopController extends Controller
                 }else{
                     $nsnu=$ngaysinh->year;
                 }
-                $model[$i]=array_merge($model[$i],array('tenpb'=>$m_dmpb[$model[$i]['mapb']],
+                $tenpb=isset($m_dmpb[$model[$i]['mapb']])?$m_dmpb[$model[$i]['mapb']]:'';
+                $model[$i]=array_merge($model[$i],array('tenpb'=>$tenpb,
                                         'tencv'=>$m_dmcv[$model[$i]['macvcq']],
                                         'nsnam'=>$nsnam,'nsnu'=>$nsnu));
             }
@@ -383,7 +384,8 @@ class baocaotonghopController extends Controller
                 }else{
                     $nsnu=$ngaysinh->year;
                 }
-                $model[$i]=array_merge($model[$i],array('tenpb'=>$m_dmpb[$model[$i]['mapb']],
+                $tenpb=isset($m_dmpb[$model[$i]['mapb']])?$m_dmpb[$model[$i]['mapb']]:'';
+                $model[$i]=array_merge($model[$i],array('tenpb'=>$tenpb,
                     'tencv'=>$m_dmcv[$model[$i]['macvcq']],
                     'nsnam'=>$nsnam,'nsnu'=>$nsnu,
                     'thituyen'=>$thituyen,'xettuyen'=>$xettuyen));
@@ -423,14 +425,14 @@ class baocaotonghopController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model=$this->getDSth($inputs);
-
             $m_dmcv=array_column((dmchucvucq::select('macvcq','tencv')->get()->toarray()),'tencv', 'macvcq');
             $m_dmpb=array_column((dmphongban::select('mapb','tenpb')->get()->toarray()),'tenpb', 'mapb');
             for($i=0;$i<count($model);$i++){
                 if($model[$i]['ngayvdct']>$inputs['ngaybaocao']){
                     $model[$i]['ngayvdct']='0000-00-00';
                 }
-                $model[$i]=array_merge($model[$i],array('tenpb'=>$m_dmpb[$model[$i]['mapb']],
+                $tenpb=isset($m_dmpb[$model[$i]['mapb']])?$m_dmpb[$model[$i]['mapb']]:'';
+                $model[$i]=array_merge($model[$i],array('tenpb'=>$tenpb,
                     'tencv'=>$m_dmcv[$model[$i]['macvcq']]),$this->getChuyenMon($model[$i]['tdcm']),
                     $this->getTinHoc($model[$i]['trinhdoth']),$this->getChinhTri($model[$i]['llct']),
                     $this->getNgoaiNgu($model[$i]['trinhdonn'],$model[$i]['ngoaingu']),
@@ -487,7 +489,8 @@ class baocaotonghopController extends Controller
             $m_dmcv=array_column((dmchucvucq::select('macvcq','tencv')->get()->toarray()),'tencv', 'macvcq');
             $m_dmpb=array_column((dmphongban::select('mapb','tenpb')->get()->toarray()),'tenpb', 'mapb');
             for($i=0;$i<count($model);$i++){
-                $model[$i]=array_merge($model[$i],array('tenpb'=>$m_dmpb[$model[$i]['mapb']],
+                $tenpb=isset($m_dmpb[$model[$i]['mapb']])?$m_dmpb[$model[$i]['mapb']]:'';
+                $model[$i]=array_merge($model[$i],array('tenpb'=>$tenpb,
                     'tencv'=>$m_dmcv[$model[$i]['macvcq']]),$this->getChuyenMon($model[$i]['tdcm']),
                     $this->getTinHoc($model[$i]['trinhdoth']),$this->getChinhTri($model[$i]['llct']),
                     $this->getNgoaiNgu($model[$i]['trinhdonn'],$model[$i]['ngoaingu']),
@@ -580,7 +583,8 @@ class baocaotonghopController extends Controller
                     'gt'=>array_sum(array_column($dt,'gt')),
                     'dtin'=>array_sum(array_column($dt,'dtin'))
                 );
-                $model[$i]=array_merge($model[$i],array('tenpb'=>$m_dmpb[$data[$i]['mapb']]),$solieu);
+                $tenpb=isset($m_dmpb[$data[$i]['mapb']])?$m_dmpb[$data[$i]['mapb']]:'';
+                $model[$i]=array_merge($model[$i],array('tenpb'=>$tenpb),$solieu);
             }
 
             $thongtin=array('ngaybaocao'=>$inputs['ngaybaocao'],
@@ -681,7 +685,8 @@ class baocaotonghopController extends Controller
                     'gt'=>array_sum(array_column($dt,'gt')),
                     'dtin'=>array_sum(array_column($dt,'dtin'))
                 );
-                $model[$i]=array_merge($model[$i],array('tenpb'=>$m_dmpb[$data[$i]['mapb']]),$solieu);
+                $tenpb=isset($m_dmpb[$data[$i]['mapb']])?$m_dmpb[$data[$i]['mapb']]:'';
+                $model[$i]=array_merge($model[$i],array('tenpb'=>$tenpb),$solieu);
             }
 
             $thongtin=array('ngaybaocao'=>$inputs['ngaybaocao'],
@@ -725,7 +730,8 @@ class baocaotonghopController extends Controller
                 if($model[$i]['ngayvdct']>$inputs['ngaybaocao']){
                     $model[$i]['ngayvdct']='0000-00-00';
                 }
-                $model[$i]=array_merge($model[$i],array('tenpb'=>$m_dmpb[$model[$i]['mapb']],
+                $tenpb=isset($m_dmpb[$model[$i]['mapb']])?$m_dmpb[$model[$i]['mapb']]:'';
+                $model[$i]=array_merge($model[$i],array('tenpb'=>$tenpb,
                     'tencv'=>$m_dmcv[$model[$i]['macvcq']]),$this->getChuyenMon($model[$i]['tdcm']),
                     $this->getTinHoc($model[$i]['trinhdoth']),$this->getChinhTri($model[$i]['llct']),
                     $this->getNgoaiNgu($model[$i]['trinhdonn'],$model[$i]['ngoaingu']),
@@ -773,7 +779,8 @@ class baocaotonghopController extends Controller
                 if($model[$i]['ngayvdct']>$inputs['ngaybaocao']){
                     $model[$i]['ngayvdct']='0000-00-00';
                 }
-                $model[$i]=array_merge($model[$i],array('tenpb'=>$m_dmpb[$model[$i]['mapb']],
+                $tenpb=isset($m_dmpb[$model[$i]['mapb']])?$m_dmpb[$model[$i]['mapb']]:'';
+                $model[$i]=array_merge($model[$i],array('tenpb'=>$tenpb,
                     'tencv'=>$m_dmcv[$model[$i]['macvcq']]),$this->getChuyenMon($model[$i]['tdcm']),
                     $this->getTinHoc($model[$i]['trinhdoth']),$this->getChinhTri($model[$i]['llct']),
                     $this->getNgoaiNgu($model[$i]['trinhdonn'],$model[$i]['ngoaingu']),
