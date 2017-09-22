@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\dmbaomat;
+use App\dmdonvi;
+use App\dmdonvibaocao;
 use App\DnDvLt;
 use App\DnDvLtReg;
 use App\DonViDvVt;
@@ -12,10 +15,135 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller
 {
+    public function index($level){
+        //nếu tài khoản ssa, sa thì ko kiểm tra
+        //kiểm tra xem tài khoản có thể quản lý tài khoản của đơn vị nào
+        if (Session::has('admin')) {
+            if(session('admin')->level !='SA' && session('admin')->level !='SSA'){
+                return view('errors.noperm');
+            }
+            $a_baomat=array('H'=>'Cấp huyện','T'=>'Cấp tỉnh');
+            $model=dmdonvibaocao::where('level',$level)->get();
+            return view('system.users.index')
+                ->with('model',$model)
+                ->with('level',$level)
+                ->with('a_baomat',$a_baomat)
+                ->with('furl','/danh_muc/tai_khoan/')
+                ->with('pageTitle','Danh mục khu vực, địa bàn quản lý');
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function list_users(Request $request){
+        if (Session::has('admin')) {
+            $inputs=$request->all();
+
+            //Danh sách khu vực địa bàn
+            if(isset($inputs['level'])){
+                $a_baomat=array('H'=>'Cấp huyện','T'=>'Cấp tỉnh');
+                $model=dmdonvibaocao::where('level',$inputs['level'])->get();
+                return view('system.users.index')
+                    ->with('model',$model)
+                    ->with('level',$inputs['level'])
+                    ->with('a_baomat',$a_baomat)
+                    ->with('furl','/danh_muc/tai_khoan/')
+                    ->with('pageTitle','Danh mục khu vực, địa bàn quản lý');
+            }
+
+            //Danh sách đơn vị theo địa bàn
+            if(isset($inputs['madb'])) {
+                $model_donvi = dmdonvi::select('madv', 'tendv')->where('madvbc', $inputs['madb'])->get();
+                $madv = $model_donvi->first()->madv;
+                $model = Users::where('madv', $madv)->get();
+
+                return view('system.users.index_users')
+                    ->with('model', $model)
+                    ->with('madv', $madv)
+                    ->with('model_donvi', array_column($model_donvi->toarray(), 'tendv', 'madv'))
+                    ->with('url', '/danh_muc/tai_khoan/')
+                    ->with('pageTitle', 'Danh mục tài khoản sử dụng');
+            }
+
+            //Danh sách tài khoản theo đơn vị
+            if(isset($inputs['madv'])) {
+                $donvi= dmdonvi::where('madv', $inputs['madv'])->first();
+                $model_donvi = dmdonvi::select('madv', 'tendv')->where('madvbc', $donvi->madvbc)->get();
+                $model = Users::where('madv', $inputs['madv'])->get();
+                return view('system.users.index_users')
+                    ->with('model', $model)
+                    ->with('madv', $inputs['madv'])
+                    ->with('model_donvi', array_column($model_donvi->toarray(), 'tendv', 'madv'))
+                    ->with('url', '/danh_muc/tai_khoan/')
+                    ->with('pageTitle', 'Danh mục tài khoản sử dụng');
+            }
+
+            //Chỉnh sửa thông tin người dùng
+            if(isset($inputs['username'])) {
+                $model = Users::where('username', $inputs['username'])->first();
+                return view('system.users.edit')
+                    ->with('model', $model)
+                    ->with('url', '/danh_muc/tai_khoan/')
+                    ->with('pageTitle', 'Danh mục tài khoản sử dụng');
+            }
+
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function create($madv)
+    {
+        if (Session::has('admin')) {
+            return view('system.users.create')
+                ->with('madv', $madv)
+                ->with('url', '/danh_muc/tai_khoan/')
+                ->with('pageTitle', 'Tạo mới tài khoản người dùng');
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function update(Request $request, $id)
+    {
+        if (Session::has('admin')) {
+            $input = $request->all();
+            $model = Users::findOrFail($id);
+            $model->name = $input['name'];
+            $model->phone = $input['phone'];
+            $model->email = $input['email'];
+            $model->status = $input['status'];
+            $model->username = $input['username'];
+            if ($input['newpass'] != '')
+                $model->password = md5($input['newpass']);
+            $model->save();
+
+            return redirect('/danh_muc/tai_khoan/list_user?&madv=' . $model->madv);
+
+        } else {
+            return redirect('');
+        }
+    }
+    public function store(Request $request)
+    {
+        if (Session::has('admin')) {
+            $input = $request->all();
+            $donvi = dmdonvi::where('madv',$input['madv'])->first();
+            $input['maxa']=$donvi->madv;
+            $input['level']=$donvi->level;
+            $input['password']= md5($input['password']);
+            $input['permission']= getPermissionDefault($donvi->level);
+            Users::create($input);
+
+            return redirect('/danh_muc/tai_khoan/list_user?&madv=' . $input['madv']);
+
+        } else {
+            return redirect('');
+        }
+    }
+
     public function login()
     {
         if (Session::has('admin')) {
@@ -31,9 +159,19 @@ class UsersController extends Controller
         $check = Users::where('username', $input['username'])->count();
         if ($check == 0)
             return view('errors.invalid-user');
-        else
+        else{
             $ttuser = Users::where('username', $input['username'])->first();
 
+            $ttuser->macqcq='';
+            $ttuser->makhoipb='';
+            $ttuser->makhuvuc='';
+            $ttuser->madvbc='';
+            //kiểm tra xem user thuộc đơn vị nào, nếu ko thuộc đơn vị nào (trừ tài khoản quản trị) => đăng nhập ko thành công
+        }
+
+
+        //thêm mã đơn vị báo cáo, mã khối phòng ban, mã cqcq
+        //dd($ttuser);
         if (md5($input['password']) == $ttuser->password) {
             if ($ttuser->status == "Kích hoạt") {
                 Session::put('admin', $ttuser);
@@ -48,28 +186,19 @@ class UsersController extends Controller
 
     public function cp()
     {
-
         if (Session::has('admin')) {
-
             return view('system.users.change-pass')
                 ->with('pageTitle', 'Thay đổi mật khẩu');
-
         } else
             return view('errors.notlogin');
-
     }
 
     public function cpw(Request $request)
     {
-
         $update = $request->all();
-
         $username = session('admin')->username;
-
         $password = session('admin')->password;
-
         $newpass2 = $update['newpassword2'];
-
         $currentPassword = $update['current-password'];
 
         if (md5($currentPassword) == $password) {
@@ -140,74 +269,43 @@ class UsersController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+
+
+    public function destroy($username)
+    {//chưa làm
         if (Session::has('admin')) {
-            $input = $request->all();
-            $model = Users::findOrFail($id);
-            $model->name = $input['name'];
-            $model->phone = $input['phone'];
-            $model->email = $input['email'];
-            $model->status = $input['status'];
-            $model->username = $input['username'];
-            if ($input['newpass'] != '')
-                $model->password = md5($input['newpass']);
-            $model->save();
-            if ($model->pldv == 'DVLT')
-                $pl = 'dich_vu_luu_tru';
-            elseif ($model->pldv == 'DVVT')
-                $pl = 'dich_vu_van_tai';
-            else
-                $pl = 'quan_ly';
-
-            return redirect('users/pl=' . $pl);
-
-        } else {
-            return redirect('');
-        }
-    }
-
-    public function destroy(Request $request)
-    {
-        if (Session::has('admin')) {
-            $id = $request->all()['iddelete'];
-            $model = Users::findorFail($id);
-
-            if ($model->level == 'T')
-                $pl = 'quan_ly';
-            elseif ($model->level == 'DVLT')
-                $pl = 'dich_vu_luu_tru';
-            elseif ($model->level == 'DVVT')
-                $pl = 'dich_vu_van_tai';
-
+            $model = Users::where('username',$username)->first();
             $model->delete();
 
-            return redirect('users/pl=' . $pl);
+            return redirect('/danh_muc/tai_khoan/list_user?&madv='.$model->madv);
 
         } else
             return view('errors.notlogin');
     }
 
-    public function permission($id)
+    public function permission($username)
     {
         if (Session::has('admin')) {
+            $model = Users::where('username',$username)->first();
+            $model_baomat=dmbaomat::select('macapdo','tencapdo','default_val')->where('level',$model->level)->get();
+            $permission = json_decode(!empty($model->permission) ? $model->permission : getPermissionDefault($model->level));
 
-            $model = Users::findorFail($id);
-            if($model->level == 'DVVT') {
-                $ttdn = DonViDvVt::where('masothue',$model->mahuyen)
-                    ->first();
-                $setting = $ttdn->setting;
+            //không dùng trực tiếp view do trường hợp người dùng thêm danh mục bảo mật
+            foreach($permission->view as $key=>$value){
+                foreach($model_baomat as $baomat){
+                    if($baomat->macapdo==$key){
+                        $baomat->default_val=$value;
+                    }
+                }
+            }
 
-            }else
-                $setting = '';
-            $permission = !empty($model->permission) ? $model->permission : getPermissionDefault($model->level);
-            //dd(json_decode($permission));
             return view('system.users.perms')
-                ->with('permission', json_decode($permission))
-                ->with('setting',$setting)
+                ->with('permission', $permission)
+                ->with('url', '/danh_muc/tai_khoan/')
+                ->with('model', $model)
+                ->with('model_baomat', $model_baomat)
                 ->with('model', $model)
                 ->with('pageTitle', 'Phân quyền cho tài khoản');
-
         } else
             return view('errors.notlogin');
     }
@@ -216,22 +314,17 @@ class UsersController extends Controller
     {
         if (Session::has('admin')) {
             $update = $request->all();
-            $id = $request['id'];
+            //dd($request);
+            //$id = $request['id'];
 
-            $model = Users::findOrFail($id);
+            $model = Users::where('username',$update['username'])->first();
             //dd($model);
             if (isset($model)) {
-
                 $update['roles'] = isset($update['roles']) ? $update['roles'] : null;
                 $model->permission = json_encode($update['roles']);
                 $model->save();
-                if ($model->level == 'T')
-                    $pl = 'quan_ly';
-                elseif ($model->level == 'DVLT')
-                    $pl = 'dich_vu_luu_tru';
-                elseif ($model->level == 'DVVT')
-                    $pl = 'dich_vu_van_tai';
-                return redirect('users/pl=' . $pl);
+
+                return redirect('/danh_muc/tai_khoan/list_user?&madv='.$model->madv);
 
             } else
                 dd('Tài khoản không tồn tại');
@@ -269,133 +362,5 @@ class UsersController extends Controller
         }
         return redirect('users/pl='.$pl);
 
-    }
-
-    public function register($pl){
-        if (Session::has('admin')) {
-            if($pl == 'dich_vu_luu_tru'){
-                $model = Register::where('pl','DVLT')
-                    ->get();
-            }elseif($pl== 'dich_vu_van_tai'){
-                $model = Register::where('pl','DVVT')
-                    ->get();
-            }
-            return view('system.users.register.index')
-                ->with('model',$model)
-                ->with('pl',$pl)
-                ->with('pageTitle','Thông tin tài khoản đăng ký');
-
-        } else
-            return view('errors.notlogin');
-    }
-
-    public function registershow($id){
-        if (Session::has('admin')) {
-            $model = Register::findOrFail($id);
-            if($model->pl == 'DVLT'){
-                return view('system.users.register.dvlt')
-                    ->with('model',$model)
-                    ->with('pageTitle','Thông tin đăng ký tài khoản dịch vụ lưu trú');
-            }elseif($model->pl == 'DVVT'){
-                return view('system.users.register.dvvt')
-                    ->with('model',$model)
-                    ->with('pageTitle','Thông tin đăng ký tài khoản dịch vụ vận tải');
-            }
-        }else
-            return view('errors.notlogin');
-
-    }
-
-    public function registerdvlt(Request $request){
-        if (Session::has('admin')) {
-            $input = $request->all();
-            $id = $input['idregister'];
-            $model = Register::findOrFail($id);
-            $modeldn = new DnDvLt();
-            $modeldn->tendn = $model->tendn;
-            $modeldn->masothue = $model->masothue;
-            $modeldn->teldn = $model->teldn;
-            $modeldn->faxdn = $model->faxdn;
-            $modeldn->email = $model->email;
-            $modeldn->diachidn = $model->diachidn;
-            $modeldn->trangthai = 'Kích hoạt';
-            $modeldn->noidknopthue = $model->noidknopthue;
-            $modeldn->tailieu = $model->tailieu;
-            if($modeldn->save()){
-                $modeluser = new Users();
-                $modeluser->name = $model->tendn;
-                $modeluser->username = $model->username;
-                $modeluser->password = $model->password;
-                $modeluser->phone = $model->teldn;
-                $modeluser->email = $model->email;
-                $modeluser->status = 'Kích hoạt';
-                $modeluser->mahuyen = $model->masothue;
-                $modeluser->level = 'DVLT';
-                $modeluser->save();
-            }
-            $delete = Register::findOrFail($id)->delete();
-            return redirect('users/register/pl=dich_vu_luu_tru');
-
-        } else
-            return view('errors.notlogin');
-    }
-
-    public function registerdvvt(Request $request){
-        if (Session::has('admin')) {
-            $input = $request->all();
-            $id = $input['idregister'];
-            $model = Register::findOrFail($id);
-            $modeldn = new DonViDvVt();
-            $modeldn->tendonvi = $model->tendn;
-            $modeldn->masothue = $model->masothue;
-            $modeldn->dienthoai = $model->teldn;
-            $modeldn->fax = $model->faxdn;
-            $modeldn->email = $model->email;
-            $modeldn->diachi = $model->diachidn;
-            $modeldn->dknopthue = $model->noidknopthue;
-            $modeldn->tailieu = $model->tailieu;
-            $modeldn->giayphepkd = $model->giayphepkd;
-            $modeldn->setting = $model->setting;
-            $modeldn->dvxk = $model->dvxk;
-            $modeldn->dvxb = $model->dvxb;
-            $modeldn->dvxtx = $model->dvxtx;
-            $modeldn->dvk = $model->dvk;
-            $modeldn->toado = $model->diachi!= '' ? getAddMap($model->diachi) : '';
-            $modeldn->trangthai = 'Kích hoạt';
-
-            if($modeldn->save()){
-                $modeluser = new Users();
-                $modeluser->name = $model->tendn;
-                $modeluser->username = $model->username;
-                $modeluser->password = $model->password;
-                $modeluser->phone = $model->tel;
-                $modeluser->email = $model->email;
-                $modeluser->status = 'Kích hoạt';
-                $modeluser->mahuyen = $model->masothue;
-                $modeluser->level = 'DVVT';
-                $modeluser->save();
-            }
-            $delete = Register::findOrFail($id)->delete();
-            return redirect('users/register/pl=dich_vu_van_tai');
-
-        } else
-            return view('errors.notlogin');
-    }
-
-    public function registerdelete(Request $request){
-        if (Session::has('admin')) {
-            $input = $request->all();
-            $id = $input['iddelete'];
-            $model = Register::findOrFail($id);
-            $pl = $model->pl;
-            if($pl == 'DVLT')
-                $dv = 'dich_vu_luu_tru';
-            elseif($pl == 'DVVT')
-                $dv = 'dich_vu_van_tai';
-            $model->delete();
-
-            return redirect('users/register/pl='.$dv);
-        } else
-            return view('errors.notlogin');
     }
 }

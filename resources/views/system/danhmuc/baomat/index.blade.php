@@ -32,28 +32,28 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption">
-                        DANH MỤC ĐƠN VỊ QUẢN LÝ
+                        DANH MỤC CẤP ĐỘ BẢO MẬT HỒ SƠ
                     </div>
                     <div class="actions">
                         <button type="button" id="_btnaddPB" class="btn btn-success btn-xs" onclick="addPB()"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label class="control-label col-md-3">Cấp độ quản lý </label>
-                        <div class="col-md-5">
-                            {!! Form::select('mucbaomat',$a_baomat,$level,array('id' => 'mucbaomat', 'class' => 'form-control'))!!}
-                        </div>
-                        <input type="hidden" value="{{$level}}" name="level" id="level" />
-                    </div>
-                </div>
                 <div class="portlet-body form-horizontal">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Mức bảo mật </label>
+                            <div class="col-md-5">
+                                {!! Form::select('mucbaomat',$a_baomat,$level,array('id' => 'mucbaomat', 'class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                    </div>
                     <table id="sample_3" class="table table-hover table-striped table-bordered" style="min-height: 230px">
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 10%">STT</th>
                                 <th class="text-center">Mã số</th>
-                                <th class="text-center">Tên khối, phòng ban</th>
+                                <th class="text-center">Tên cấp độ bảo mật</th>
+                                <th class="text-center">Giá trị mặc định</th>
                                 <th class="text-center">Ghi chú</th>
                                 <th class="text-center">Thao tác</th>
                             </tr>
@@ -63,10 +63,11 @@
                                 @foreach($model as $key=>$value)
                                     <tr>
                                         <td class="text-center">{{$key+1}}</td>
-                                        <td>{{$value->makhoipb}}</td>
-                                        <td>{{$value->tenkhoipb}}</td>
+                                        <td>{{$value->macapdo}}</td>
+                                        <td>{{$value->tencapdo}}</td>
+                                        <td>{{$value->default_val=='0'?'Không cho phép xem hồ sơ':'Cho phép xem hồ sơ'}}</td>
                                         <td>{{$value->ghichu}}</td>
-                                        @include('includes.crumbs.bt_editdel')
+                                        @include('includes.crumbs.btdm_editdel')
                                     </tr>
                                 @endforeach
                             @endif
@@ -87,10 +88,16 @@
                 </div>
                 <div class="modal-body">
                     <label class="form-control-label">Mã số<span class="require">*</span></label>
-                    {!!Form::text('makhoipb', null, array('id' => 'makhoipb','class' => 'form-control required'))!!}
+                    {!!Form::text('macapdo', null, array('id' => 'macapdo','class' => 'form-control required'))!!}
 
-                    <label class="form-control-label">Tên khối phòng ban<span class="require">*</span></label>
-                    {!!Form::text('tenkhoipb', null, array('id' => 'tenkhoipb','class' => 'form-control required'))!!}
+                    <label class="form-control-label">Tên cấp độ bảo mật<span class="require">*</span></label>
+                    {!!Form::text('tencapdo', null, array('id' => 'tencapdo','class' => 'form-control required'))!!}
+
+                    <label class="form-control-label">Mức bảo mật<span class="require">*</span></label>
+                    {!! Form::select('level',$a_baomat, $level,array('id' => 'level', 'class' => 'form-control'))!!}
+
+                    <label class="form-control-label">Giá trị mặc định</label>
+                    {!! Form::select('default_val', array('0'=>'Không cho phép xem','1'=>'Cho phép xem'), null,array('id' => 'default_val', 'class' => 'form-control'))!!}
 
                     <label class="form-control-label">Ghi chú</label>
                     {!!Form::textarea('ghichu', null, array('id' => 'ghichu','class' => 'form-control','rows'=>'3'))!!}
@@ -109,7 +116,7 @@
 
         $(function(){
             $('#mucbaomat').change(function() {
-                window.location.href = '/danh_muc/khoi_pb/ma_so='+$('#mucbaomat').val();
+                window.location.href = '/danh_muc/bao_mat/index?&level='+$('#mucbaomat').val();
             });
         })
 
@@ -124,7 +131,7 @@
         function edit(id){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '{{$furl_ajax}}' + 'get',
+                url: '{{$furl}}' + 'get',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -132,8 +139,10 @@
                 },
                 dataType: 'JSON',
                 success: function (data) {
-                    $('#makhoipb').val(data.makhoipb);
-                    $('#tenkhoipb').val(data.tenkhoipb);
+                    $('#macapdo').val(data.macapdo);
+                    $('#tencapdo').val(data.tencapdo);
+                    $('#level').val(data.level);
+                    $('#default_val').val(data.default_val);
                     $('#ghichu').val(data.ghichu);
                 },
                 error: function(message){
@@ -149,33 +158,34 @@
             var valid=true;
             var message='';
 
-            var makhoipb=$('#makhoipb').val();
-            var tenkhoipb=$('#tenkhoipb').val();
+            var macapdo=$('#macapdo').val();
+            var tencapdo=$('#tencapdo').val();
             var ghichu=$('#ghichu').val();
             var id=$('#id').val();
 
-            if(makhoipb==''){
+            if(macapdo==''){
                 valid=false;
                 message +='Mã số không được bỏ trống \n';
             }
 
-            if(tenkhoipb==''){
+            if(tencapdo==''){
                 valid=false;
-                message +='Tên khối phòng ban không được bỏ trống \n';
+                message +='Tên cấp độ bảo mật không được bỏ trống \n';
             }
 
             if(valid){
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 if(id==0){//Thêm mới
                     $.ajax({
-                        url: '{{$furl_ajax}}' + 'add',
+                        url: '{{$furl}}' + 'add',
                         type: 'GET',
                         data: {
                             _token: CSRF_TOKEN,
-                            level: $('#level').val(),
-                            makhoipb: makhoipb,
-                            tenkhoipb: tenkhoipb,
-                            ghichu: ghichu
+                            macapdo: macapdo,
+                            tencapdo: tencapdo,
+                            default_val: $('#default_val').val(),
+                            ghichu: $('#ghichu').val(),
+                            level: $('#level').val()
                         },
                         dataType: 'JSON',
                         success: function (data) {
@@ -184,18 +194,20 @@
                             }
                         },
                         error: function(message){
-                            alert(message);
+                            toastr.error(message,'Lỗi!');
                         }
                     });
                 }else{//Cập nhật
                     $.ajax({
-                        url: '{{$furl_ajax}}' + 'update',
+                        url: '{{$furl}}' + 'update',
                         type: 'GET',
                         data: {
                             _token: CSRF_TOKEN,
-                            makhoipb: makhoipb,
-                            tenkhoipb: tenkhoipb,
-                            ghichu: ghichu,
+                            macapdo: macapdo,
+                            tencapdo: tencapdo,
+                            ghichu: $('#ghichu').val(),
+                            default_val: $('#default_val').val(),
+                            level: $('#level').val(),
                             id: id
                         },
                         dataType: 'JSON',
@@ -211,7 +223,7 @@
                 }
                 $('#phongban-modal').modal('hide');
             }else{
-                alert(message);
+                toastr.error(message,'Lỗi!');
             }
 
             return valid;

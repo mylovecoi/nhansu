@@ -3203,7 +3203,8 @@ Forms
   font-weight: normal;
   color: #333;
   background-color: #fff;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #87cefa;
+    //border: 1px solid #e5e5e5;
   box-shadow: none;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   -webkit-border-radius: 4px;
@@ -5555,7 +5556,7 @@ Responsive & Scrollable Tables
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  border: 1px solid #dddddd;
+  border: 1px solid #87cefa;
   margin: 10px 0 !important;
 }
 .table-scrollable.table-scrollable-borderless {

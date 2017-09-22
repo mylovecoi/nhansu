@@ -33,13 +33,17 @@ class hosocanboController extends Controller
 {
     function index(){
         if (Session::has('admin')) {
-
             //$m_hs=hosocanbo::where('madv',session('admin')->maxa)->get();
+            /*
             $m_hs=hosocanbo::join('dmchucvucq', 'hosocanbo.macvcq', '=', 'dmchucvucq.macvcq')
                 ->select('hosocanbo.*', 'dmchucvucq.sapxep')
                 ->where('hosocanbo.theodoi','1')
                 ->where('hosocanbo.madv',session('admin')->madv)
                 ->orderby('dmchucvucq.sapxep')
+                ->get();
+            */
+            $m_hs=hosocanbo::where('hosocanbo.theodoi','1')
+                ->where('hosocanbo.madv',session('admin')->madv)
                 ->get();
 
             $dmphongban=dmphongban::all('mapb','tenpb')->toArray();
@@ -66,11 +70,16 @@ class hosocanboController extends Controller
         if (Session::has('admin')) {
 
             //$m_hs=hosocanbo::where('madv',session('admin')->maxa)->get();
+            /*
             $m_hs=hosocanbo::join('dmchucvucq', 'hosocanbo.macvcq', '=', 'dmchucvucq.macvcq')
                 ->select('hosocanbo.*', 'dmchucvucq.sapxep')
                 ->where('hosocanbo.theodoi','0')
                 ->where('hosocanbo.madv',session('admin')->madv)
                 ->orderby('dmchucvucq.sapxep')
+                ->get();
+            */
+            $m_hs=hosocanbo::where('hosocanbo.theodoi','0')
+                ->where('hosocanbo.madv',session('admin')->madv)
                 ->get();
 
             $dmphongban=dmphongban::all('mapb','tenpb')->toArray();
@@ -107,7 +116,7 @@ class hosocanboController extends Controller
             $m_pln=ngachbac::select('tennb','plnb','msngbac')->distinct()->get();
             $m_bac=ngachbac::select('bac')->distinct()->get();
 
-            $macanbo=session('admin')->madv . '.' . getdate()[0];
+            $macanbo=session('admin')->madv . '_' . getdate()[0];
             $m_pc=dmphucap::all('mapc','tenpc','hesopc')->toArray();
 
             return view('manage.hosocanbo.create')
@@ -150,6 +159,7 @@ class hosocanboController extends Controller
             $model->madv = $madv;
             $model->mapb = $insert['mapb'];
             $model->macvcq = $insert['macvcq'];
+            $model->capquanly = $insert['capquanly'];
             $model->tencanbo = $insert['tencanbo'];
             $model->tenkhac = $insert['tenkhac'];
             $model->macongchuc = $insert['macongchuc'];
@@ -199,28 +209,22 @@ class hosocanboController extends Controller
             $model->pthuong = $insert['pthuong'];
             $model->heso = $insert['heso'];
             $model->vuotkhung = $insert['vuotkhung'];
-            /*
-            if($insert['ngaytu']!='' && $insert['ngayden']!='') {
-                $model->msngbac = $insert['msngbac'];
-                $model->bac = $insert['bac'];
-                $model->pthuong = $insert['pthuong'];
-                $model->heso = $insert['heso'];
-                $model->vuotkhung = $insert['vuotkhung'];
 
-                $model->pccv = chkDbl($insert['pccv']);
-                $model->pctnn = chkDbl($insert['pctnn']);
-                $model->pcvk = chkDbl($insert['pcvk']);
-                $model->pckn = chkDbl($insert['pckn']);
-                $model->pctn = chkDbl($insert['pctn']);
-                $model->pckv = chkDbl($insert['pckv']);
-                $model->pcth = chkDbl($insert['pcth']);
-                $model->pcudn = chkDbl($insert['pcudn']);
-                $model->pcdbn = chkDbl($insert['pcdbn']);
-                $model->pcld = chkDbl($insert['pcld']);
-                $model->pcdh = chkDbl($insert['pcdh']);
-                $model->pck = chkDbl($insert['pck']);
-            }
-            */
+            $model->pccv = chkDbl($insert['pccv']);
+            $model->pctnn = chkDbl($insert['pctnn']);
+            $model->pcvk = chkDbl($insert['pcvk']);
+            $model->pckn = chkDbl($insert['pckn']);
+            $model->pctn = chkDbl($insert['pctn']);
+            $model->pckv = chkDbl($insert['pckv']);
+            $model->pcth = chkDbl($insert['pcth']);
+            $model->pcudn = chkDbl($insert['pcudn']);
+            $model->pcdbn = chkDbl($insert['pcdbn']);
+            $model->pcld = chkDbl($insert['pcld']);
+            $model->pcdh = chkDbl($insert['pcdh']);
+            $model->pck = chkDbl($insert['pck']);
+            $model->pccovu = chkDbl($insert['pccovu']);
+            $model->pcdbqh = chkDbl($insert['pcdbqh']);
+
             $model->tthn = $insert['tthn'];
             $model->soBHXH = $insert['soBHXH'];
             $model->sotk = $insert['sotk'];
@@ -313,6 +317,7 @@ class hosocanboController extends Controller
             $model->anh = $filename=='' ? $model->anh : '/data/uploads/anh/'. $filename;
             $model->mapb = $update['mapb'];
             $model->macvcq = $update['macvcq'];
+            $model->capquanly = $update['capquanly'];
             $model->tencanbo = $update['tencanbo'];
             $model->tenkhac = $update['tenkhac'];
             $model->macongchuc = $update['macongchuc'];
@@ -354,7 +359,8 @@ class hosocanboController extends Controller
             $model->trinhdonn = $update['trinhdonn'];
             $model->llct = $update['llct'];
             $model->qlnhanuoc = $update['qlnhanuoc'];
-            $model->ngaytu =getDateTime($update['ngaytu']);
+
+            $model->ngaytu = getDateTime($update['ngaytu']);
             $model->ngayden = getDateTime($update['ngayden']);
             $model->msngbac = $update['msngbac'];
             $model->bac = $update['bac'];
@@ -362,29 +368,21 @@ class hosocanboController extends Controller
             $model->heso = $update['heso'];
             $model->vuotkhung = $update['vuotkhung'];
 
-            /*
-            if($update['ngaytu']!='' && $update['ngayden']!='') {
-                $model->ngaytu = $update['ngaytu'];
-                $model->ngayden = $update['ngayden'];
-                $model->msngbac = $update['msngbac'];
-                $model->bac = $update['bac'];
-                $model->pthuong = $update['pthuong'];
-                $model->heso = $update['heso'];
-                $model->vuotkhung = $update['vuotkhung'];
-                $model->pccv = $update['pccv'];
-                $model->pctnn = $update['pctnn'];
-                $model->pcvk = $update['pcvk'];
-                $model->pckn = $update['pckn'];
-                $model->pctn = $update['pctn'];
-                $model->pckv = $update['pckv'];
-                $model->pcth = $update['pcth'];
-                $model->pcudn = $update['pcudn'];
-                $model->pcdbn = $update['pcdbn'];
-                $model->pcld = $update['pcld'];
-                $model->pcdh = $update['pcdh'];
-                $model->pck = $update['pck'];
-            }
-            */
+            $model->pccv = chkDbl($update['pccv']);
+            $model->pctnn = chkDbl($update['pctnn']);
+            $model->pcvk = chkDbl($update['pcvk']);
+            $model->pckn = chkDbl($update['pckn']);
+            $model->pctn = chkDbl($update['pctn']);
+            $model->pckv = chkDbl($update['pckv']);
+            $model->pcth = chkDbl($update['pcth']);
+            $model->pcudn = chkDbl($update['pcudn']);
+            $model->pcdbn = chkDbl($update['pcdbn']);
+            $model->pcld = chkDbl($update['pcld']);
+            $model->pcdh = chkDbl($update['pcdh']);
+            $model->pck = chkDbl($update['pck']);
+            $model->pccovu = chkDbl($update['pccovu']);
+            $model->pcdbqh = chkDbl($update['pcdbqh']);
+
             $model->tthn = $update['tthn'];
             $model->soBHXH = $update['soBHXH'];
             $model->sotk = $update['sotk'];

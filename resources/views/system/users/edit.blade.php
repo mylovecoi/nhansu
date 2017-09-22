@@ -78,6 +78,17 @@
                                     </div>
                                 </div>
                             </div>
+                            @if(session('admin')->level=='SA' ||session('admin')->level=='SSA')
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Cấp tài khoản</label>
+                                            {!!Form::select('sadmin',array('NULL'=>'Tài khoản sử dụng','sa'=>'Tài khoản quản trị'),null,array('id'=>'','class'=>'form-control'))!!}
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                </div>
+                            @endif
                         </div>
 
                     <!-- END FORM-->
@@ -86,7 +97,8 @@
             <div class="row" style="text-align: center">
                 <div class="col-md-12">
                     <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Cập nhật</button>
-                    <button type="reset" class="btn default">Hủy</button>
+                    <a href="{{url('/danh_muc/tai_khoan/list_user?&madv='.$model->madv)}}" class="btn default"><i class="fa fa-mail-reply"></i> Quay lại</a>
+
                 </div>
             </div>
             {!! Form::close() !!}
@@ -98,10 +110,10 @@
 
             var validator = $("#update_tttaikhoan").validate({
                 rules: {
-                    name :"required",
+                    name :"required"
                 },
                 messages: {
-                    name :"Chưa nhập dữ liệu",
+                    name :"Chưa nhập dữ liệu"
                 }
             });
         }

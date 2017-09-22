@@ -2,31 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\dmkhoipb;
+use App\dmbaomat;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
-class dmkhoipbController extends Controller
+class dmbaomatController extends Controller
 {
-    public function index($level){
+    public function index(Request $request){
         if (Session::has('admin')) {
-
-            if(session('admin')->level !='SA' && session('admin')->level !='SSA'){
+            if(!session('admin')->level=='SA' && !session('admin')->level=='SSA'){
                 return view('errors.noperm');
             }
-            $a_baomat=array('H'=>'Cấp huyện','T'=>'Cấp tỉnh');
-            $model=dmkhoipb::where('level',$level)->get();
 
-            return view('system.danhmuc.khoipb.index')
+            $a_baomat=array('X'=>'Cấp xã','H'=>'Cấp huyện','T'=>'Cấp tỉnh');
+
+            $model=dmbaomat::where('level',$request->level)->get();
+            return view('system.danhmuc.baomat.index')
                 ->with('model',$model)
                 ->with('a_baomat',$a_baomat)
-                ->with('level',$level)
-                ->with('furl','/danh_muc/khoi_pb/')
-                ->with('furl_ajax','/ajax/khoi_pb/')
-                ->with('pageTitle','Danh mục khối phòng ban');
+                ->with('level',$request->level)
+                ->with('furl','/danh_muc/bao_mat/')
+                ->with('furl_ajax','/ajax/bao_mat/')
+                ->with('pageTitle','Danh mục phân cấp bảo mật');
         } else
             return view('errors.notlogin');
     }
@@ -44,13 +44,7 @@ class dmkhoipbController extends Controller
             die(json_encode($result));
         }
 
-        $inputs = $request->all();
-        $model = new dmkhoipb();
-        $model->makhoipb = $inputs['makhoipb'];
-        $model->tenkhoipb = $inputs['tenkhoipb'];
-        $model->ghichu = $inputs['ghichu'];
-        $model->level = $inputs['level'];
-        $model->save();
+        dmbaomat::create( $request->all());
 
         $result['message'] = "Thêm mới thành công.";
         $result['status'] = 'success';
@@ -71,10 +65,8 @@ class dmkhoipbController extends Controller
         }
 
         $inputs = $request->all();
-        $model = dmkhoipb::find($inputs['id']);
-        $model->tenkhoipb = $inputs['tenkhoipb'];
-        $model->ghichu = $inputs['ghichu'];
-       $model->save();
+        $model = dmbaomat::find($inputs['id']);
+        $model->update($inputs);
 
         $result['message'] = "Cập nhật thành công.";
         $result['status'] = 'success';
@@ -83,9 +75,9 @@ class dmkhoipbController extends Controller
 
     function destroy($id){
         if (Session::has('admin')) {
-            $model = dmkhoipb::findOrFail($id);
+            $model = dmbaomat::findOrFail($id);
             $model->delete();
-            return redirect('/danh_muc/khoi_pb/ma_so='.$model->level);
+            return redirect('/danh_muc/bao_mat/ma_so='.session('admin')->level);
         }else
             return view('errors.notlogin');
     }
@@ -100,7 +92,7 @@ class dmkhoipbController extends Controller
         }
 
         $inputs = $request->all();
-        $model = dmkhoipb::find($inputs['id']);
+        $model = dmbaomat::find($inputs['id']);
         die($model);
     }
 }

@@ -237,7 +237,7 @@
                         <li>
                             <a href="{{url('chuc_nang/het_tap_su/danh_sach')}}">Hết tập sư</a>
                         </li>
-                        <!--
+
                         <li>
                             <a href="{{url('chuc_nang/dao_tao/danh_sach')}}">Đào tạo, bồi dưỡng</a>
                         </li>
@@ -247,7 +247,7 @@
                         <li>
                             <a href="{{url('chuc_nang/buoc_thoi_viec/danh_sach')}}">Buộc thôi việc</a>
                         </li>
-                        -->
+
                         <li>
                             <a href="{{url('chuc_nang/huu_tri/danh_sach')}}">Nghỉ hưu</a>
                         </li>
@@ -304,8 +304,9 @@
                                 <i class="fa fa-list-alt"></i> Danh mục <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu" style="margin-left: 15px;">
-                                @if(session('admin')->level=='T')
-                                    <li><a href="{{url('danh_muc/khoi_pb/index')}}">Đơn vị quản lý</a></li>
+                                @if(session('admin')->level == 'SA' || session('admin')->level == 'SSA')
+                                    <li><a href="{{url('danh_muc/bao_mat/index?&level=X')}}">Bảo mật hồ sơ</a></li>
+                                    <li><a href="{{url('danh_muc/khoi_pb/ma_so=H')}}">Khối, phòng ban</a></li>
                                 @endif
                                 <li><a href="{{url('danh_muc/phong_ban/index')}}">Phòng ban</a></li>
                                 <li><a href="{{url('danh_muc/chuc_vu_cq/index')}}">Chức vụ chính quyền</a></li>
@@ -314,6 +315,7 @@
                                 <li><a href="{{url('danh_muc/cong_tac/index')}}">Phân loại công tác</a></li>
                                 <li><a href="{{url('danh_muc/phu_cap/index')}}">Phụ cấp</a></li>
                                 <li><a href="{{url('danh_muc/dan_toc/index')}}">Dân tộc</a></li>
+
                             </ul>
                         </li>
                         <li>
@@ -334,9 +336,7 @@
                             <ul class="sub-menu" style="margin-left: 15px;">
                                 <li><a href="{{url('he_thong/don_vi/don_vi')}}">Thông tin đơn vị</a></li>
                                 <li><a href="{{url('he_thong/don_vi/chung')}}">Thông tin chung</a></li>
-                                @if(session('admin')->sadmin == 'ssa')
-                                    <li><a href="{{url('he_thong/quan_tri/don_vi')}}">Quản lý tài khoản</a></li>
-                                @endif
+
                             </ul>
                         </li>
                         @if(session('admin')->level != 'X')
@@ -344,10 +344,15 @@
                                 <a href="javascript:;">
                                     <i class="icon-book-open"></i> Đơn vị <span class="arrow"></span>
                                 </a>
-                                    <ul class="sub-menu" style="margin-left: 15px;">
-                                        <li><a href="{{url('danh_muc/don_vi/maso=all')}}">Danh sách đơn vị</a></li>
-                                    </ul>
+                                <ul class="sub-menu" style="margin-left: 15px;">
+                                    <li><a href="{{url('danh_muc/don_vi/maso=all')}}">Danh sách đơn vị</a></li>
+                                </ul>
                             </li>
+                        @endif
+
+                        @if(session('admin')->level == 'SA' || session('admin')->level == 'SSA')
+                            <li><a href="{{url('danh_muc/tai_khoan/list_user?level=H')}}"><i class="icon-book-open"></i>Quản lý tài khoản</a></li>
+                            <li><a href="{{url('danh_muc/khu_vuc/ma_so=H')}}"><i class="icon-book-open"></i>Danh sách khu vực, địa bàn quản lý</a></li>
                         @endif
 					</ul>
 				</li>

@@ -28,13 +28,13 @@
                 </div-->
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    {!! Form::open(['url'=>'users', 'id' => 'create_tttaikhoan', 'class'=>'horizontal-form']) !!}
-                        <meta name="csrf-token" content="{{ csrf_token() }}" />
+                    {!! Form::open(['url'=>$url.'add_user', 'id' => 'create_tttaikhoan', 'class'=>'horizontal-form']) !!}
+                        <input type="hidden" id="madv" name="madv" value="{{$madv}}" />
                         <div class="form-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Tên tài khoản<span class="require">*</span></label>
+                                        <label class="control-label">Tên người dùng<span class="require">*</span></label>
                                         <input type="text" class="form-control required" name="name" id="name" autofocus>
                                     </div>
                                 </div>
@@ -64,19 +64,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Đơn vị trục thuộc</label>
-                                        <select class="form-control select2me required" id="mahuyen" name="mahuyen">
-                                            <option value="">--Chọn đơn vị--</option>
-                                            @foreach($modelpb as $ttpb)
-                                                <option value="{{$ttpb->ma}}">{{$ttpb->ten}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -94,11 +82,27 @@
                                 <!--/span-->
                             </div>
 
+                            @if(session('admin')->level=='SA' ||session('admin')->level=='SSA')
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Cấp tài khoản</label>
+                                            {!!Form::select('sadmin',array('NULL'=>'Tài khoản sử dụng','sa'=>'Tài khoản quản trị'),null,array('id'=>'','class'=>'form-control'))!!}
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                </div>
+                            @endif
                         </div>
+
                         <div class="form-actions">
-                            <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Cập nhật</button>
-                            <button type="reset" class="btn default">Hủy</button>
+                            <div class="row" style="text-align: center">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Cập nhật</button>
+                                    <a href="{{url($url.'list_user?&madv='.$madv)}}" class="btn default"><i class="fa fa-mail-reply"></i> Quay lại</a>
+                            </div>
                         </div>
+                    </div>
                     {!! Form::close() !!}
                     <!-- END FORM-->
                 </div>
@@ -108,18 +112,15 @@
     </div>
     <script type="text/javascript">
         function validateForm(){
-
             var validator = $("#create_tttaikhoan").validate({
                 rules: {
                     name :"required",
-                    mahuyen :"required",
                     username :"required",
                     password :"required"
 
                 },
                 messages: {
                     name :"Chưa nhập dữ liệu",
-                    mahuyen :"Chưa nhập dữ liệu",
                     username :"Chưa nhập dữ liệu",
                     password :"Chưa nhập dữ liệu"
                 }

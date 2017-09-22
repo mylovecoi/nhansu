@@ -4,14 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class dmkhoipb extends Model
+class dmbaomat extends Model
 {
-    protected $table = 'dmkhoipb';
+    protected $table = 'dmbaomat';
     protected $fillable = [
         'id',
         'level',
-        'makhoipb',
-        'tenkhoipb',
+        'macapdo',
+        'tencapdo',
+        'default_val',
         'ghichu'
     ];
 }

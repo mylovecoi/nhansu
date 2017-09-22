@@ -11,11 +11,7 @@ Route::post('/setting','HomeController@upsetting');
 Route::get('register/dich_vu_luu_tru','HomeController@regdvlt');
 Route::get('checkrgmasothue','HomeController@checkrgmasothue');
 Route::get('checkrguser','HomeController@checkrguser');
-Route::post('register/dich_vu_luu_tru','HomeController@regdvltstore');
 
-Route::get('register/dich_vu_van_tai','HomeController@regdvvt');
-
-Route::post('register/dich_vu_van_tai','HomeController@regdvvtstore');
 
 // <editor-fold defaultstate="collapsed" desc="--Hệ thống--">
     // <editor-fold defaultstate="collapsed" desc="--Danh mục--">
@@ -41,7 +37,6 @@ Route::get('/checkpass','UsersController@checkpass');
 Route::get('/checkuser','UsersController@checkuser');
 Route::get('/checkmasothue','UsersController@checkmasothue');
 Route::get('logout','UsersController@logout');
-Route::get('users/pl={pl}','UsersController@index');
 Route::get('users/{id}/edit','UsersController@edit');
 Route::patch('users/{id}','UsersController@update');
 Route::get('users/{id}/phan-quyen','UsersController@permission');
@@ -49,11 +44,6 @@ Route::post('users/phan-quyen','UsersController@uppermission');
 Route::post('users/delete','UsersController@destroy');
 Route::get('users/lock/{id}/{pl}','UsersController@lockuser');
 Route::get('users/unlock/{id}/{pl}','UsersController@unlockuser');
-Route::get('users/register/pl={pl}','UsersController@register');
-Route::get('users/register/{id}/show','UsersController@registershow');
-Route::post('register/createdvlt','UsersController@registerdvlt');
-Route::post('register/createdvvt','UsersController@registerdvvt');
-Route::post('register/delete','UsersController@registerdelete');
 //EndUsers
 // </editor-fold>//End Setting
 
@@ -117,9 +107,45 @@ Route::group(['prefix'=>'danh_muc'],function(){
     });
 
     Route::group(['prefix'=>'khoi_pb'],function(){
-        Route::get('index','dmkhoipbController@index');
+        Route::get('ma_so={level}','dmkhoipbController@index');
         Route::get('store','dmkhoipbController@store');
         Route::get('del/{id}','dmkhoipbController@destroy');
+    });
+
+    Route::group(['prefix'=>'bao_mat'],function(){
+        Route::get('index','dmbaomatController@index');
+        Route::get('get','dmbaomatController@getinfo');
+        Route::get('add','dmbaomatController@store');
+        Route::get('update','dmbaomatController@update');
+        Route::get('del/{id}','dmbaomatController@destroy');
+    });
+
+    Route::group(['prefix'=>'khu_vuc'],function(){
+        Route::get('ma_so={level}','dmdonvibaocaoController@index');
+        Route::get('get','dmdonvibaocaoController@getinfo');
+        Route::get('add','dmdonvibaocaoController@store');
+        Route::get('update','dmdonvibaocaoController@update');
+        Route::get('del/{maso}','dmdonvibaocaoController@destroy');
+
+        Route::get('ma_so={makhuvuc}/list_unit','dmdonvibaocaoController@list_donvi');
+        Route::get('ma_so={makhuvuc}&don_vi={madonvi}/edit','dmdonvibaocaoController@show_donvi');
+        Route::get('ma_so={makhuvuc}/create','dmdonvibaocaoController@create_donvi');
+
+        Route::patch('update_donvi','dmdonvibaocaoController@update_donvi');
+        Route::post('store_donvi','dmdonvibaocaoController@store_donvi');
+        Route::get('del_donvi/{madv}','dmdonvibaocaoController@destroy_donvi');
+        Route::get('get_list_unit','dmdonvibaocaoController@get_list_unit');
+        Route::get('set_management','dmdonvibaocaoController@set_management');
+    });
+
+    Route::group(['prefix'=>'tai_khoan'],function(){
+        Route::get('list_user','UsersController@list_users');
+        Route::get('ma_so={madv}/create','UsersController@create');
+        Route::post('add_user','UsersController@store');
+
+        Route::get('ma_so={taikhoan}/permission','UsersController@permission');
+        Route::post('ma_so={taikhoan}/uppermission','UsersController@uppermission');
+        Route::get('del_taikhoan/{madv}','UsersController@destroy');
     });
 });
 

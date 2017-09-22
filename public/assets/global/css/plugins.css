@@ -2044,7 +2044,7 @@ iframe[src="about:blank"] {
 Select2 Plugin
 ***/
 .form-control .select2-choice {
-  border: 1px solid #e5e5e5;
+  border: 1px solid #87cefa;
   background-color: #fff;
   background-image: none;
   filter: none;
@@ -2053,14 +2053,14 @@ Select2 Plugin
 }
 
 .select2-container.select2-drop-above .select2-choice {
-  border-bottom-color: #e5e5e5;
+  border-bottom-color: #87cefa;
   background-color: #fff;
   background-image: none;
   filter: none;
 }
 
 .select2-drop {
-  border: 1px solid #e5e5e5;
+  border: 1px solid #87cefa;
   background-color: #fff;
   background-image: none;
   -webkit-box-shadow: none;
@@ -2070,11 +2070,11 @@ Select2 Plugin
 }
 
 .select2-drop-auto-width {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #87cefa;
 }
 
 .select2-drop.select2-drop-above {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #87cefa;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
@@ -2088,7 +2088,7 @@ Select2 Plugin
   background-image: none;
   background-color: #fff;
   filter: none;
-  border-left: 1px solid #e5e5e5;
+  border-left: 1px solid #87cefa;
 }
 
 .select2-container.select2-container-active .select2-arrow,
@@ -2101,12 +2101,12 @@ Select2 Plugin
 }
 
 .select2-search input {
-  border: 1px solid #e5e5e5;
+  border: 1px solid #87cefa;
   background-color: #fff !important;
   filter: none;
   margin: 0;
   outline: 0;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #87cefa;
   webkit-appearance: none !important;
   color: #333333;
   outline: 0;

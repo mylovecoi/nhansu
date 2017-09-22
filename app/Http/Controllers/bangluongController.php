@@ -44,7 +44,7 @@ class bangluongController extends Controller
         }
 
         $inputs=$request->all();
-        $mabl=session('admin')->madv .'.'.getdate()[0];
+        $mabl=session('admin')->madv .'_'.getdate()[0];
 
         $ngaytu=$inputs['nam'].'-'.$inputs['thang'].'-01';
         /*
@@ -63,17 +63,11 @@ class bangluongController extends Controller
             $query->where('ngaytu','<=',$ngaytu)
                 ->where('ngayden','>=',$ngaytu);
             })->where('madv',session('admin')->madv)
-            ->select('macanbo','tencanbo','macvcq','mapb','msngbac','heso','vuotkhung',DB::raw($mabl. ' as mabl'))
-            ->get();
-
-        $m_pc=phucapdanghuong::where(function($query) use ($ngaytu){
-            $query->where('ngaytu','<=',$ngaytu)
-                ->where('ngayden','>=',$ngaytu);
-            })->where('madv',session('admin')->madv)
-            ->select('macanbo','mapc','hesopc','baohiem',DB::raw($mabl. ' as mabl'))
+            ->select('macanbo','tencanbo','macvcq','mapb','msngbac','heso','vuotkhung',DB::raw("'".$mabl. "' as mabl"),
+            'pck','pccv','pckv','pcth','pcdh','pcld','pcudn','pctn','pctnn','pcdbn','pcvk','pckn','pccovu','pcdbqh')
             ->get();
         $gnr=getGeneralConfigs();
-        //dd($m_pc);
+
         $model = new bangluong();
         $model->mabl=$mabl;
         $model->madv=session('admin')->madv;
@@ -84,6 +78,13 @@ class bangluongController extends Controller
         $model->ngaylap=Carbon::now()->toDateTimeString();
         $model->save();
 
+        /* tính toán bảng lương trường hợp tách phụ cấp
+        $m_pc=phucapdanghuong::where(function($query) use ($ngaytu){
+            $query->where('ngaytu','<=',$ngaytu)
+                ->where('ngayden','>=',$ngaytu);
+            })->where('madv',session('admin')->madv)
+            ->select('macanbo','mapc','hesopc','baohiem',DB::raw($mabl. ' as mabl'))
+            ->get();
         foreach($m_cb as $cb){
             $pc_bh=$m_pc->where('macanbo',$cb->macanbo)->where('baohiem',1)->sum('hesopc');
             $pc_kbh=$m_pc->where('macanbo',$cb->macanbo)->where('baohiem',0)->sum('hesopc');
@@ -109,8 +110,10 @@ class bangluongController extends Controller
         }
         bangluong_ct::insert($m_cb->toarray());
         bangluongphucap::insert($m_pc->toarray());
+        */
+
         /*
-        foreach($m_cb as $cb){
+         foreach($m_cb as $cb){
             $ths=0;
             $m_luongct=new bangluong_ct();
             $m_luongct->mabl=$mabl;
@@ -155,7 +158,7 @@ class bangluongController extends Controller
             $m_luongct->pckn=$cb->pckn;
             $ths +=$cb->pckn;
             //$m_luongct->pcdang=$cb->pcdang;
-            //$m_luongct->pccovu=$cb->pccovu;
+            $m_luongct->pccovu=$cb->pccovu;
             //$m_luongct->pclt=$cb->pclt;
             //$m_luongct->pcd=$cb->pcd;
             //$m_luongct->pctr=$cb->pctr;
@@ -180,8 +183,52 @@ class bangluongController extends Controller
             $m_luongct->ttbh_dv=$m_luongct->stbhxh_dv + $m_luongct->stbhyt_dv + $m_luongct->stkpcd_dv + $m_luongct->stbhtn_dv;
 
             $m_luongct->save();
+
+            $cb->tonghs=$tonghs;
         }
-        */
+         * */
+
+        foreach($m_cb as $cb){
+            $ths=0;
+            $ths +=$cb->heso;
+            $ths +=$cb->vuotkhung;
+            $ths +=$cb->pck;
+            $ths +=$cb->pccv;
+            $ths +=$cb->pckv;
+            $ths +=$cb->pcth;
+            $ths +=$cb->pcdh;
+            $ths +=$cb->pcld;
+            $ths +=$cb->pcudn;
+            $ths +=$cb->pctn;
+            $ths +=$cb->pctnn;
+            $ths +=$cb->pcdbn;
+            $ths +=$cb->pcvk;
+            $ths +=$cb->pckn;
+            $ths +=$cb->pccovu;
+            $ths +=$cb->pcdbqh;
+
+            $cb->tonghs=$ths;
+            $cb->ttl=$gnr['luongcb']*$ths;
+            $luongnopbaohiem=$gnr['luongcb']*($cb->heso+$cb->pccv);
+
+               // chưa tính được các loại hệ số pải nộp bh
+               //tách bảng phụ cấp riêng ra - liên kết với bảng hosocanbo
+
+            $cb->stbhxh=$luongnopbaohiem*floatval($gnr['bhxh'])/100;
+            $cb->stbhyt=$luongnopbaohiem*floatval($gnr['bhyt'])/100;
+            $cb->stkpcd=$luongnopbaohiem*floatval($gnr['kpcd'])/100;
+            $cb->stbhtn=$luongnopbaohiem*floatval($gnr['bhtn'])/100;
+            $cb->ttbh=$cb->stbhxh+$cb->stbhyt+$cb->stkpcd + $cb->stbhtn;
+            $cb->luongtn=$cb->ttl - $cb->ttbh;
+
+            $cb->stbhxh_dv=$luongnopbaohiem*floatval($gnr['bhxh_dv'])/100;
+            $cb->stbhyt_dv=$luongnopbaohiem*floatval($gnr['bhyt_dv'])/100;
+            $cb->stkpcd_dv=$luongnopbaohiem*floatval($gnr['kpcd_dv'])/100;
+            $cb->stbhtn_dv=$luongnopbaohiem*floatval($gnr['bhtn_dv'])/100;
+            $cb->ttbh_dv=$cb->stbhxh_dv + $cb->stbhyt_dv + $cb->stkpcd_dv + $cb->stbhtn_dv;
+        }
+
+        bangluong_ct::insert($m_cb->toarray());
         $result['message'] = '/chuc_nang/bang_luong/maso='.$mabl;
         $result['status'] = 'success';
         die(json_encode($result));
@@ -294,8 +341,24 @@ class bangluongController extends Controller
     function updatect(Request $request, $id){
         if (Session::has('admin')) {
             $inputs=$request->all();
-            $gnr=getGeneralConfigs();
+            $inputs['ttl']=getDbl($inputs['ttl']);
+            $inputs['giaml']=getDbl($inputs['giaml']);
+            $inputs['bhct']=getDbl($inputs['bhct']);
+            $inputs['stbhxh']=getDbl($inputs['stbhxh']);
+            $inputs['stbhyt']=getDbl($inputs['stbhyt']);
+            $inputs['stkpcd']=getDbl($inputs['stkpcd']);
+            $inputs['stbhtn']=getDbl($inputs['stbhtn']);
+            $inputs['ttbh']=getDbl($inputs['ttbh']);
+            $inputs['stbhxh_dv']=getDbl($inputs['stbhxh_dv']);
+            $inputs['stbhyt_dv']=getDbl($inputs['stbhyt_dv']);
+            $inputs['stkpcd_dv']=getDbl($inputs['stkpcd_dv']);
+            $inputs['stbhtn_dv']=getDbl($inputs['stbhtn_dv']);
+            $inputs['ttbh_dv']=getDbl($inputs['ttbh_dv']);
+            $inputs['luongtn']=getDbl($inputs['luongtn']);
+            $model=bangluong_ct::findorfail($id);
+            $model->update($inputs);
 
+            /*Trường hợp tách phụ cấp
             $model=bangluong_ct::where('macanbo',$inputs['macanbo'])
                 ->where('mabl',$inputs['mabl'])
                 ->first();
@@ -335,7 +398,7 @@ class bangluongController extends Controller
             $model->luongtn=$tonghs * $gnr['luongcb'] + $model->bhct - $model->giaml - $model->ttbh;
 
             $model->save();
-
+            */
             return redirect('/chuc_nang/bang_luong/maso='.$model->mabl);
 
 

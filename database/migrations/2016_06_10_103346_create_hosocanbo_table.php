@@ -96,7 +96,7 @@ class CreateHosocanboTable extends Migration
             $table->string('tennganhang', 150)->nullable();
             $table->string('tthn', 100)->nullable();
             $table->boolean('bhtn')->default(1);
-            $table->string('madv',50);
+            $table->string('madv',50)->nullable();
             //Thông tin lương hiện tại
             $table->string('msngbac', 50)->nullable();
             $table->date('ngaytu')->nullable();
@@ -117,6 +117,8 @@ class CreateHosocanboTable extends Migration
             $table->string('nhiemky')->nullable();//nhiệm kỳ đối với cán bộ chuyên trách
             $table->string('capchuyenden')->nullable();//cán bộ luân chuyển cấp X, H, T
             $table->double('heso_truythu')->default(0);//sau khi tạo bảng lương -> set = 0;
+            $table->string('macapdo')->default(0);//cấp độ bảo mật hồ sơ => lấy trong bảng dmbaomat
+            $table->string('macq',50)->nullable();//dùng để cho trường hợp cán bộ thuộc đơn vị cấp trên quản lý mặc định là mã đơn vị
             $table->timestamps();
         });
     }

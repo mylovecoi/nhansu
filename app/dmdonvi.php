@@ -20,6 +20,7 @@ class dmdonvi extends Model
             'cdlanhdao',
             'nguoilapbieu',
             'makhoipb',
-            'level'
+            'level',
+            'madvbc'
         ];
 }

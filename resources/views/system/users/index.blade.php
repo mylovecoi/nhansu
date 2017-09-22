@@ -1,204 +1,114 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 24/06/2016
+ * Time: 4:00 PM
+ */
+        ?>
 @extends('main')
 
 @section('custom-style')
     <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
-    <!-- END THEME STYLES -->
 @stop
 
-
 @section('custom-script')
-    <!-- BEGIN PAGE LEVEL PLUGINS -->
-
     <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js')}}"></script>
     <script type="text/javascript" src="{{url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
     <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
-    <!-- END PAGE LEVEL PLUGINS -->
+
     <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
         });
-        function  getSelectedCheckboxes(){
-
-            var ids = '';
-            $.each($("input[name='ck_value']:checked"), function(){
-                ids += ($(this).attr('value')) + '-';
-            });
-            return ids = ids.substring(0, ids.length - 1);
-
-        }
-        function multiLock() {
-
-            var ids = getSelectedCheckboxes();
-            var pl = $('#phanloai').val();
-            if(ids == '') {
-                $('#btnMultiLockUser').attr('data-target', '#notid-modal-confirm');
-            }else {
-
-                $('#btnMultiLockUser').attr('data-target', '#lockuser-modal-confirm');
-                $('#frmLockUser').attr('action', "{{ url('users/lock')}}/" + ids + '/' + pl);
-            }
-
-        }
-        function multiUnLock() {
-
-            var ids = getSelectedCheckboxes();
-            var pl = $('#phanloai').val();
-            if(ids == '') {
-                $('#btnMultiUnLockUser').attr('data-target', '#notid-modal-confirm');
-            }else {
-                $('#btnMultiUnLockUser').attr('data-target', '#unlockuser-modal-confirm');
-                $('#frmUnLockUser').attr('action', "{{ url('users/unlock')}}/" + ids + '/' + pl);
-            }
-
-        }
-        function confirmDelete(id) {
-            $('#frmDelete').attr('action', "/delete/" + id);
-        }
-        function getId(id){
-            document.getElementById("iddelete").value=id;
-        }
-        $(function(){
-
-            $('#phanloai').change(function() {
-                var pl = $('#phanloai').val();
-                var url = '/users/pl='+pl;
-
-                //var url = current_path_url;
-                window.location.href = url;
-            });
-            $('#dvct').change(function() {
-                var dvct = $('#dvct').val();
-                var url = '/users/pl=su-dung/dv='+dvct;
-
-                //var url = current_path_url;
-                window.location.href = url;
-            });
-
-
-        })
-        function ClickDelete(){
-            $('#frm_delete').submit();
-        }
     </script>
 @stop
 
 @section('content')
-
-    <h3 class="page-title">
-        Quản lý <small>&nbsp;tài khoản</small>
-    </h3>
-    <!-- END PAGE HEADER-->
     <div class="row">
         <div class="col-md-12">
-            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-            <div class="portlet box">
+            <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption">
-                    </div>
-                    <div class="actions">
-
-                        <button id="btnMultiLockUser" type="button" onclick="multiLock()" class="btn btn-default btn-sm" data-target="#lockuser-modal-confirm" data-toggle="modal"><i class="fa fa-lock"></i>&nbsp;
-                            Khóa</button>
-                        <button id="btnMultiUnLockUser" type="button" onclick="multiUnLock()" class="btn btn-default btn-sm" data-target="#unlockuser-modal-confirm" data-toggle="modal"><i class="fa fa-unlock"></i>&nbsp;
-                            Mở khóa</button>
-                        <!--a href="" class="btn btn-default btn-sm">
-                            <i class="fa fa-print"></i> Print </a-->
+                        DANH MỤC KHU VỰC, ĐỊA BÀN QUẢN LÝ
                     </div>
                 </div>
-                <div class="portlet-body">
-                    <div class="portlet-body">
-                        <div class="table-toolbar">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <select class="form-control" name="phanloai" id="phanloai">
-                                            <option value="quan_ly" {{($pl == "quan_ly") ? 'selected' : ''}}>Cấp Quản lý</option>
-                                            <option value="dich_vu_luu_tru" {{($pl == "dich_vu_luu_tru") ? 'selected' : ''}}>Dịch vụ lưu trú</option>
-                                            <option value="dich_vu_van_tai" {{($pl == "dich_vu_van_tai") ? 'selected' : ''}}>Dịch vụ vận tải</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-
+                <div class="portlet-body form-horizontal">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Cấp độ quản lý </label>
+                            <div class="col-md-5">
+                                {!! Form::select('mucbaomat',$a_baomat,$level,array('id' => 'mucbaomat', 'class' => 'form-control'))!!}
                             </div>
                         </div>
-                    <table class="table table-striped table-bordered table-hover" id="sample_3">
+                    </div>
+                    <table id="sample_3" class="table table-hover table-striped table-bordered" style="min-height: 230px">
                         <thead>
-                        <tr>
-                            <th class="table-checkbox">
-                                <input type="checkbox" class="group-checkable" data-set="#sample_3 .checkboxes"/>
-                            </th>
-                            <th style="text-align: center" width="2%">STT</th>
-                            <th style="text-align: center">Tên tài khoản</th>
-                            <th style="text-align: center">Username</th>
-                            <th style="text-align: center">Tel</th>
-                            <th style="text-align: center">Email</th>
-                            <th style="text-align: center" width="5%">Trạng thái</th>
-                            <th style="text-align: center" width="25%">Thao tác</th>
-                        </tr>
+                            <tr>
+                                <th class="text-center" style="width: 10%">STT</th>
+                                <th class="text-center">Tên khu vực, địa bàn</th>
+                                <th class="text-center">Đơn vị quản lý</th>
+                                <th class="text-center">Thao tác</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach($model as $key=>$tt)
-                        <tr class="odd gradeX">
-                            <td>
-                                <input type="checkbox" class="checkboxes" value="{{$tt->id}}" name="ck_value" id="ck_value"/>
-                            </td>
-                            <td style="text-align: center">{{$key + 1}}</td>
-                            <td>{{$tt->name}}</td>
-                            <td class="active">{{$tt->username}}</td>
-                            <td>{{$tt->phone}}</td>
-                            <td>{{$tt->email}}</td>
-                            <td style="text-align: center">
-                                @if($tt->status == 'Kích hoạt')
-                                    <span class="label label-sm label-success">{{$tt->status}}</span>
-                                @else
-                                    <span class="label label-sm label-danger">{{$tt->status}}</span>
-                                @endif
-                            </td>
-                            <td>
-                                <a href="{{url('users/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
-                                <a href="{{url('users/'.$tt->id.'/phan-quyen')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-cogs"></i>&nbsp;Phân quyền</a>
-                                <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
-                                    Xóa</button>
-                            </td>
-                        </tr>
-                        @endforeach
+                            @if(isset($model))
+                                @foreach($model as $key=>$value)
+                                    <tr>
+                                        <td class="text-center">{{$key+1}}</td>
+                                        <td>{{$value->tendvbc}}</td>
+                                        <td>{{$value->ghichu}}</td>
+                                        <td>
+                                            <a href="{{url('/danh_muc/tai_khoan/list_user?&madb='.$value->madvbc)}}" class="btn btn-default btn-xs mbs">
+                                                <i class="fa fa-list-alt"></i>&nbsp; Danh sách đơn vị</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
             </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
         </div>
     </div>
 
-    <!-- BEGIN DASHBOARD STATS -->
-
-    <!-- END DASHBOARD STATS -->
-    <div class="clearfix"></div>
-        <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    {!! Form::open(['url'=>'users/delete','id' => 'frm_delete'])!!}
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                        <h4 class="modal-title">Đồng ý xóa?</h4>
-                    </div>
-                    <input type="hidden" name="iddelete" id="iddelete">
-                    <div class="modal-footer">
-                        <button type="submit" class="btn blue" onclick="ClickDelete()">Đồng ý</button>
-                        <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                    </div>
-                    {!! Form::close() !!}
+    <!--Modal thông tin phòng ban -->
+    <div id="phongban-modal" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                    <h4 id="modal-header-primary-label" class="modal-title">Thông tin khu vực, địa bàn quản lý</h4>
                 </div>
-                <!-- /.modal-content -->
+                <div class="modal-body">
+                    <label class="form-control-label">Tên khu vực, địa bàn quản lý<span class="require">*</span></label>
+                    {!!Form::text('tendvbc', null, array('id' => 'tendvbc','class' => 'form-control'))!!}
+
+                    <label class="form-control-label">Cấp độ quản lý</label>
+                    {!! Form::select('level',$a_baomat,$level,array('id' => 'level', 'class' => 'form-control'))!!}
+
+                    <label class="form-control-label">Ghi chú</label>
+                    {!!Form::textarea('ghichu', null, array('id' => 'ghichu','class' => 'form-control','rows'=>'3'))!!}
+
+                    <input type="hidden" id="madvbc" name="madvbc"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                    <button type="submit" id="submit" name="submit" value="submit" class="btn btn-primary" onclick="cfPB()">Đồng ý</button>
+                </div>
             </div>
-            <!-- /.modal-dialog -->
         </div>
     </div>
 
-    @include('includes.e.modal-confirm')
+    <script>
+        $(function(){
+            $('#mucbaomat').change(function() {
+                window.location.href = '/danh_muc/khu_vuc/ma_so='+$('#mucbaomat').val();
+            });
+        })
+    </script>
 
-
+    @include('includes.modal.delete')
 @stop

@@ -1,36 +1,23 @@
 <?php
 function getPermissionDefault($level) {
     $roles = array();
-
-    $roles['T'] = array(
-        'hsns' => array(
-            'index' => 1,
-            'create' => 0,
-            'edit' => 0,
-            'delete' => 0,
-            'approve'=> 1
-        )
-    );
-
-    $roles['H'] = array(
-        'hsns' => array(
-            'index' => 1,
-            'create' => 0,
-            'edit' => 0,
-            'delete' => 0,
-            'approve'=> 1
-        )
-    );
-
-    $roles['X'] = array(
-        'hsns' => array(
-            'index' => 1,
+    $model = array_column( \App\dmbaomat::select('macapdo','default_val')->where('level',$level)->get()->toarray(),'default_val','macapdo');
+    $roles[] = array(
+        'data' => array(
+            'units' => 0,
             'create' => 1,
             'edit' => 1,
             'delete' => 1,
-        )
+            'reports'=> 0
+        ),
+        'system' => array(
+            'information' => 1,
+            'create' => 0,
+            'edit' => 0,
+            'delete' => 0
+        ),'view' =>$model
     );
-    return json_encode($roles[$level]);
+    return json_encode($roles[0]);
 }
 
 function getDayVn($date) {
@@ -59,8 +46,8 @@ function getDbl($obj) {
 }
 
 function chkDbl($obj) {
-    $obj=str_replace(',','',$obj);
-    $obj=str_replace('.','',$obj);
+    //$obj=str_replace(',','',$obj);
+    //$obj=str_replace('.','',$obj);
     if(is_numeric($obj)){
         return $obj;
     }else {
@@ -187,23 +174,21 @@ function chuanhoatruong($text)
     $text = str_replace("%", "", $text);
     $text = preg_replace("/[^_a-zA-Z0-9 -]/", "", $text);
     $text = str_replace(array('%20', ' '), '_', $text);
-    $text = str_replace("----", "_", $text);
-    $text = str_replace("---", "_", $text);
-    $text = str_replace("--", "_", $text);
+    $text = str_replace("____", "_", $text);
+    $text = str_replace("___", "_", $text);
+    $text = str_replace("__", "_", $text);
     return $text;
 }
 
-function getAddMap($diachi){
-    $str = chuyenkhongdau($diachi);
-    $str = str_replace(' ','+',$str);
-    $geocode = file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$str.'&sensor=false');
-    $output = json_decode($geocode);
-    if($output->status == 'OK'){
-        $kq = $output->results[0]->geometry->location->lat. ',' .$output->results[0]->geometry->location->lng;
-    }else{
-        $kq = '';
-    }
-    return $kq;
+function removespace($text)
+{
+    $text = trim($text);
+    $text = str_replace(array('%20', ' '), '_', $text);
+    $text = str_replace("____", "_", $text);
+    $text = str_replace("___", "_", $text);
+    $text = str_replace("__", "_", $text);
+    $text = str_replace("_", " ", $text);
+    return $text;
 }
 
 function getPhanTram1($giatri, $thaydoi){
