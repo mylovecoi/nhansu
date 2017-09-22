@@ -880,7 +880,8 @@ class baocaotonghopController extends Controller
                     'gt'=>array_sum(array_column($dt,'gt')),
                     'dtin'=>array_sum(array_column($dt,'dtin'))
                 );
-                $model[$i]=array_merge($model[$i],array('tenpb'=>$m_dmpb[$data[$i]['mapb']]),$solieu);
+                //$model[$i]=array_merge($model[$i],array('tenpb'=>$m_dmpb[$data[$i]['mapb']]),$solieu); =>cũ đang lỗi
+                $model[$i]=array_merge($model[$i],$solieu);
             }
 
             $thongtin=array('ngaybaocao'=>$inputs['ngaybaocao'],

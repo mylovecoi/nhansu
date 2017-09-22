@@ -804,7 +804,7 @@ class baocaoController extends Controller
                 'hosocanbo.ngoaingu','hosocanbo.trinhdonn','hosocanbo.llct','hosocanbo.qlnhanuoc','hosocanbo.trinhdoth','hosocanbo.dantoc',
                 'hosocanbo.ngayvdct','hosocanbo.qqxa','hosocanbo.qqhuyen','hosocanbo.qqtinh','hosocanbo.lvhd')
             ->where('hosocanbo.ngaybc','<=',$inputs['ngaybaocao'])
-            ->where('hosocanbo.sunghiep',$phanloai)
+            ->where('hosocanbo.sunghiep',"'".$phanloai."'")
             ->where('hosocanbo.mapb','Like',$inputs['phongbanth'].'%')
             ->where('hosocanbo.theodoi','1')
             ->where('hosocanbo.madv',session('admin')->madv)
