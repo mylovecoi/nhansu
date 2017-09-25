@@ -97,8 +97,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END LOGIN -->
 <!-- BEGIN COPYRIGHT -->
 <div class="copyright">
-    <!--2016 &copy; H2Soft <a href="" >Tiện ích hơn - Hiệu quả hơn</a>-->
-    2016 &copy; LifeSoft <a href="">Tiện ích hơn - Hiệu quả hơn</a>
+    2016 &copy; H2Soft <a href="" >Tiện ích hơn - Hiệu quả hơn</a>
+    <!--2016 &copy; LifeSoft <a href="">Tiện ích hơn - Hiệu quả hơn</a>-->
 </div>
 <!--Modal đăng ký-->
 
