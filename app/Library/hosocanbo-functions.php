@@ -85,12 +85,18 @@ function getPhongBanX(){
 
 //Lấy thông tin cán bộ giao diện xã
 function getCanBoX(){
+    /* trường họp cũ
     $m_cb = \Illuminate\Support\Facades\DB::table('hosocanbo')
         ->join('dmchucvucq', 'hosocanbo.macvcq', '=', 'dmchucvucq.macvcq')
         ->select('hosocanbo.macanbo','hosocanbo.tencanbo','hosocanbo.mapb', 'dmchucvucq.sapxep')
         ->where('hosocanbo.madv',session('admin')->madv)
         ->where('hosocanbo.theodoi','1')
         ->orderby('dmchucvucq.sapxep')
+        ->get();
+    */
+    $m_cb = \App\hosocanbo::select('macanbo','tencanbo','mapb')
+        ->where('madv',session('admin')->madv)
+        ->where('theodoi','1')
         ->get();
     return $m_cb;
 }
