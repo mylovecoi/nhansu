@@ -43,8 +43,8 @@ License: You must have a valid license purchased only from themeforest(the above
 	<link href="{{url('assets/admin/layout/css/custom.css')}}" rel="stylesheet" type="text/css"/>
 	<!-- END THEME STYLES -->
 	<!--link rel="shortcut icon" href="favicon.ico"/-->
-    <!--link rel="shortcut icon" href="{{ url('images/logovang.png')}}" type="image/x-icon"-->
-    <link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url('images/logovang.png')}}" type="image/x-icon">
+    <!--link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon"-->
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
