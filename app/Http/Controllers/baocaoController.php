@@ -30,7 +30,9 @@ class baocaoController extends Controller
             $data=$this->getDS($inputs);
 
             $model=a_unique(a_split($data,array('mapb','macvcq')));
+
             $m_dmcv=array_column((dmchucvucq::select('macvcq','tencv')->get()->toarray()),'tencv', 'macvcq');
+
             for($i=0;$i<count($model);$i++){
                 $hopdong=count(a_getelement($data,array_merge($model[$i],array('kieuct' => 'Hợp đồng'))));
                 $bienche=count(a_getelement($data,array_merge($model[$i],array('kieuct' => 'Biên chế'))));

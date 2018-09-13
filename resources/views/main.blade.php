@@ -234,7 +234,7 @@
                         <li>
                             <a href="{{url('chuc_nang/nang_luong/danh_sach')}}">Nâng lương</a>
                         </li>
-                        <li>
+                        <!--li>
                             <a href="{{url('chuc_nang/het_tap_su/danh_sach')}}">Hết tập sư</a>
                         </li>
 
@@ -250,7 +250,7 @@
 
                         <li>
                             <a href="{{url('chuc_nang/huu_tri/danh_sach')}}">Nghỉ hưu</a>
-                        </li>
+                        </li-->
 					</ul>
 				</li>
 				<li>
