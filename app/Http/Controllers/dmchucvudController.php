@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\dmchucvud;
+use App\hosocanbo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -40,6 +41,7 @@ class dmchucvudController extends Controller
             $model->tencv = $inputs['tencv'];
             $model->ghichu = $inputs['ghichu'];
             $model->sapxep = $inputs['sapxep'];
+            $model->madv = session('admin')->madv;
             $model->save();
         } else {
             $id=$inputs['id'];
@@ -59,8 +61,13 @@ class dmchucvudController extends Controller
 
     function destroy($id){
         if (Session::has('admin')) {
-            $model = dmchucvud::findOrFail($id);
-            $model->delete();
+            $m_check = hosocanbo::wherein('macvd',function($qr)use($id){
+                $qr->select('macvd')->from('dmchucvud')->where('id',$id)->get();})->get();
+            if(count($m_check)<=0)
+            {
+                $model = dmchucvud::findOrFail($id);
+                $model->delete();
+            }
             return redirect('/danh_muc/chuc_vu_d/index');
         }else
             return view('errors.notlogin');

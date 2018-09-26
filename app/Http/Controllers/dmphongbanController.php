@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\dmphongban;
+use App\hosocanbo;
 use Illuminate\Http\Request;
+use App\Http\Requests;
 use Illuminate\Support\Facades\Session;
 
 class dmphongbanController extends Controller
@@ -26,7 +28,7 @@ class dmphongbanController extends Controller
                 }
             }
             */
-            $m_pb=dmphongban::all();
+            $m_pb=dmphongban::where('madv',session('admin')->madv)->get();
             return view('system.danhmuc.phongban.index')
                 ->with('model',$m_pb)
                 ->with('furl','/danh_muc/phong_ban/')
@@ -67,8 +69,13 @@ class dmphongbanController extends Controller
 
     function destroy($id){
         if (Session::has('admin')) {
-            $model = dmphongban::findOrFail($id);
-            $model->delete();
+            $m_check = hosocanbo::wherein('mapb',function($qr)use($id){
+                $qr->select('mapb')->from('dmphongban')->where('id',$id)->get();})->get();
+            if(count($m_check)<=0)
+            {
+                $model = dmphongban::findOrFail($id);
+                $model->delete();
+            }
             return redirect('/danh_muc/phong_ban/index');
         }else
             return view('errors.notlogin');

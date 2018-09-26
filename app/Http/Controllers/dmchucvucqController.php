@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\dmchucvucq;
 use App\dmkhoipb;
+use App\hosocanbo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -29,12 +30,12 @@ class dmchucvucqController extends Controller
                 }
                 default:{
                     $makpb=getMaKhoiPB(session('admin')->maxa);
-                    $model=dmchucvucq::where('makhoipb',$makpb)->orderby('sapxep')->get();
+                    $model=dmchucvucq::where('makhoipb',$makpb)->where('madv',session('admin')->madv)->orderby('sapxep')->get();
                     $model_kpb=dmkhoipb::select('makhoipb','tenkhoipb')->where('makhoipb',$makpb)->get()->toarray();
                     break;
                 }
             }
-
+            //$model = dmchucvucq::where('madv',session('admin')->madv)->get();
             return view('system.danhmuc.chucvucq.index')
                 ->with('model',$model)
                 ->with('model_kpb',array_column($model_kpb,'tenkhoipb','makhoipb'))
@@ -64,6 +65,7 @@ class dmchucvucqController extends Controller
         $model->ghichu = $inputs['ghichu'];
         $model->sapxep = $inputs['sapxep'];
         $model->makhoipb = $inputs['makhoipb'];
+        $model->madv = session('admin')->madv;
         $model->save();
 
         //Trả lại kết quả
@@ -75,8 +77,13 @@ class dmchucvucqController extends Controller
 
     function destroy($id){
         if (Session::has('admin')) {
-            $model = dmchucvucq::findOrFail($id);
-            $model->delete();
+            $m_check = hosocanbo::wherein('macvcq',function($qr)use($id){
+                $qr->select('macvcq')->from('dmchucvucq')->where('id',$id)->get();})->get();
+            if(count($m_check)<=0)
+            {
+                $model = dmchucvucq::findOrFail($id);
+                $model->delete();
+            }
             return redirect('/danh_muc/chuc_vu_cq/index');
         }else
             return view('errors.notlogin');
