@@ -59,7 +59,7 @@
 
     <p style="text"><b>Phát triển bởi Công ty TNHH Phát Triển Phần Mềm Cuộc Sống</b></p>
     <p><b>Địa chỉ</b>: Số Nhà 77, Lô N9A Khu Tái Định Cư X2A, Phường Yên Sở, Quận Hoàng Mai, TP Hà Nội</p>
-    <p><b>Tel</b>: 04.36343951 - <b>Email</b>: phanmemcuocsong@gmail.com</p>
+    <p><b>Tel</b>: (024) 3634 3951 - <b>Email</b>: phanmemcuocsong@gmail.com</p>
 </div>
 
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
