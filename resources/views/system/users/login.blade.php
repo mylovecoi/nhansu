@@ -43,8 +43,8 @@ License: You must have a valid license purchased only from themeforest(the above
 	<link href="{{url('assets/admin/layout/css/custom.css')}}" rel="stylesheet" type="text/css"/>
 	<!-- END THEME STYLES -->
 	<!--link rel="shortcut icon" href="favicon.ico"/-->
-    <link rel="shortcut icon" href="{{ url('images/logovang.png')}}" type="image/x-icon">
-    <!--link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon"-->
+{{--    <link rel="shortcut icon" href="{{ url('images/logovang.png')}}" type="image/x-icon">--}}
+    <link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -52,8 +52,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN LOGO -->
 <div class="logo">
 	<a href="">
-        <img src="{{url('images/h2softduoi.png')}}" width="150">
-		<!--img src="{{ url('images/LIFESOFT.png')}}"  width="250" alt="Công ty TNHH phát triển phần mềm Cuộc Sống"/-->
+{{--        <img src="{{url('images/h2softduoi.png')}}" width="150">--}}
+		<img src="{{ url('images/LIFESOFT.png')}}"  width="250" alt="Công ty TNHH phát triển phần mềm Cuộc Sống"/>
 	</a>
 </div>
 <!-- END LOGO -->
@@ -97,8 +97,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END LOGIN -->
 <!-- BEGIN COPYRIGHT -->
 <div class="copyright">
-    2016 &copy; H2Soft <a href="" >Tiện ích hơn - Hiệu quả hơn</a>
-    <!--2016 &copy; LifeSoft <a href="">Tiện ích hơn - Hiệu quả hơn</a>-->
+{{--    2016 &copy; H2Soft <a href="" >Tiện ích hơn - Hiệu quả hơn</a>--}}
+    <2016 &copy; LifeSoft <a href="">Tiện ích hơn - Hiệu quả hơn</a>
 </div>
 <!--Modal đăng ký-->
 
