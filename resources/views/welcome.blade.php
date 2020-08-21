@@ -31,8 +31,8 @@
 
 <br><br>
 <div class="row">
-    <!--img src="{{url('images/LIFESOFT.png')}}" width="250" alt="Công ty TNHH phát triển phần mềm Cuộc Sống"-->
-    <img src="{{url('images/h2softduoi.png')}}" width="150">
+    <img src="{{url('images/LIFESOFT.png')}}" width="250" alt="Công ty TNHH phát triển phần mềm Cuộc Sống">
+{{--    <img src="{{url('images/h2softduoi.png')}}" width="150">--}}
 </div>
 <div class="row">
     <h3><b></b></h3>
@@ -55,11 +55,11 @@
 <hr class="mtxl mbxl">
 
 <div class="row">
-    <p style="text"><b>Số đăng ký bản quyền: 282/2015/QTG, Khai Thác và Phần Phối bởi H2SOFT</b></p>
+{{--    <p style="text"><b>Số đăng ký bản quyền: 282/2015/QTG, Khai Thác và Phần Phối bởi H2SOFT</b></p>--}}
 
-    <!--p style="text"><b>Phát triển bởi Công ty TNHH Phát Triển Phần Mềm Cuộc Sống</b></p>
-    <p><b>Địa chỉ</b>: T14 – Cụm 591 – Liên Ninh – Thanh trì – Hà Nội</p>
-    <p><b>Tel</b>: 04.36343951 - <b>Email</b>: phanmemcuocsong@gmail.com</p-->
+    <p style="text"><b>Phát triển bởi Công ty TNHH Phát Triển Phần Mềm Cuộc Sống</b></p>
+    <p><b>Địa chỉ</b>: Số Nhà 77, Lô N9A Khu Tái Định Cư X2A, Phường Yên Sở, Quận Hoàng Mai, TP Hà Nội</p>
+    <p><b>Tel</b>: 04.36343951 - <b>Email</b>: phanmemcuocsong@gmail.com</p>
 </div>
 
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
