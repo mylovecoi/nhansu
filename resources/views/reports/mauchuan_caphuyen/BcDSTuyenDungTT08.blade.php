@@ -59,6 +59,7 @@
 <p style="text-align: center; font-style: italic">Ngày báo cáo từ {{getDayVn($thongtin['ngaytu'])}} đến ngày {{getDayVn($thongtin['ngayden'])}}</p>
 
 <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;">
+    <thead>
     <tr>
         <th style="width: 5%" rowspan="2">STT</th>
         <th style="width: 20%" rowspan="2">Họ và tên</th>
@@ -78,6 +79,7 @@
         <th>{{$i}}</th>
         @endfor
     </tr>
+    </thead>
     @foreach($model_kpb as $pb)
         <?php $donvi=$model_dv->where('makhoipb',$pb->makhoipb); ?>
             <tr style="font-weight: bold; text-align: center">

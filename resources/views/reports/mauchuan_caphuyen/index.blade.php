@@ -65,12 +65,12 @@
 
                 if (valid == false){
                     alert(message);
-                    $("form").submit(function (e) {
+                    $("#thoaibcdscb").submit(function (e) {
                         e.preventDefault();
                     });
                 }
                 else{
-                    $("form").unbind('submit').submit();
+                    $("#thoaibcdscb").unbind('submit').submit();
                     //$('#chitiet-modal').modal('hiden');
                 }
             });
@@ -87,13 +87,13 @@
 
                 if (valid == false){
                     alert(message);
-                    $("form").submit(function (e) {
+                    $("#thoaibcth").submit(function (e) {
                         e.preventDefault();
                     });
                 }
                 else{
                     //$('#thoaibcth').modal('hide');
-                    $("form").unbind('submit').submit();
+                    $("#thoaibcth").unbind('submit').submit();
                 }
             });
         });

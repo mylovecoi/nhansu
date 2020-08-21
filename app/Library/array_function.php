@@ -37,6 +37,7 @@ function a_unique($array){
 //$justvals = chỉ lấy phần tử đầu tiên tìm đc
 function a_getelement($array, $indexs, $justvals = false){
     $newarray = array();
+    //dd($indexs);
     if(is_array($array) && count($array)>0){
         if(is_array($indexs) && count($indexs)>0) {
             //Tổng số điều kiện
@@ -48,7 +49,9 @@ function a_getelement($array, $indexs, $justvals = false){
             //số phần tử thỏa mãn điều kiện
             $count = 0;
             foreach($indexs as $indx => $val){
-                if($array[$key][$indx] == $val || strpos(strtolower($array[$key][$indx]), strtolower($val))!==FALSE){
+                //Ngày 21/08/2020
+                //if($array[$key][$indx] == $val || strpos(strtolower($array[$key][$indx]), strtolower($val))!==FALSE){
+                if($array[$key][$indx] == $val){
                     $count++;
                 }
             }

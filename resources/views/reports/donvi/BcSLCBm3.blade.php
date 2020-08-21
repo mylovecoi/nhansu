@@ -53,6 +53,7 @@
 <p style="text-align: center; font-style: italic">Ngày báo cáo {{getDayVn($thongtin['ngaybaocao'])}}</p>
 
 <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;">
+    <thead>
     <tr>
         <th style="width: 7%" rowspan="2">STT</th>
         <th rowspan="2">Chức danh</th>
@@ -72,37 +73,38 @@
         <th style="width: 7%">Tổng</th>
         <th style="width: 7%">Nữ</th>
     </tr>
+    </thead>
     <?php $stt=1;?>
     @foreach($model as $ct)
         <tr style="text-align: center">
             <td>{{$stt++}}</td>
             <td style="text-align: left">{{$ct['tencv']}}</td>
-            <td>{{$ct['tong']}}</td>
-            <td>{{$ct['nu']}}</td>
-            <td>{{$ct['thieuso']}}</td>
-            <td>{{$ct['trendh']}}</td>
-            <td>{{$ct['daihoc']}}</td>
-            <td>{{$ct['caodang']}}</td>
-            <td>{{$ct['trungcap']}}</td>
-            <td>{{$ct['khac']}}</td>
-            <td>{{$ct['dangvien']}}</td>
-            <td>{{$ct['dangviennu']}}</td>
+            <td>{{dinhdangso($ct['tong'])}}</td>
+            <td>{{dinhdangso($ct['nu'])}}</td>
+            <td>{{dinhdangso($ct['thieuso'])}}</td>
+            <td>{{dinhdangso($ct['trendh'])}}</td>
+            <td>{{dinhdangso($ct['daihoc'])}}</td>
+            <td>{{dinhdangso($ct['caodang'])}}</td>
+            <td>{{dinhdangso($ct['trungcap'])}}</td>
+            <td>{{dinhdangso($ct['khac'])}}</td>
+            <td>{{dinhdangso($ct['dangvien'])}}</td>
+            <td>{{dinhdangso($ct['dangviennu'])}}</td>
         </tr>
     @endforeach
 
     <tr style="font-weight: bold; text-align: center">
         <td></td>
         <td>Tổng cộng</td>
-        <td>{{array_sum(array_column($model,'tong'))}}</td>
-        <td>{{array_sum(array_column($model,'nu'))}}</td>
-        <td>{{array_sum(array_column($model,'thieuso'))}}</td>
-        <td>{{array_sum(array_column($model,'trendh'))}}</td>
-        <td>{{array_sum(array_column($model,'daihoc'))}}</td>
-        <td>{{array_sum(array_column($model,'caodang'))}}</td>
-        <td>{{array_sum(array_column($model,'trungcap'))}}</td>
-        <td>{{array_sum(array_column($model,'khac'))}}</td>
-        <td>{{array_sum(array_column($model,'dangvien'))}}</td>
-        <td>{{array_sum(array_column($model,'dangviennu'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'tong')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'nu')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'thieuso')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'trendh')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'daihoc')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'caodang')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'trungcap')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'khac')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'dangvien')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'dangviennu')))}}</td>
     </tr>
 </table>
 <table class="header" width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:20px auto; text-align: center;">

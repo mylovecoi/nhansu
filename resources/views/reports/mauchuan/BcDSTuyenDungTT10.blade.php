@@ -59,6 +59,7 @@
 <p style="text-align: center; font-style: italic">Từ {{getDayVn($thongtin['ngaytu'])}} đến ngày {{getDayVn($thongtin['ngayden'])}}</p>
 
 <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;">
+    <thead>
     <tr>
         <th style="width: 5%" rowspan="2">STT</th>
         <th style="width: 15%" rowspan="2">Họ và tên</th>
@@ -81,6 +82,7 @@
         <th>{{$i}}</th>
         @endfor
     </tr>
+    </thead>
     <?php $stt=1; ?>
     @foreach($model as $ct)
         <tr style="text-align: center">

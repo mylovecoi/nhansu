@@ -63,6 +63,7 @@
 </table>
 
 <table id="noidung" cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;">
+    <thead>
     <tr>
         <th style="width: 2%" rowspan="4">STT</th>
         <th rowspan="4">Tên đơn vị</th>
@@ -142,44 +143,45 @@
         @for($i=1;$i<=38;$i++)
         <th>{{$i}}</th>
         @endfor
+    </thead>
     </tr>
     <?php $stt=1; ?>
     @foreach($model as $ct)
         <tr style="text-align: center">
             <td>{{$stt++}}</td>
             <td style="text-align: left">{{$ct['tenpb']}}</td>
-            <td>{{$ct['tong']}}</td>
+            <td>{{dinhdangso($ct['tong'])}}</td>
 
-            <td>{{$ct['dv']}}</td>
-            <td>{{$ct['gt']}}</td>
-            <td>{{$ct['dtin']}}</td>
+            <td>{{dinhdangso($ct['dv'])}}</td>
+            <td>{{dinhdangso($ct['gt'])}}</td>
+            <td>{{dinhdangso($ct['dtin'])}}</td>
             <td><!--$ct['tongiao']-->0</td>
 
-            <td>{{$ct['nb_cvcc']}}</td>
-            <td>{{$ct['nb_cvc']}}</td>
-            <td>{{$ct['nb_cv']}}</td>
-            <td>{{$ct['nb_cs']}}</td>
-            <td>{{$ct['nb_cl']}}</td>
+            <td>{{dinhdangso($ct['nb_cvcc'])}}</td>
+            <td>{{dinhdangso($ct['nb_cvc'])}}</td>
+            <td>{{dinhdangso($ct['nb_cv'])}}</td>
+            <td>{{dinhdangso($ct['nb_cs'])}}</td>
+            <td>{{dinhdangso($ct['nb_cl'])}}</td>
 
-            <td>{{$ct['ts']}}</td>
-            <td>{{$ct['ths']}}</td>
-            <td>{{$ct['dh']}}</td>
-            <td>{{0}}</td>
-            <td>{{0}}</td>
-            <td>{{$ct['cl']}}</td>
+            <td>{{dinhdangso($ct['ts'])}}</td>
+            <td>{{dinhdangso($ct['ths'])}}</td>
+            <td>{{dinhdangso($ct['dh'])}}</td>
+            <td>{{dinhdangso(0)}}</td>
+            <td>{{dinhdangso(0)}}</td>
+            <td>{{dinhdangso($ct['cl'])}}</td>
 
-            <td>{{$ct['ct_cc']}}</td>
-            <td>{{$ct['ct_tc']}}</td>
+            <td>{{dinhdangso($ct['ct_cc'])}}</td>
+            <td>{{dinhdangso($ct['ct_tc'])}}</td>
 
-            <td>{{$ct['th_dh']}}</td>
+            <td>{{dinhdangso($ct['th_dh'])}}</td>
             <td>0</td>
             <td>0</td>
-            <td>{{$ct['th_cc']}}</td>
+            <td>{{dinhdangso($ct['th_cc'])}}</td>
 
-            <td>{{$ct['nn_dh']}}</td>
-            <td>{{$ct['nn_cc']}}</td>
-            <td>{{$ct['kh_dh']}}</td>
-            <td>{{$ct['kh_cc']}}</td>
+            <td>{{dinhdangso($ct['nn_dh'])}}</td>
+            <td>{{dinhdangso($ct['nn_cc'])}}</td>
+            <td>{{dinhdangso($ct['kh_dh'])}}</td>
+            <td>{{dinhdangso($ct['kh_cc'])}}</td>
 
             <td>0</td>
             <td>0</td>
@@ -187,63 +189,63 @@
             <td>0</td>
 
 
-            <td>{{$ct['t_d30']}}</td>
-            <td>{{$ct['t_d40']}}</td>
-            <td>{{$ct['t_d50']}}</td>
-            <td>{{$ct['t_t50nam']+$ct['t_t50nu']}}</td>
-            <td>{{$ct['t_t50nu']}}</td>
-            <td>{{$ct['t_t50nam']}}</td>
-            <td>{{$ct['t_nh']}}</td>
+            <td>{{dinhdangso($ct['t_d30'])}}</td>
+            <td>{{dinhdangso($ct['t_d40'])}}</td>
+            <td>{{dinhdangso($ct['t_d50'])}}</td>
+            <td>{{dinhdangso($ct['t_t50nam']+$ct['t_t50nu'])}}</td>
+            <td>{{dinhdangso($ct['t_t50nu'])}}</td>
+            <td>{{dinhdangso($ct['t_t50nam'])}}</td>
+            <td>{{dinhdangso($ct['t_nh'])}}</td>
             <td>0</td>
         </tr>
     @endforeach
     <tr style="font-weight: bold; text-align: center">
         <td colspan="2">Tổng cộng</td>
-        <td>{{array_sum(array_column($model,'tong'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'tong')))}}</td>
 
-        <td>{{array_sum(array_column($model,'dv'))}}</td>
-        <td>{{array_sum(array_column($model,'gt'))}}</td>
-        <td>{{array_sum(array_column($model,'dtin'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'dv')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'gt')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'dtin')))}}</td>
         <td>0</td>
 
-        <td>{{array_sum(array_column($model,'nb_cvcc'))}}</td>
-        <td>{{array_sum(array_column($model,'nb_cvc'))}}</td>
-        <td>{{array_sum(array_column($model,'nb_cv'))}}</td>
-        <td>{{array_sum(array_column($model,'nb_cs'))}}</td>
-        <td>{{array_sum(array_column($model,'nb_cl'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'nb_cvcc')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'nb_cvc')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'nb_cv')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'nb_cs')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'nb_cl')))}}</td>
 
-        <td>{{array_sum(array_column($model,'ts'))}}</td>
-        <td>{{array_sum(array_column($model,'ths'))}}</td>
-        <td>{{array_sum(array_column($model,'dh'))}}</td>
-        <td>{{0}}</td>
-        <td>{{0}}</td>
-        <td>{{array_sum(array_column($model,'cl'))}}</td>
-
-        <td>0</td>
-        <td>0</td>
-        <td>{{array_sum(array_column($model,'ct_cc'))}}</td>
-        <td>0</td>
-
-        <td>{{array_sum(array_column($model,'th_dh'))}}</td>
-        <td>{{array_sum(array_column($model,'th_cc'))}}</td>
-
-        <td>{{array_sum(array_column($model,'nn_dh'))}}</td>
-        <td>{{array_sum(array_column($model,'nn_cc'))}}</td>
-        <td>{{array_sum(array_column($model,'kh_dh'))}}</td>
-        <td>{{array_sum(array_column($model,'kh_cc'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'ts')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'ths')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'dh')))}}</td>
+        <td>{{dinhdangso(0)}}</td>
+        <td>{{dinhdangso(0)}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'cl')))}}</td>
 
         <td>0</td>
         <td>0</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'ct_cc')))}}</td>
+        <td>0</td>
+
+        <td>{{dinhdangso(array_sum(array_column($model,'th_dh')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'th_cc')))}}</td>
+
+        <td>{{dinhdangso(array_sum(array_column($model,'nn_dh')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'nn_cc')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'kh_dh')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'kh_cc')))}}</td>
+
+        <td>0</td>
+        <td>0</td>
         <td>0</td>
         <td>0</td>
 
-        <td>{{array_sum(array_column($model,'t_d30'))}}</td>
-        <td>{{array_sum(array_column($model,'t_d40'))}}</td>
-        <td>{{array_sum(array_column($model,'t_t50'))}}</td>
-        <td>{{array_sum(array_column($model,'t_t50nu'))+array_sum(array_column($model,'t_t50nam'))}}</td>
-        <td>{{array_sum(array_column($model,'t_t50nu'))}}</td>
-        <td>{{array_sum(array_column($model,'t_t50nam'))}}</td>
-        <td>{{array_sum(array_column($model,'t_nh'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'t_d30')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'t_d40')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'t_t50')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'t_t50nu'))+array_sum(array_column($model,'t_t50nam')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'t_t50nu')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'t_t50nam')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'t_nh')))}}</td>
         <td>0</td>
     </tr>
 </table>

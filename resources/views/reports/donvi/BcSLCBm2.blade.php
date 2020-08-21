@@ -53,6 +53,7 @@
 <p style="text-align: center; font-style: italic">Ngày báo cáo {{getDayVn($thongtin['ngaybaocao'])}}</p>
 
 <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;">
+    <thead>
     <tr>
         <th style="width: 10%" rowspan="2">STT</th>
         <th rowspan="2">Chia theo độ tuổi</th>
@@ -64,15 +65,16 @@
         <th>Hợp đồng</th>
         <th>Tập sự</th>
     </tr>
+    </thead>
     <?php $atong=array(); ?>
     @foreach($model as $ct)
         <tr style="text-align: center">
             <td>{{$ct['tt']}}</td>
             <td style="text-align: left">{{$ct['noidung']}}</td>
-            <td>{{$ct['bienche']}}</td>
-            <td>{{$ct['bienche']}}</td>
-            <td>{{$ct['hopdong']}}</td>
-            <td>{{$ct['tapsu']}}</td>
+            <td>{{dinhdangso($ct['bienche'])}}</td>
+            <td>{{dinhdangso($ct['bienche'])}}</td>
+            <td>{{dinhdangso($ct['hopdong'])}}</td>
+            <td>{{dinhdangso($ct['tapsu'])}}</td>
         </tr>
         @if($ct['nhom']<=6 || $ct['nhom']<=6==10)
             <?php $atong[]=$ct; ?>
@@ -81,10 +83,10 @@
     <tr style="font-weight: bold; text-align: center">
         <td></td>
         <td>Tổng cộng</td>
-        <td>{{array_sum(array_column($atong,'tongcong'))}}</td>
-        <td>{{array_sum(array_column($atong,'bienche'))}}</td>
-        <td>{{array_sum(array_column($atong,'hopdong'))}}</td>
-        <td>{{array_sum(array_column($atong,'tapsu'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($atong,'tongcong')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($atong,'bienche')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($atong,'hopdong')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($atong,'tapsu')))}}</td>
     </tr>
 </table>
 <table class="header" width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:20px auto; text-align: center;">

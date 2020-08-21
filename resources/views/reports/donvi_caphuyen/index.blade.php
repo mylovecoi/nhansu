@@ -95,12 +95,12 @@
 
                 if (valid == false){
                     alert(message);
-                    $("form").submit(function (e) {
+                    $("#thoaibc").submit(function (e) {
                         e.preventDefault();
                     });
                 }
                 else{
-                    $("form").unbind('submit').submit();
+                    $("#thoaibc").unbind('submit').submit();
                     //$('#chitiet-modal').modal('hiden');
                 }
             });

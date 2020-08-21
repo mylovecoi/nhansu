@@ -24,45 +24,46 @@ class baocaoController extends Controller
             return view('errors.notlogin');
     }
 
-    function BcSLCBm1(Request $request) {
+    function BcSLCBm1(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $data=$this->getDS($inputs);
+            $data = $this->getDS($inputs);
+            //dd($data);
+            $model = a_unique(a_split($data, array('mapb', 'macvcq')));
 
-            $model=a_unique(a_split($data,array('mapb','macvcq')));
+            $m_dmcv = array_column((dmchucvucq::select('macvcq', 'tencv')->get()->toarray()), 'tencv', 'macvcq');
 
-            $m_dmcv=array_column((dmchucvucq::select('macvcq','tencv')->get()->toarray()),'tencv', 'macvcq');
+            for ($i = 0; $i < count($model); $i++) {
+                $hopdong = count(a_getelement($data, array_merge($model[$i], array('kieuct' => 'Hợp đồng'))));
+                $bienche = count(a_getelement($data, array_merge($model[$i], array('kieuct' => 'Biên chế'))));
+                $tapsu = count(a_getelement($data, array_merge($model[$i], array('tenct' => 'Tập sự'))));
 
-            for($i=0;$i<count($model);$i++){
-                $hopdong=count(a_getelement($data,array_merge($model[$i],array('kieuct' => 'Hợp đồng'))));
-                $bienche=count(a_getelement($data,array_merge($model[$i],array('kieuct' => 'Biên chế'))));
-                $tapsu=count(a_getelement($data,array_merge($model[$i],array('tenct' => 'Tập sự'))));
-                $model[$i]=array_merge($model[$i],array('hopdong'=>$hopdong,
-                    'bienche'=>$bienche-$tapsu,
-                    'tapsu'=>$tapsu,
-                    'tongcong'=>$bienche+$hopdong,
-                    'tencv'=>$m_dmcv[$model[$i]['macvcq']]));
+                $model[$i] = array_merge($model[$i], array('hopdong' => $hopdong,
+                    'bienche' => $bienche - $tapsu,
+                    'tapsu' => $tapsu,
+                    'tongcong' => $bienche + $hopdong,
+                    'tencv' => $m_dmcv[$model[$i]['macvcq']]));
             }
 
-            $m_pb=getPhongBanX()->toarray();
-            for($i=0;$i<count($m_pb);$i++){
-                $pb=a_getelement($model,array('mapb'=>$m_pb[$i]['mapb']));
-                $m_pb[$i]= array_merge($m_pb[$i],array('hopdong'=>array_sum(array_column($pb,'hopdong')),
-                    'bienche'=>array_sum(array_column($pb,'bienche')),
-                    'tapsu'=>array_sum(array_column($pb,'tapsu'))));
+            $m_pb = getPhongBanX()->toarray();
+            for ($i = 0; $i < count($m_pb); $i++) {
+                $pb = a_getelement($model, array('mapb' => $m_pb[$i]['mapb']));
+                $m_pb[$i] = array_merge($m_pb[$i], array('hopdong' => array_sum(array_column($pb, 'hopdong')),
+                    'bienche' => array_sum(array_column($pb, 'bienche')),
+                    'tapsu' => array_sum(array_column($pb, 'tapsu'))));
             }
 
-            $thongtin=array('ngaybaocao'=>$inputs['ngaybaocao'],
-                'nguoilap'=>'Đỗ Thanh Nam');
-            $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
+            $thongtin = array('ngaybaocao' => $inputs['ngaybaocao'],
+                'nguoilap' => 'Đỗ Thanh Nam');
+            $m_dv = dmdonvi::where('madv', session('admin')->madv)->first();
             //dd($model);
 
             return view('reports.donvi.BcSLCBm1')
-                ->with('m_pb',$m_pb)
-                ->with('model',$model)
-                ->with('m_dv',$m_dv)
-                ->with('thongtin',$thongtin)
-                ->with('pageTitle','Báo cáo đội ngũ cán bộ');
+                ->with('m_pb', $m_pb)
+                ->with('model', $model)
+                ->with('m_dv', $m_dv)
+                ->with('thongtin', $thongtin)
+                ->with('pageTitle', 'Báo cáo đội ngũ cán bộ');
         } else
             return view('errors.notlogin');
     }
@@ -412,7 +413,7 @@ class baocaoController extends Controller
             $m_dmpb=array_column((dmphongban::select('mapb','tenpb')->get()->toarray()),'tenpb', 'mapb');
             $m_pl=array_column((phanloaingach::select('phanloai','msngbac')->get()->toarray()),'phanloai','msngbac');
             $ngaybc=$inputs['ngaybaocao'];
-
+            //dd($inputs);
             for($i=0;$i<count($data);$i++){
                 $tuoi = $this->getage($data[$i]['ngaysinh'],$ngaybc);
                 $nhom = $this->getnhom($tuoi,$data[$i]['gioitinh'] );
@@ -429,7 +430,7 @@ class baocaoController extends Controller
             }
 
             $model=a_unique(a_split($data,array('mapb')));
-
+            //dd($model);
             for($i=0;$i<count($model);$i++){
                 $dt=a_getelement($data,$model[$i]);
 
@@ -804,9 +805,9 @@ class baocaoController extends Controller
             ->select('hosocanbo.tencanbo','hosocanbo.macanbo','hosocanbo.mapb','hosocanbo.macvcq','hosocanbo.ngaysinh'
                 ,'hosocanbo.gioitinh','hosocanbo.ngaybc','hosocanbo.tdcm','hosocanbo.msngbac','hosocanbo.heso','hosocanbo.ngaytu',
                 'hosocanbo.ngoaingu','hosocanbo.trinhdonn','hosocanbo.llct','hosocanbo.qlnhanuoc','hosocanbo.trinhdoth','hosocanbo.dantoc',
-                'hosocanbo.ngayvdct','hosocanbo.qqxa','hosocanbo.qqhuyen','hosocanbo.qqtinh','hosocanbo.lvhd')
+                'hosocanbo.ngayvdct','hosocanbo.qqxa','hosocanbo.qqhuyen','hosocanbo.qqtinh','hosocanbo.lvhd','hosocanbo.sunghiep')
             ->where('hosocanbo.ngaybc','<=',$inputs['ngaybaocao'])
-            ->where('hosocanbo.sunghiep',"'".$phanloai."'")
+            ->where('hosocanbo.sunghiep',$phanloai)
             ->where('hosocanbo.mapb','Like',$inputs['phongbanth'].'%')
             ->where('hosocanbo.theodoi','1')
             ->where('hosocanbo.madv',session('admin')->madv)

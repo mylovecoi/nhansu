@@ -66,6 +66,7 @@
 <p style="text-align: center; font-style: italic">Ngày báo cáo {{getDayVn($thongtin['ngaybaocao'])}}</p>
 
 <table id="noidung" cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;">
+    <thead>
     <tr>
         <th style="width: 2%" rowspan="4">STT</th>
         <th rowspan="4">Khối phòng ban</br>Đơn vị</th>
@@ -136,6 +137,7 @@
         <th>{{$i}}</th>
         @endfor
     </tr>
+    </thead>
     @foreach($model_kpb as $pb)
         <?php $donvi=$model_dv->where('makhoipb',$pb->makhoipb); ?>
         <tr style="font-weight: bold; text-align: center">
@@ -157,44 +159,44 @@
                     <tr style="text-align: center">
             <td>{{$stt++}}</td>
             <td style="text-align: left">{{$ct['tenpb']}}</td>
-            <td>{{$ct['tong']}}</td>
+            <td>{{dinhdangso($ct['tong'])}}</td>
 
-            <td>{{$ct['lv_gd']}}</td>
-            <td>{{$ct['lv_yt']}}</td>
-            <td>{{$ct['lv_nn']}}</td>
-            <td>{{$ct['lv_vh']}}</td>
-            <td>{{$ct['lv_kh']}}</td>
+            <td>{{dinhdangso($ct['lv_gd'])}}</td>
+            <td>{{dinhdangso($ct['lv_yt'])}}</td>
+            <td>{{dinhdangso($ct['lv_nn'])}}</td>
+            <td>{{dinhdangso($ct['lv_vh'])}}</td>
+            <td>{{dinhdangso($ct['lv_kh'])}}</td>
 
-            <td>{{$ct['nb_cvcc']}}</td>
-            <td>{{$ct['nb_cvc']}}</td>
-            <td>{{$ct['nb_cv']}}</td>
-            <td>{{$ct['nb_cs']}}</td>
-            <td>{{$ct['nb_cl']}}</td>
+            <td>{{dinhdangso($ct['nb_cvcc'])}}</td>
+            <td>{{dinhdangso($ct['nb_cvc'])}}</td>
+            <td>{{dinhdangso($ct['nb_cv'])}}</td>
+            <td>{{dinhdangso($ct['nb_cs'])}}</td>
+            <td>{{dinhdangso($ct['nb_cl'])}}</td>
 
-            <td>{{$ct['ts']}}</td>
-            <td>{{$ct['ths']}}</td>
-            <td>{{$ct['dh']}}</td>
-            <td>{{$ct['cl']}}</td>
+            <td>{{dinhdangso($ct['ts'])}}</td>
+            <td>{{dinhdangso($ct['ths'])}}</td>
+            <td>{{dinhdangso($ct['dh'])}}</td>
+            <td>{{dinhdangso($ct['cl'])}}</td>
 
-            <td>{{$ct['ct_cc']}}</td>
-            <td>{{$ct['ct_tc']}}</td>
+            <td>{{dinhdangso($ct['ct_cc'])}}</td>
+            <td>{{dinhdangso($ct['ct_tc'])}}</td>
 
-            <td>{{$ct['th_dh']}}</td>
-            <td>{{$ct['th_cc']}}</td>
+            <td>{{dinhdangso($ct['th_dh'])}}</td>
+            <td>{{dinhdangso($ct['th_cc'])}}</td>
 
-            <td>{{$ct['nn_dh']}}</td>
-            <td>{{$ct['nn_cc']}}</td>
-            <td>{{$ct['kh_dh']}}</td>
-            <td>{{$ct['kh_cc']}}</td>
+            <td>{{dinhdangso($ct['nn_dh'])}}</td>
+            <td>{{dinhdangso($ct['nn_cc'])}}</td>
+            <td>{{dinhdangso($ct['kh_dh'])}}</td>
+            <td>{{dinhdangso($ct['kh_cc'])}}</td>
 
-            <td>{{$ct['t_d30']}}</td>
-            <td>{{$ct['t_d50']}}</td>
-            <td>{{$ct['t_t50nam']+$ct['t_t50nu']}}</td>
-            <td>Nam:{{$ct['t_t50nam']}}<br>Nữ:{{$ct['t_t50nu']}}</td>
-            <td>{{$ct['t_nh']}}</td>
-            <td>{{$ct['dv']}}</td>
-            <td>{{$ct['gt']}}</td>
-            <td>{{$ct['dtin']}}</td>
+            <td>{{dinhdangso($ct['t_d30'])}}</td>
+            <td>{{dinhdangso($ct['t_d50'])}}</td>
+            <td>{{dinhdangso($ct['t_t50nam']+$ct['t_t50nu'])}}</td>
+            <td>Nam:{{dinhdangso($ct['t_t50nam'])}}<br>Nữ:{{dinhdangso($ct['t_t50nu'])}}</td>
+            <td>{{dinhdangso($ct['t_nh'])}}</td>
+            <td>{{dinhdangso($ct['dv'])}}</td>
+            <td>{{dinhdangso($ct['gt'])}}</td>
+            <td>{{dinhdangso($ct['dtin'])}}</td>
         </tr>
                 @endif
             @endforeach
@@ -202,44 +204,44 @@
     @endforeach
     <tr style="font-weight: bold; text-align: center">
         <td colspan="2">Tổng cộng</td>
-        <td>{{array_sum(array_column($model,'tong'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'tong')))}}</td>
 
-        <td>{{array_sum(array_column($model,'lv_gd'))}}</td>
-        <td>{{array_sum(array_column($model,'lv_yt'))}}</td>
-        <td>{{array_sum(array_column($model,'lv_nn'))}}</td>
-        <td>{{array_sum(array_column($model,'lv_vh'))}}</td>
-        <td>{{array_sum(array_column($model,'lv_kh'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'lv_gd')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'lv_yt')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'lv_nn')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'lv_vh')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'lv_kh')))}}</td>
 
-        <td>{{array_sum(array_column($model,'nb_cvcc'))}}</td>
-        <td>{{array_sum(array_column($model,'nb_cvc'))}}</td>
-        <td>{{array_sum(array_column($model,'nb_cv'))}}</td>
-        <td>{{array_sum(array_column($model,'nb_cs'))}}</td>
-        <td>{{array_sum(array_column($model,'nb_cl'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'nb_cvcc')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'nb_cvc')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'nb_cv')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'nb_cs')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'nb_cl')))}}</td>
 
-        <td>{{array_sum(array_column($model,'ts'))}}</td>
-        <td>{{array_sum(array_column($model,'ths'))}}</td>
-        <td>{{array_sum(array_column($model,'dh'))}}</td>
-        <td>{{array_sum(array_column($model,'cl'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'ts')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'ths')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'dh')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'cl')))}}</td>
 
-        <td>{{array_sum(array_column($model,'ct_cc'))}}</td>
-        <td>{{array_sum(array_column($model,'ct_tc'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'ct_cc')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'ct_tc')))}}</td>
 
-        <td>{{array_sum(array_column($model,'th_dh'))}}</td>
-        <td>{{array_sum(array_column($model,'th_cc'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'th_dh')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'th_cc')))}}</td>
 
-        <td>{{array_sum(array_column($model,'nn_dh'))}}</td>
-        <td>{{array_sum(array_column($model,'nn_cc'))}}</td>
-        <td>{{array_sum(array_column($model,'kh_dh'))}}</td>
-        <td>{{array_sum(array_column($model,'kh_cc'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'nn_dh')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'nn_cc')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'kh_dh')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'kh_cc')))}}</td>
 
-        <td>{{array_sum(array_column($model,'t_d30'))}}</td>
-        <td>{{array_sum(array_column($model,'t_d50'))}}</td>
-        <td>{{array_sum(array_column($model,'t_t50nam'))+array_sum(array_column($model,'t_t50nu'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'t_d30')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'t_d50')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'t_t50nam'))+array_sum(array_column($model,'t_t50nu')))}}</td>
         <td></td>
-        <td>{{array_sum(array_column($model,'t_nh'))}}</td>
-        <td>{{array_sum(array_column($model,'dv'))}}</td>
-        <td>{{array_sum(array_column($model,'gt'))}}</td>
-        <td>{{array_sum(array_column($model,'dtin'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'t_nh')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'dv')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'gt')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'dtin')))}}</td>
     </tr>
 </table>
 <table class="header" width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:20px auto; text-align: center;">

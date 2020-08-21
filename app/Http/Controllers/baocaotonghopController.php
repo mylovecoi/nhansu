@@ -48,7 +48,7 @@ class baocaotonghopController extends Controller
                         ->where('makhoipb','like',$makhoipb)
                         ->distinct()->get();
                 })->where('theodoi',1)->get();
-
+            //dd($model_kpb);
             foreach($model_dv as $donvi){
                 $donvi->hopdong=$model_cb->where('madv',$donvi->madv)->where('kieuct','Hợp đồng')->count();
                 $donvi->bienche=$model_cb->where('madv',$donvi->madv)->where('kieuct','Biên chế')->count();

@@ -53,6 +53,7 @@
 <p style="text-align: center; font-style: italic">Ngày báo cáo {{getDayVn($thongtin['ngaybaocao'])}}</p>
 
 <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;">
+    <thead>
     <tr>
         <th style="width: 7%" rowspan="2">STT</th>
         <th rowspan="2">Khối phòng ban</br>Đơn vị</th>
@@ -72,38 +73,38 @@
         <th style="width: 7%">Tổng</th>
         <th style="width: 7%">Nữ</th>
     </tr>
-
+    </thead>
     @foreach($model_kpb as $pb)
         <?php $donvi=$model_dv->where('makhoipb',$pb->makhoipb); ?>
             <tr style="font-weight: bold; text-align: center">
             <td></td>
             <td style="text-align: left">{{$pb->tenkhoipb.' ( '.$donvi->count().' đơn vị)'}}</td>
-                <td>{{$donvi->sum('tongcong')}}</td>
-                <td>{{$donvi->sum('nu')}}</td>
-                <td>{{$donvi->sum('thieuso')}}</td>
-                <td>{{$donvi->sum('trendh')}}</td>
-                <td>{{$donvi->sum('daihoc')}}</td>
-                <td>{{$donvi->sum('caodang')}}</td>
-                <td>{{$donvi->sum('trungcap')}}</td>
-                <td>{{$donvi->sum('khac')}}</td>
-                <td>{{$donvi->sum('dangvien')}}</td>
-                <td>{{$donvi->sum('dangviennu')}}</td>
+                <td>{{dinhdangso($donvi->sum('tongcong'))}}</td>
+                <td>{{dinhdangso($donvi->sum('nu'))}}</td>
+                <td>{{dinhdangso($donvi->sum('thieuso'))}}</td>
+                <td>{{dinhdangso($donvi->sum('trendh'))}}</td>
+                <td>{{dinhdangso($donvi->sum('daihoc'))}}</td>
+                <td>{{dinhdangso($donvi->sum('caodang'))}}</td>
+                <td>{{dinhdangso($donvi->sum('trungcap'))}}</td>
+                <td>{{dinhdangso($donvi->sum('khac'))}}</td>
+                <td>{{dinhdangso($donvi->sum('dangvien'))}}</td>
+                <td>{{dinhdangso($donvi->sum('dangviennu'))}}</td>
         </tr>
         <?php $stt=1;?>
         @foreach($donvi as $ct)
             <tr style="text-align: center">
                 <td>{{$stt++}}</td>
                 <td style="text-align: left">{{$ct->tendv}}</td>
-                <td>{{$ct->tongcong}}</td>
-                <td>{{$ct['nu']}}</td>
-                <td>{{$ct['thieuso']}}</td>
-                <td>{{$ct['trendh']}}</td>
-                <td>{{$ct['daihoc']}}</td>
-                <td>{{$ct['caodang']}}</td>
-                <td>{{$ct['trungcap']}}</td>
-                <td>{{$ct['khac']}}</td>
-                <td>{{$ct['dangvien']}}</td>
-                <td>{{$ct['dangviennu']}}</td>
+                <td>{{dinhdangso($ct->tongcong)}}</td>
+                <td>{{dinhdangso($ct['nu'])}}</td>
+                <td>{{dinhdangso($ct['thieuso'])}}</td>
+                <td>{{dinhdangso($ct['trendh'])}}</td>
+                <td>{{dinhdangso($ct['daihoc'])}}</td>
+                <td>{{dinhdangso($ct['caodang'])}}</td>
+                <td>{{dinhdangso($ct['trungcap'])}}</td>
+                <td>{{dinhdangso($ct['khac'])}}</td>
+                <td>{{dinhdangso($ct['dangvien'])}}</td>
+                <td>{{dinhdangso($ct['dangviennu'])}}</td>
             </tr>
         @endforeach
     @endforeach
@@ -111,16 +112,16 @@
     <tr style="font-weight: bold; text-align: center">
         <td></td>
         <td>Tổng cộng ({{$model_dv->count()}} đơn vị)</td>
-        <td>{{$model_dv->sum('tongcong')}}</td>
-        <td>{{$model_dv->sum('nu')}}</td>
-        <td>{{$model_dv->sum('thieuso')}}</td>
-        <td>{{$model_dv->sum('trendh')}}</td>
-        <td>{{$model_dv->sum('daihoc')}}</td>
-        <td>{{$model_dv->sum('caodang')}}</td>
-        <td>{{$model_dv->sum('trungcap')}}</td>
-        <td>{{$model_dv->sum('khac')}}</td>
-        <td>{{$model_dv->sum('dangvien')}}</td>
-        <td>{{$model_dv->sum('dangviennu')}}</td>
+        <td>{{dinhdangso($model_dv->sum('tongcong'))}}</td>
+        <td>{{dinhdangso($model_dv->sum('nu'))}}</td>
+        <td>{{dinhdangso($model_dv->sum('thieuso'))}}</td>
+        <td>{{dinhdangso($model_dv->sum('trendh'))}}</td>
+        <td>{{dinhdangso($model_dv->sum('daihoc'))}}</td>
+        <td>{{dinhdangso($model_dv->sum('caodang'))}}</td>
+        <td>{{dinhdangso($model_dv->sum('trungcap'))}}</td>
+        <td>{{dinhdangso($model_dv->sum('khac'))}}</td>
+        <td>{{dinhdangso($model_dv->sum('dangvien'))}}</td>
+        <td>{{dinhdangso($model_dv->sum('dangviennu'))}}</td>
     </tr>
 </table>
 <table class="header" width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:20px auto; text-align: center;">

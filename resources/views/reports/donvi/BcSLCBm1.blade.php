@@ -53,6 +53,7 @@
 <p style="text-align: center; font-style: italic">Ngày báo cáo {{getDayVn($thongtin['ngaybaocao'])}}</p>
 
 <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;">
+    <thead>
     <tr>
         <th style="width: 10%" rowspan="2">STT</th>
         <th rowspan="2">Phòng ban </br>Chức vụ</th>
@@ -64,25 +65,26 @@
         <th>Hợp đồng</th>
         <th>Tập sự</th>
     </tr>
+    </thead>
     <?php $stt=1;?>
     @foreach($m_pb as $pb)
         <tr style="font-weight: bold; text-align: center">
             <td>{{$stt++}}</td>
             <td style="text-align: left">{{$pb['tenpb']}}</td>
-            <td>{{$pb['bienche']+$pb['hopdong']+$pb['tapsu']}}</td>
-            <td>{{$pb['bienche']}}</td>
-            <td>{{$pb['hopdong']}}</td>
-            <td>{{$pb['tapsu']}}</td>
+            <td>{{dinhdangso($pb['bienche']+$pb['hopdong']+$pb['tapsu'])}}</td>
+            <td>{{dinhdangso($pb['bienche'])}}</td>
+            <td>{{dinhdangso($pb['hopdong'])}}</td>
+            <td>{{dinhdangso($pb['tapsu'])}}</td>
         </tr>
         @foreach($model as $ct)
             @if($pb['mapb']==$ct['mapb'])
                 <tr style="text-align: center">
                     <td></td>
                     <td style="text-align: left">{{$ct['tencv']}}</td>
-                    <td>{{$ct['tongcong']}}</td>
-                    <td>{{$ct['bienche']}}</td>
-                    <td>{{$ct['hopdong']}}</td>
-                    <td>{{$ct['tapsu']}}</td>
+                    <td>{{dinhdangso($ct['tongcong'])}}</td>
+                    <td>{{dinhdangso($ct['bienche'])}}</td>
+                    <td>{{dinhdangso($ct['hopdong'])}}</td>
+                    <td>{{dinhdangso($ct['tapsu'])}}</td>
                 </tr>
             @endif
         @endforeach
@@ -90,10 +92,10 @@
     <tr style="font-weight: bold; text-align: center">
         <td></td>
         <td>Tổng cộng</td>
-        <td>{{array_sum(array_column($model,'tongcong'))}}</td>
-        <td>{{array_sum(array_column($model,'bienche'))}}</td>
-        <td>{{array_sum(array_column($model,'hopdong'))}}</td>
-        <td>{{array_sum(array_column($model,'tapsu'))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'tongcong')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'bienche')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'hopdong')))}}</td>
+        <td>{{dinhdangso(array_sum(array_column($model,'tapsu')))}}</td>
     </tr>
 </table>
 <table class="header" width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:20px auto; text-align: center;">
