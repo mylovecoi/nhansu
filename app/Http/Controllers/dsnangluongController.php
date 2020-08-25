@@ -53,14 +53,11 @@ class dsnangluongController extends Controller
         $model->madv=session('admin')->madv;
         $model->save();
 
-        $m_ngachbac=ngachbac::select('msngbac','namnb','bac','heso','ptvk')
-            ->wherein('msngbac',function($query){
-                $query->select('msngbac')->from('hosocanbo')->distinct();
-            })->get()->toarray();
 
         $m_cb=hosocanbo::where('ngayden','<',$inputs['ngayxet'])
             ->where('madv',session('admin')->madv)->get();
-
+        $m_ngachbac=ngachbac::select('msngbac','namnb','bac','heso','ptvk')
+            ->wherein('msngbac', array_column($m_cb->toarray(),'msngbac'))->get()->toarray();
         foreach($m_cb as $cb){
             $m_luong=new hosoluong();
 

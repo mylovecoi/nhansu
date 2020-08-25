@@ -43,7 +43,7 @@
             <b>Đơn vị chủ quản: {{$m_dv->tenct}}</b>
         </td>
         <td  style="text-align: center;">
-            <!--b>Mẫu số C02-X</b-->
+            <b>BM02-VC/BNV</b>
         </td>
     </tr>
     <tr>
@@ -51,29 +51,33 @@
             <b>Đơn vị: {{$m_dv->tendv}}</b>
         </td>
         <td style="text-align: center; font-style: italic">
-
+            (Ban hành kèm theo Thông tư số 07/2019/TT-BNV ngày 01 tháng 6 năm 2019 của Bộ trưởng Bộ Nội vụ)
         </td>
     </tr>
 </table>
-<p style="text-align: center; font-weight: bold; font-size: 20px;">BẢNG TRÍCH NỘP BẢO HIỂM</p>
+<p style="text-align: center; font-weight: bold; font-size: 20px;">BẢNG THANH TOÁN TIỀN LƯƠNG VÀ PHỤ CẤP</p>
 <p style="text-align: center; font-style: italic">Tháng {{$thongtin['thang']}} năm {{$thongtin['nam']}}</p>
 
 <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;">
     <tr style="padding-left: 2px;padding-right: 2px">
         <th style="width: 2%;padding-left: 2px;padding-right: 2px" rowspan="2">STT</th>
-        <th style="padding-left: 2px;padding-right: 2px" rowspan="2">Họ và tên</th>
+        <th style="width: 7%;padding-left: 2px;padding-right: 2px" rowspan="2">Họ và tên</th>
         <th style="width: 6%;padding-left: 2px;padding-right: 2px" rowspan="2">Mã số</br>ngạch</br>bậc</th>
-        <th colspan="4">Các khoản cá nhân nộp</th>
-        <th colspan="4">Các khoản đơn vị nộp</th>
-        <th style="padding-left: 2px;padding-right: 2px" rowspan="2">Tổng số tiền</th>
-        <th style="width: 6%;padding-left: 2px;padding-right: 2px" rowspan="2">Ghi chú</th>
+        <th style="width: 6%;padding-left: 2px;padding-right: 2px" rowspan="2">Hệ số</br>lương</th>
+        <th style="width: 6%;padding-left: 2px;padding-right: 2px" rowspan="2">Hệ số</br>phụ</br>cấp</th>
+        <th style="width: 6%;padding-left: 2px;padding-right: 2px" rowspan="2">Cộng</br>hệ số</th>
+        <th style="width: 6%;padding-left: 2px;padding-right: 2px" rowspan="2">Mức lương</th>
+        <th colspan="2">Các khoản phụ</br>cấp khác</th>
+        <th style="width: 6%;padding-left: 2px;padding-right: 2px" rowspan="2">Tổng lương</br>được hưởng</th>
+        <th style="width: 6%;padding-left: 2px;padding-right: 2px" rowspan="2">BHXH trả</br>thay lương</th>
+        <th colspan="4">Các khoản phải khấu trừ</th>
+        <th style="width: 6%;padding-left: 2px;padding-right: 2px" rowspan="2">Còn lại</th>
+        <th style="width: 6%;padding-left: 2px;padding-right: 2px" rowspan="2">Ký nhận</th>
     </tr>
 
     <tr style="padding-left: 2px;padding-right: 2px">
-        <th>BHXH</th>
-        <th>BHYT</th>
-        <th>KPCĐ</th>
-        <th>Cộng</th>
+        <th>Hệ số</th>
+        <th>Số tiền</th>
 
         <th>BHXH</th>
         <th>BHYT</th>
@@ -82,7 +86,7 @@
     </tr>
 
     <tr>
-        @for($i=1;$i<=13;$i++)
+        @for($i=1;$i<=17;$i++)
         <th>{{$i}}</th>
         @endfor
     </tr>
@@ -93,30 +97,37 @@
             <td>{{$stt++}}</td>
             <td>{{$ct->tencanbo}}</td>
             <td>{{$ct->msngbac}}</td>
-            <td style="text-align: right">{{dinhdangso($ct->stbhxh)}}</td>
-            <td style="text-align: right">{{dinhdangso($ct->stbhyt)}}</td>
-            <td style="text-align: right">{{dinhdangso($ct->stkpcd)}}</td>
-            <td style="text-align: right; font-weight: bold; font-style: italic">{{dinhdangso($ct->ttbh)}}</td>
-            <td style="text-align: right">{{dinhdangso($ct->stbhxh_dv)}}</td>
-            <td style="text-align: right">{{dinhdangso($ct->stbhyt_dv)}}</td>
-            <td style="text-align: right">{{dinhdangso($ct->stkpcd_dv)}}</td>
-            <td style="text-align: right; font-weight: bold; font-style: italic">{{dinhdangso($ct->ttbh_dv)}}</td>
-            <td style="font-weight: bold; text-align: right">{{dinhdangso($ct->ttbh_dv+$ct->ttbh)}}</td>
+            <td>{{dinhdangsothapphan($ct->heso,5)}}</td>
+            <td>{{dinhdangsothapphan($ct->tonghs-$ct->heso,5)}}</td>
+            <td>{{dinhdangsothapphan($ct->tonghs,5)}}</td>
+            <td>{{dinhdangso($ct->ttl)}}</td>
+            <td></td>
+            <td></td>
+            <td>{{dinhdangso($ct->ttl)}}</td>
+            <td>{{dinhdangso($ct->bhct)}}</td>
+            <td>{{dinhdangso($ct->stbhxh)}}</td>
+            <td>{{dinhdangso($ct->stbhyt)}}</td>
+            <td>{{dinhdangso($ct->stkpcd)}}</td>
+            <td>{{dinhdangso($ct->ttbh)}}</td>
+            <td>{{dinhdangso($ct->luongtn)}}</td>
             <td></td>
         </tr>
     @endforeach
-    <tr style="font-weight: bold; text-align: right">
+    <tr style="font-weight: bold; text-align: center">
         <td colspan="3">Tổng cộng</td>
-
+        <td>{{dinhdangsothapphan($model->sum('heso'),5)}}</td>
+        <td>{{dinhdangsothapphan($model->sum('tonghs')-$model->sum('heso'),5)}}</td>
+        <td>{{dinhdangsothapphan($model->sum('tonghs'),5)}}</td>
+        <td>{{dinhdangso($model->sum('ttl'))}}</td>
+        <td></td>
+        <td></td>
+        <td>{{dinhdangso($model->sum('ttl'))}}</td>
+        <td>{{dinhdangso($model->sum('bhct'))}}</td>
         <td>{{dinhdangso($model->sum('stbhxh'))}}</td>
         <td>{{dinhdangso($model->sum('stbhyt'))}}</td>
         <td>{{dinhdangso($model->sum('stkpcd'))}}</td>
         <td>{{dinhdangso($model->sum('ttbh'))}}</td>
-        <td>{{dinhdangso($model->sum('stbhxh_dv'))}}</td>
-        <td>{{dinhdangso($model->sum('stbhyt_dv'))}}</td>
-        <td>{{dinhdangso($model->sum('stkpcd_dv'))}}</td>
-        <td>{{dinhdangso($model->sum('ttbh_dv'))}}</td>
-        <td>{{dinhdangso($model->sum('ttbh_dv')+$model->sum('ttbh'))}}</td>
+        <td>{{dinhdangso($model->sum('luongtn'))}}</td>
         <td></td>
     </tr>
 </table>

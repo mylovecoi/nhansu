@@ -425,7 +425,7 @@ class bangluongController extends Controller
             $thongtin=array('nguoilap'=>session('admin')->name,
                 'thang'=>$m_bl->thang,
                 'nam'=>$m_bl->nam);
-            return view('reports.bangluong.maubangluong')
+            return view('reports.ThongTu07.maubangluong_m02')
                 ->with('model',$model)
                 ->with('m_dv',$m_dv)
                 ->with('thongtin',$thongtin)

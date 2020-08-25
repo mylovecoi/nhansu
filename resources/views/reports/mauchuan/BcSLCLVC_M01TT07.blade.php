@@ -50,7 +50,7 @@
             <b>Đơn vị chủ quản: {{$m_dv->tenct}}</b>
         </td>
         <td  style="text-align: center;">
-            <b>Mẫu số 04</b>
+            <b>BM01-VC/BNV</b>
         </td>
     </tr>
     <tr>
@@ -58,7 +58,7 @@
             <b>Đơn vị: {{$m_dv->tendv}}</b>
         </td>
         <td  style="text-align: center; font-style: italic">
-            (Ban hành kèm theo Thông tư số 09/2004/TT-BNV ngày 19/02/2004 của Bộ Nội vụ)
+            (Ban hành kèm theo Thông tư số 07/2019/TT-BNV ngày 01 tháng 6 năm 2019 của Bộ trưởng Bộ Nội vụ)
         </td>
     </tr>
 </table>
@@ -138,25 +138,9 @@
         @endfor
     </tr>
     </thead>
-    @foreach($model_kpb as $pb)
-        <?php $donvi=$model_dv->where('makhoipb',$pb->makhoipb); ?>
-        <tr style="font-weight: bold; text-align: center">
-            <td></td>
-            <td colspan="32" style="text-align: left">{{$pb->tenkhoipb.' ( '.$donvi->count().' đơn vị)'}}</td>
-
-        </tr>
-        <?php $i=1;?>
-        @foreach($donvi as $dv)
-            <tr style="font-weight: bold; text-align: center; font-style: italic">
-                <td>{{$i++}}</td>
-                <td colspan="32" style="text-align: left">{{$dv->tendv}}</td>
-
-            </tr>
-            <?php $stt=1; ?>
-
-            @foreach($model as $ct)
-                @if($ct['madv']==$dv->madv)
-                    <tr style="text-align: center">
+    <?php $stt=1; ?>
+    @foreach($model as $ct)
+        <tr style="text-align: center">
             <td>{{$stt++}}</td>
             <td style="text-align: left">{{$ct['tenpb']}}</td>
             <td>{{dinhdangso($ct['tong'])}}</td>
@@ -198,9 +182,6 @@
             <td>{{dinhdangso($ct['gt'])}}</td>
             <td>{{dinhdangso($ct['dtin'])}}</td>
         </tr>
-                @endif
-            @endforeach
-        @endforeach
     @endforeach
     <tr style="font-weight: bold; text-align: center">
         <td colspan="2">Tổng cộng</td>

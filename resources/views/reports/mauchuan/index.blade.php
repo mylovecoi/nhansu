@@ -21,18 +21,20 @@
                         <div class="col-lg-12">
                             <ol>
                             <li><a href="#" data-target="#thoaibcdscb-modal" data-toggle="modal" onclick="baocao('{{$furl.'BcDSTuyenDungTT08'}}')">Báo cáo danh sách cán bộ được tuyển dụng (Mẫu 01/Thông tư 08)</a></li>
-                                    <li><a href="#" data-target="#thoaibcdscb-modal" data-toggle="modal" onclick="baocao('{{$furl.'BcDSTuyenDungTT10'}}')">Báo cáo danh sách cán bộ được tuyển dụng (Mẫu 04/Thông tư 10)</a></li>
+                                <li><a href="#" data-target="#thoaibcdscb-modal" data-toggle="modal" onclick="baocao('{{$furl.'BcDSTuyenDungTT10'}}')">Báo cáo danh sách cán bộ được tuyển dụng (Mẫu 04/Thông tư 10)</a></li>
 
-                                    <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcDSCC'}}')">Báo cáo danh sách cán bộ công chức (Mẫu 3/Thông tư 09)</a></li>
-                                    <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcDSVC'}}')">Báo cáo danh sách cán bộ viên chức (Mẫu 3/Thông tư 09)</a></li>
+                                <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcDSCC'}}')">Báo cáo danh sách cán bộ công chức (Mẫu 3/Thông tư 09)</a></li>
+                                <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcDSVC'}}')">Báo cáo danh sách cán bộ viên chức (Mẫu 3/Thông tư 09)</a></li>
 
-                                    <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcSLCLCC'}}')">Báo cáo số lượng chất lượng cán bộ công chức (Mẫu 4/TT09)</a></li>
-                                    <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcSLCLVC'}}')">Báo cáo số lượng chất lượng cán bộ viên chức (Mẫu 7/TT10)</a></li>
+                                <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcSLCLCC'}}')">Báo cáo số lượng chất lượng cán bộ công chức (Mẫu 4/TT09)</a></li>
+                                <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcSLCLVC'}}')">Báo cáo số lượng chất lượng cán bộ viên chức (Mẫu 7/TT10)</a></li>
 
-                                    <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcDSCCCVCC'}}')">Báo cáo danh sách công chức ngạch chuyên viên chính và chuyên viên cao cấp (Mẫu 6/TT10)</a></li>
-                                    <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcDSVCCVCC'}}')">Báo cáo danh sách viên chức ngạch chuyên viên chính và chuyên viên cao cấp (Mẫu 6/TT10)</a></li>
+                                <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcDSCCCVCC'}}')">Báo cáo danh sách công chức ngạch chuyên viên chính và chuyên viên cao cấp (Mẫu 6/TT10)</a></li>
+                                <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcDSVCCVCC'}}')">Báo cáo danh sách viên chức ngạch chuyên viên chính và chuyên viên cao cấp (Mẫu 6/TT10)</a></li>
 
                                 <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcSLCLCC_TT11'}}')">Báo cáo số lượng, chất lượng cán bộ, công chức xã (Mẫu 02/TT11)</a></li>
+
+                                <li><a href="#" data-target="#thoaibcth-modal" data-toggle="modal" onclick="baocaoth('{{$furl.'BcSLCLVC_M01TT07'}}')">Báo cáo số lượng chất lượng cán bộ viên chức (BM01-VC/BNV Thông tư 07/2019/TT-BNV)</a></li>
                             </ol>
                         </div>
                     </div>

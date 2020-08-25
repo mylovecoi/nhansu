@@ -335,6 +335,7 @@ Route::group(['prefix'=>'bao_cao'],function(){
         Route::post('BcDSCCCVCC','baocaoController@BcDSCCCVCC');
         Route::post('BcDSVCCVCC','baocaoController@BcDSVCCVCC');
         Route::post('BcSLCLCC_TT11','baocaoController@BcSLCLCC_TT11');
+        Route::post('BcSLCLVC_M01TT07','baocaoController@BcSLCLVC_M01TT07');
     });
 });
 
@@ -358,6 +359,7 @@ Route::group(['prefix'=>'tong_hop_bao_cao'],function(){
         Route::post('BcDSCCCVCC','baocaotonghopController@BcDSCCCVCC');
         Route::post('BcDSVCCVCC','baocaotonghopController@BcDSVCCVCC');
         Route::post('BcSLCLCC_TT11','baocaotonghopController@BcSLCLCC_TT11');
+        Route::post('BcSLCLVC_M01TT07','baocaotonghopController@BcSLCLVC_M01TT07');
     });
 });
 

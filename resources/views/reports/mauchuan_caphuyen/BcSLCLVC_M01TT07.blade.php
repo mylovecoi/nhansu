@@ -50,7 +50,7 @@
             <b>Đơn vị chủ quản: {{$m_dv->tenct}}</b>
         </td>
         <td  style="text-align: center;">
-            <b>Mẫu số 04</b>
+            <b>BM01-VC/BNV</b>
         </td>
     </tr>
     <tr>
@@ -58,7 +58,7 @@
             <b>Đơn vị: {{$m_dv->tendv}}</b>
         </td>
         <td  style="text-align: center; font-style: italic">
-            (Ban hành kèm theo Thông tư số 09/2004/TT-BNV ngày 19/02/2004 của Bộ Nội vụ)
+            (Ban hành kèm theo Thông tư số 07/2019/TT-BNV ngày 01 tháng 6 năm 2019 của Bộ trưởng Bộ Nội vụ)
         </td>
     </tr>
 </table>

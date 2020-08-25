@@ -493,6 +493,93 @@ class baocaoController extends Controller
             return view('errors.notlogin');
     }
 
+    function BcSLCLVC_M01TT07(Request $request) {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $data=$this->getDSth($inputs,'Viên chức');
+            $m_dmpb=array_column((dmphongban::select('mapb','tenpb')->get()->toarray()),'tenpb', 'mapb');
+            $m_pl=array_column((phanloaingach::select('phanloai','msngbac')->get()->toarray()),'phanloai','msngbac');
+            $ngaybc=$inputs['ngaybaocao'];
+
+            for($i=0;$i<count($data);$i++){
+                $tuoi = $this->getage($data[$i]['ngaysinh'],$ngaybc);
+                $nhom = $this->getnhom($tuoi,$data[$i]['gioitinh'] );
+                $msngbac=$m_pl[$data[$i]['msngbac']];
+                $data[$i]=array_merge($data[$i],$this->getChuyenMon($data[$i]['tdcm']),
+                    $this->getTinHoc($data[$i]['trinhdoth']),$this->getChinhTri($data[$i]['llct']),
+                    $this->getNgoaiNgu($data[$i]['trinhdonn'],$data[$i]['ngoaingu']),
+                    $this->getLinhVuc($data[$i]['lvhd']),$this->getNgach($msngbac),
+                    $this->getTuoi($nhom),
+                    array('dv'=>$data[$i]['ngayvdct']=='0000-00-00'?0:1,
+                        'gt'=>$data[$i]['gioitinh']=='Nam'?0:1,
+                        'dtin'=>strpos(strtolower($data[$i]['dantoc']),strtolower('kinh'))!==false?0:1,
+                        'nhomtuoi'=>$nhom));
+            }
+
+            $model=a_unique(a_split($data,array('mapb')));
+
+            for($i=0;$i<count($model);$i++){
+                $dt=a_getelement($data,$model[$i]);
+
+                $solieu=array(
+                    'tong'=>count($dt),
+                    'ts'=>array_sum(array_column($dt,'ts')),
+                    'ths'=>array_sum(array_column($dt,'ths')),
+                    'dh'=>array_sum(array_column($dt,'dh')),
+                    'cl'=>array_sum(array_column($dt,'cl'))
+                        + array_sum(array_column($dt,'cd'))
+                        + array_sum(array_column($dt,'th')),
+
+                    'ct_cc'=>array_sum(array_column($dt,'ct_cc')),
+                    'ct_tc'=>array_sum(array_column($dt,'ct_tc')),
+
+                    'th_dh'=>array_sum(array_column($dt,'th_dh')),
+                    'th_cc'=>array_sum(array_column($dt,'th_cc')),
+
+                    'nn_dh'=>array_sum(array_column($dt,'nn_dh')),
+                    'nn_cc'=>array_sum(array_column($dt,'nn_cc')),
+                    'kh_dh'=>array_sum(array_column($dt,'kh_dh')),
+                    'kh_cc'=>array_sum(array_column($dt,'kh_cc')),
+
+                    'lv_gd'=>array_sum(array_column($dt,'lv_gd')),
+                    'lv_yt'=>array_sum(array_column($dt,'lv_yt')),
+                    'lv_nn'=>array_sum(array_column($dt,'lv_nn')),
+                    'lv_vh'=>array_sum(array_column($dt,'lv_vh')),
+                    'lv_kh'=>array_sum(array_column($dt,'lv_kh')),
+
+                    'nb_cvcc'=>array_sum(array_column($dt,'nb_cvcc')),
+                    'nb_cvc'=>array_sum(array_column($dt,'nb_cvc')),
+                    'nb_cv'=>array_sum(array_column($dt,'nb_cv')),
+                    'nb_cs'=>array_sum(array_column($dt,'nb_cs')),
+                    'nb_cl'=>array_sum(array_column($dt,'nb_cl')),
+
+                    't_d30'=>array_sum(array_column($dt,'t_d30')),
+                    't_d50'=>array_sum(array_column($dt,'t_d50')),
+                    't_t50nam'=>array_sum(array_column($dt,'t_t50nam')),
+                    't_t50nu'=>array_sum(array_column($dt,'t_t50nu')),
+                    't_nh'=>array_sum(array_column($dt,'t_nh')),
+
+                    'dv'=>array_sum(array_column($dt,'dv')),
+                    'gt'=>array_sum(array_column($dt,'gt')),
+                    'dtin'=>array_sum(array_column($dt,'dtin'))
+                );
+                $model[$i]=array_merge($model[$i],array('tenpb'=>$m_dmpb[$data[$i]['mapb']]),$solieu);
+            }
+
+            $thongtin=array('ngaybaocao'=>$inputs['ngaybaocao'],
+                'nguoilap'=>'Đỗ Thanh Nam');
+            $m_dv=dmdonvi::where('madv',session('admin')->madv)->first();
+            //dd($model);
+
+            return view('reports.mauchuan.BcSLCLVC_M01TT07')
+                ->with('model',$model)
+                ->with('m_dv',$m_dv)
+                ->with('thongtin',$thongtin)
+                ->with('pageTitle','Báo cáo danh sách cán bộ viên chức');
+        } else
+            return view('errors.notlogin');
+    }
+
     function BcSLCLVC(Request $request) {
         if (Session::has('admin')) {
             $inputs = $request->all();

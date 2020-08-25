@@ -42,8 +42,7 @@ class hosocanboController extends Controller
                 ->orderby('dmchucvucq.sapxep')
                 ->get();
             */
-            $m_hs=hosocanbo::where('hosocanbo.theodoi','1')
-                ->where('hosocanbo.madv',session('admin')->madv)
+            $m_hs=hosocanbo::where('madv',session('admin')->madv)
                 ->get();
 
             $dmphongban=dmphongban::all('mapb','tenpb')->toArray();
@@ -502,7 +501,7 @@ class hosocanboController extends Controller
 
             $m_donvi=dmdonvi::where('madv',session('admin')->madv)->first();
             //dd($model);
-            return view('reports.QD02.soyeulylich')
+            return view('reports.ThongTu07.soyeulylich_m02')
                 ->with('model',$model)
                 ->with('m_llvt',$m_llvt)
                 ->with('m_daotao',$m_daotao)
