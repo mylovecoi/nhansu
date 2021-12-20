@@ -21,12 +21,11 @@ class CreateUsersTable extends Migration
             $table->string('email')->nullable();
             $table->string('status');
             $table->string('madv')->nullable();
-            $table->string('maxa')->nullable();
-            $table->string('mahuyen')->nullable();
-            $table->string('matinh')->nullable();
-            $table->string('level');
-            $table->string('sadmin');
-            $table->string('permission')->nullable();
+            //$table->string('level');
+            //$table->string('sadmin');
+            $table->string('phanquyen')->nullable();
+            $table->string('chucnang')->nullable();
+            $table->string('manhomtk')->nullable();
             $table->timestamps();
         });
     }

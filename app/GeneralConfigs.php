@@ -21,6 +21,14 @@ class GeneralConfigs extends Model
         'bhtn_dv',
         'kpcd_dv',
         'tg_hetts',
-        'tg_xetnl'
+        'tg_xetnl',
+
+        'thangnu',
+        'thangnam',
+        'ipf1',
+        'ipf2',
+        'ipf3',
+        'ipf4',
+        'ipf5',
     ];
 }

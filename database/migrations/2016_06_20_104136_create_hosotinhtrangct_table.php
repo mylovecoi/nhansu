@@ -15,11 +15,8 @@ class CreateHosotinhtrangctTable extends Migration
         Schema::create('hosotinhtrangct', function (Blueprint $table) {
             $table->increments('id');
             $table->string('macanbo', 50);
-            $table->foreign('macanbo')->references('macanbo')->on('hosocanbo')->onUpdate('cascade')->onDelete('cascade');
             $table->string('maht', 50)->nullable();
-            $table->foreign('maht')->references('maht')->on('dshuutri')->onUpdate('cascade')->onDelete('cascade');
             $table->string('mahts', 50)->nullable();
-            $table->foreign('mahts')->references('mahts')->on('dshettapsu')->onUpdate('cascade')->onDelete('cascade');
 
             $table->string('phanloaict', 50)->nullable();
             $table->string('kieuct', 50)->nullable();

@@ -101,9 +101,10 @@ function getCanBoX(){
     return $m_cb;
 }
 
-function getTenDV($madv){
-    $model = App\dmdonvi::select('tendv')->where('madv',$madv)->first();
-    return count($model)>0?Illuminate\Support\Str::upper($model->tendv):'';
+function getTenDV($madv)
+{
+    $model = App\dmdonvi::select('tendv')->where('madv', $madv)->first();
+    return $model != null ? Illuminate\Support\Str::upper($model->tendv) : '';
 }
 
 function getTheoDoi($tenct){
@@ -127,6 +128,25 @@ function getMaKhoiPB($madv){
         $kq=$model->makhoipb;
     }
     return $kq;
+}
+
+function getCapDo($all = true) {
+    if($all){
+        return [''=>'Chọn cấp độ','T'=>'Cấp độ I','H'=>'Cấp độ II','X'=>'Cấp độ III'];
+    }else{
+        return ['T'=>'Cấp độ I','H'=>'Cấp độ II','X'=>'Cấp độ III'];
+    }
+}
+
+//22.11.21: xem có truyền mã địa bàn để lọc các đơn vị trên địa bàn
+function getDonVi($level, $xemdulieu = null, $madiaban = null)
+{
+    if ($level == 'SSA' || $level == 'ADMIN') {
+        $m_donvi = App\dmdonvi::all();
+    } else {
+        $m_donvi = App\dmdonvi::where('madv', session('admin')->madv)->get();
+    }
+    return $m_donvi;
 }
 
 ?>

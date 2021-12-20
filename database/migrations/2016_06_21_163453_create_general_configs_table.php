@@ -37,6 +37,14 @@ class CreateGeneralConfigsTable extends Migration
             $table->double('stkpcd_dv')->default(0);
             $table->double('tg_hetts')->default(0);//Thời gian xet hết tập sự
             $table->double('tg_xetnl')->default(0);//Thời gian xet nâng lương
+
+            $table->integer('thangnu')->default(0);
+            $table->integer('thangnam')->default(0);
+            $table->string('ipf1')->nullable();
+            $table->string('ipf2')->nullable();
+            $table->string('ipf3')->nullable();
+            $table->string('ipf4')->nullable();
+            $table->string('ipf5')->nullable();
             $table->timestamps();
         });
     }

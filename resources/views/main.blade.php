@@ -1,451 +1,131 @@
+
 <!DOCTYPE html>
-<html lang="en" class="no-js">
-<!-- BEGIN HEAD -->
-<head>
-    <meta charset="utf-8"/>
-    <title>{{$pageTitle}}</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <meta content="" name="Phần mềm quản lý hồ sơ nhân sự"/>
-    <meta content="" name="HuongVu-LifeSoft"/>
-<!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/global/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/global/plugins/simple-line-icons/simple-line-icons.min.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/global/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/global/plugins/uniform/css/uniform.default.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css')}}" rel="stylesheet" type="text/css"/>
-<!-- END GLOBAL MANDATORY STYLES -->
-    <script src="{{url('assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/jquery-migrate.min.js')}}" type="text/javascript"></script>
-<!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
-    <link href="{{url('assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet')}}" type="text/css"/>
-    <link href="{{url('assets/global/plugins/morris/morris.css')}}" rel="stylesheet" type="text/css">
-<!-- END PAGE LEVEL PLUGIN STYLES -->
-<!-- BEGIN PAGE STYLES -->
-    <link href="{{url('assets/admin/pages/css/tasks.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css')}}" rel="stylesheet" type="text/css"/>
-    @yield('custom-style')
-<!-- END PAGE STYLES -->
-<!-- BEGIN THEME STYLES -->
-<!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
-    <link href="{{url('assets/global/css/components-rounded.css')}}" id="style_components" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/global/css/plugins.css')}}"rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/admin/layout4/css/layout.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/admin/layout4/css/themes/light.css')}}" rel="stylesheet" type="text/css" id="style_color"/>
-    <link href="{{url('assets/global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
-<!-- END THEME STYLES -->
-    <script type="text/javascript">
-        function time() {
-            var today = new Date();
-            var weekday=new Array(7);
-            weekday[0]="Chủ nhật";
-            weekday[1]="Thứ hai";
-            weekday[2]="Thứ ba";
-            weekday[3]="Thứ tư";
-            weekday[4]="Thứ năm";
-            weekday[5]="Thứ sáu";
-            weekday[6]="Thứ bảy";
-            var day = weekday[today.getDay()];
-            var dd = today.getDate();
-            var mm = today.getMonth()+1; //January is 0!
-            var yyyy = today.getFullYear();
-            var h=today.getHours();
-            var m=today.getMinutes();
-            var s=today.getSeconds();
-            m=checkTime(m);
-            s=checkTime(s);
-            nowTime = h+":"+m+":"+s;
-            if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm} today = day+', '+ dd+'/'+mm+'/'+yyyy;
 
-            tmp='<span class="date"> '+today+' | '+nowTime+'</span>';
+<html lang="en">
+	<!--begin::Head-->
+	<head><base href="">
+		<meta charset="utf-8" />
+		<title>{{$pageTitle}}</title>
+		<meta name="description" content="Updates and statistics" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+		<!--begin::Page Vendors Styles(used by this page)-->
+		<link href="{{url('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css" />
+		<!--end::Page Vendors Styles-->
+		<!--begin::Global Theme Styles(used by all pages)-->
+{{--		<link rel="stylesheet" type="text/css" href="{{url('assets/plugins/global/select2/select2.css')}}"/>--}}
+		<link href="{{url('assets/css/nhansu.css')}}" rel="stylesheet" type="text/css"/>
+		<link href="{{url('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{url('assets/plugins/custom/prismjs/prismjs.bundle.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{url('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+{{--		<link href="{{url('assets/css/components.css')}}" rel="stylesheet" type="text/css"/>--}}
+{{--		<link href="{{url('assets/css/components-rounded.css')}}" rel="stylesheet" type="text/css"/>--}}
+		<!--end::Global Theme Styles-->
+		<!--begin::Layout Themes(used by all pages)-->
+		<!--end::Layout Themes-->
+		<link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon">
+		@yield('custom-style')
+	</head>
+	<!--end::Head-->
+	<!--begin::Body-->
+	<body id="kt_body" class="header-fixed subheader-enabled page-loading">
+		<!--begin::Main-->
+		<div class="d-flex flex-column flex-root">
+			<!--begin::Page-->
+			<div class="d-flex flex-row flex-column-fluid page">
+				<!--begin::Wrapper-->
+				<div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
+					<!--begin::Header-->
+					@include('includes.menu.header')
+					<!--end::Header-->
 
-            document.getElementById("clock").innerHTML=tmp;
+					<!--begin::Header Menu Wrapper-->
+					@include('includes.menu.menu')
+					<!--end::Header Menu Wrapper-->
 
-            clocktime=setTimeout("time()","1000","JavaScript");
-            function checkTime(i)
-            {
-                if(i<10){
-                    i="0" + i;
-                }
-                return i;
-            }
-        }
-    </script>
-{{--    <link rel="shortcut icon" href="{{ url('images/logovang.png')}}" type="image/x-icon">--}}
-    <link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon">
-</head>
-<!-- END HEAD -->
+					<!--begin::Container-->
+					<div class="d-flex flex-row flex-column-fluid container">
+						<!--begin::Content Wrapper-->
+						<div class="main d-flex flex-column flex-row-fluid">
+							<!--begin::Subheader-->
 
-<!-- BEGIN BODY -->
-<body class="page page-header-fixed page-footer-fixed page-sidebar-fixed page-sidebar-closed-hide-logo page-sidebar-closed-hide-logo">
-<!-- BEGIN HEADER -->
-<div class="page-header navbar navbar-fixed-top">
-	<!-- BEGIN HEADER INNER -->
-	<div class="page-header-inner">
-		<!-- BEGIN LOGO -->
-		<div class="page-logo">
-			<a href="{{url('')}}">
-{{--                <img src="{{url('images/logo_dai.png')}}" alt="logo" class="logo-default" style="margin-top: 5px;">--}}
-                <img src="{{url('images/LOGO_LIFE.png')}}" alt="logo" class="logo-default" style="margin-top: 5px;">
-			</a>
-			<div class="menu-toggler sidebar-toggler">
-				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-			</div>
-		</div>
-		<!-- END LOGO -->
-		<!-- BEGIN RESPONSIVE MENU TOGGLER -->
-		<a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-		</a>
-		<!-- END RESPONSIVE MENU TOGGLER -->
+{{--							<div class="subheader py-2 py-lg-6" id="kt_subheader">--}}
+{{--								<div class="w-100 d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">--}}
+{{--									<!--begin::Info-->--}}
+{{--									<div class="d-flex align-items-center flex-wrap mr-1">--}}
+{{--										<!--begin::Page Heading-->--}}
+{{--										<div class="d-flex align-items-baseline flex-wrap mr-5">--}}
+{{--											@yield('pageheader')--}}
+{{--										</div>--}}
+{{--										<!--end::Page Heading-->--}}
+{{--									</div>--}}
+{{--									<!--end::Info-->--}}
+{{--									<!--begin::Toolbar-->--}}
+{{--									<div class="d-flex align-items-center">--}}
 
-		<!-- BEGIN PAGE TOP -->
-		<div class="page-top">
-			<!-- BEGIN HEADER SEARCH BOX -->
-			<!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
-			<form class="search-form" action="extra_search.html" method="GET">
-				<div class="input-group">
-					<!--input type="text" class="form-control input-sm" placeholder="Search..." name="query">
-					<span class="input-group-btn">
-					<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
-					</span-->
+{{--									</div>--}}
+{{--									<!--end::Toolbar-->--}}
+{{--								</div>--}}
+{{--							</div>--}}
+							<!--end::Subheader-->
+							<div class="content flex-column-fluid" id="kt_content">
+								<!--begin::Dashboard-->
+								<!--begin::Row-->
+
+								@yield('content')
+
+								<!--end::Row-->
+								<!--end::Dashboard-->
+							</div>
+							<!--end::Content-->
+						</div>
+						<!--begin::Content Wrapper-->
+					</div>
+					<!--end::Container-->
+
+                    <!--begin::Footer-->
+                    @include('includes.menu.footer')
+					<!--end::Footer-->
 				</div>
-			</form>
-			<!-- END HEADER SEARCH BOX -->
-			<!-- BEGIN TOP NAVIGATION MENU -->
-			<div class="top-menu">
-				<ul class="nav navbar-nav pull-right">
-					<li class="separator hide">
-					</li>
-					<!-- BEGIN USER LOGIN DROPDOWN -->
-                    <li class="dropdown dropdown-user">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" >
-                            <img alt="" class="img-circle" src="{{url('/images/avatar/default-user.png')}}"/>
-					<span class="username">
-					<b>{{session('admin')->name}}</b> </span>
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-default">
-                            <li>
-                                <a href="{{url('change-password')}}">
-                                    <i class="icon-lock"></i> Đổi mật khẩu</a>
-                            </li>
-                            <li>
-                                <a href="{{url('logout')}}">
-                                    <i class="icon-key"></i> Đăng xuất </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- END USER LOGIN DROPDOWN -->
-				</ul>
+				<!--end::Wrapper-->
 			</div>
-			<!-- END TOP NAVIGATION MENU -->
+			<!--end::Page-->
 		</div>
-		<!-- END PAGE TOP -->
-	</div>
-	<!-- END HEADER INNER -->
-</div>
-<!-- END HEADER -->
-<div class="clearfix">
-</div>
-<!-- BEGIN CONTAINER -->
-<div class="page-container">
-	<!-- BEGIN SIDEBAR -->
-	<div class="page-sidebar-wrapper">
-		<div class="page-sidebar navbar-collapse collapse">
-			<ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-				<li class="start">
-					<a href="{{url('')}}">
-					<i class="icon-home"></i>
-					<span class="title">Tổng quan</span>
-					</a>
-				</li>
-				<li>
-					<a href="javascript:;">
-					<i class="fa fa-wrench"></i>
-					<span class="title">Nghiệp vụ</span>
-					<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="fa fa-folder-open-o"></i> Danh sách cán bộ <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu" style="margin-left: 15px;">
-                                <li>
-                                    <a href="{{url('/nghiep_vu/ho_so/danh_sach')}}">Cán bộ đang công tác</a>
-                                </li>
-                                <li>
-                                    <a href="{{url('/nghiep_vu/ho_so/thoi_cong_tac')}}">Cán bộ đã thôi công tác</a>
-                                </li>
-                            </ul>
-                         </li>
-                         <li>
-                            <a href="javascript:;">
-                                <i class="fa fa-folder-open-o"></i> Quản lý hồ sơ <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu" style="margin-left: 15px;">
-                                <li><a href="{{url('nghiep_vu/quan_ly/tai_lieu/maso=all')}}">Tài liệu kèm theo</a></li>
-                                <li><a href="{{url('nghiep_vu/quan_ly/quan_he_bt/maso=all')}}">Quan hệ gia đình (bản thân)</a></li>
-                                <li><a href="{{url('nghiep_vu/quan_ly/quan_he_vc/maso=all')}}">Quan hệ gia đình (vợ, chồng)</a></li>
-                                <li><a href="{{url('nghiep_vu/quan_ly/dieu_dong/maso=all')}}">Hồ sơ luân chuyển</a></li>
-                                <li><a href="{{url('nghiep_vu/quan_ly/chuc_vu/maso=all')}}">Hồ sơ phòng ban, chức vụ</a></li>
-                                <li><a href="{{url('nghiep_vu/quan_ly/bhyt/maso=all')}}">Theo dõi bảo hiểm y tế</a></li>
-                                <li><a href="{{url('nghiep_vu/quan_ly/llvt/maso=all')}}">Hồ sơ lực lượng vũ trang</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="fa fa-folder-open-o"></i> Quản lý quá trình <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu" style="margin-left: 15px;">
-                                <li><a href="{{url('nghiep_vu/qua_trinh/dao_tao/maso=all')}}">Quá trình đào tạo</a></li>
-                                <li><a href="{{url('nghiep_vu/qua_trinh/cong_tac/maso=all')}}">Công tác trong nước</a></li>
-                                <li><a href="{{url('nghiep_vu/qua_trinh/cong_tac_nn/maso=all')}}">Công tác nước ngoài</a></li>
-                                <li><a href="{{url('nghiep_vu/qua_trinh/luong/maso=all')}}">Quá trình hưởng lương</a></li>
-                                <li><a href="{{url('nghiep_vu/qua_trinh/phu_cap/maso=all')}}">Quá trình phụ cấp</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-calendar"></i> Bình bầu, đánh giá <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu" style="margin-left: 15px;">
-                                <li><a href="{{url('nghiep_vu/danh_gia/binh_bau/maso=all')}}">Bình bầu, phân loại</a></li>
-                                <li><a href="{{url('nghiep_vu/danh_gia/khen_thuong/maso=all')}}">Khen thưởng</a></li>
-                                <li><a href="{{url('nghiep_vu/danh_gia/ky_luat/maso=all')}}">Kỷ luật</a></li>
-                                <li><a href="{{url('nghiep_vu/danh_gia/thanh_tra/maso=all')}}">Thanh tra</a></li>
-                                <li><a href="{{url('nghiep_vu/danh_gia/nhan_xet/maso=all')}}">Đánh giá, nhận xét</a></li>
-                            </ul>
-                        </li>
-					</ul>
-				</li>
-				<li>
-					<a href="javascript:;">
-					<i class="fa fa-sitemap fa-fw"></i>
-					<span class="title">Chức năng</span>
-					<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-                        <li>
-                            <a href="{{url('chuc_nang/bang_luong/danh_sach')}}">Bảng lương</a>
-                        </li>
-                        <li>
-                            <a href="{{url('chuc_nang/nang_luong/danh_sach')}}">Nâng lương</a>
-                        </li>
-                        <!--li>
-                            <a href="{{url('chuc_nang/het_tap_su/danh_sach')}}">Hết tập sư</a>
-                        </li>
+		<!--end::Main-->
 
-                        <li>
-                            <a href="{{url('chuc_nang/dao_tao/danh_sach')}}">Đào tạo, bồi dưỡng</a>
-                        </li>
-                        <li>
-                            <a href="{{url('chuc_nang/thuyen_chuyen/danh_sach')}}">Thuyên chuyển, điều động</a>
-                        </li>
-                        <li>
-                            <a href="{{url('chuc_nang/buoc_thoi_viec/danh_sach')}}">Buộc thôi việc</a>
-                        </li>
-
-                        <li>
-                            <a href="{{url('chuc_nang/huu_tri/danh_sach')}}">Nghỉ hưu</a>
-                        </li-->
-					</ul>
-				</li>
-				<li>
-					<a href="javascript:;">
-					<i class="fa fa-search"></i>
-					<span class="title">Tra cứu</span>
-					<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-                        <li><a href="{{url('/tra_cuu/ho_so')}}">Hồ sơ cán bộ</a></li>
-                        <li><a href="{{url('/tra_cuu/cong_tac')}}">Quá trình công tác</a></li>
-                        <li><a href="{{url('/tra_cuu/dao_tao')}}">Quá trình đào tạo</a></li>
-                        <li><a href="{{url('/tra_cuu/luong')}}">Quá trình hưởng lương</a></li>
-                        <li><a href="{{url('/tra_cuu/phu_cap')}}">Quá trình phụ cấp</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="javascript:;">
-					<i class="fa fa-file-text"></i>
-					<span class="title">Báo cáo</span>
-					<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-                        <li><a href="{{url('bao_cao/don_vi')}}">Báo cáo số lượng, chất lượng cán bộ</a></li>
-                        <li><a href="{{url('bao_cao/mau_chuan')}}">Báo cáo theo thông tư, quyết định</a></li>
-					</ul>
-				</li>
-                <!-- dành cho đơn vị chủ quản -->
-@if(session('admin')->level=='T' || session('admin')->level=='H')
-                <li>
-                    <a href="javascript:;">
-                        <i class="fa fa-file-text"></i>
-                        <span class="title">Báo cáo tổng hợp</span>
-                        <span class="arrow "></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li><a href="{{url('tong_hop_bao_cao/don_vi')}}">Báo cáo số lượng, chất lượng cán bộ</a></li>
-                        <li><a href="{{url('tong_hop_bao_cao/mau_chuan')}}">Báo cáo theo thông tư, quyết định</a></li>
-                    </ul>
-                </li>
-@endif
-				<li class="last">
-					<a href="javascript:;">
-					<i class="fa fa-gear"></i>
-					<span class="title">Hệ thống</span>
-					<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="fa fa-list-alt"></i> Danh mục <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu" style="margin-left: 15px;">
-                                @if(session('admin')->level == 'SA' || session('admin')->level == 'SSA')
-                                    <li><a href="{{url('danh_muc/bao_mat/index?&level=X')}}">Bảo mật hồ sơ</a></li>
-                                    <li><a href="{{url('danh_muc/khoi_pb/ma_so=H')}}">Khối, phòng ban</a></li>
-                                @endif
-                                <li><a href="{{url('danh_muc/phong_ban/index')}}">Phòng ban</a></li>
-                                <li><a href="{{url('danh_muc/chuc_vu_cq/index')}}">Chức vụ chính quyền</a></li>
-                                <li><a href="{{url('danh_muc/chuc_vu_d/index')}}">Chức vụ đảng</a></li>
-                                <li><a href="{{url('danh_muc/quan_he_gd/index')}}">Quan hệ gia đình</a></li>
-                                <li><a href="{{url('danh_muc/cong_tac/index')}}">Phân loại công tác</a></li>
-                                <li><a href="{{url('danh_muc/phu_cap/index')}}">Phụ cấp</a></li>
-                                <li><a href="{{url('danh_muc/dan_toc/index')}}">Dân tộc</a></li>
-
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-user"></i> Người dùng <span class="arrow"></span>
-                            </a>
-
-                            <ul class="sub-menu" style="margin-left: 15px;">
-                                <li><a href="{{url('change-password')}}">Đổi mật khẩu</a></li>
-                                <!--li><a href="{{url('phanquyen')}}">Phân quyền</a></li-->
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-user"></i> Quản trị hệ thống <span class="arrow"></span>
-                            </a>
-
-                            <ul class="sub-menu" style="margin-left: 15px;">
-                                <li><a href="{{url('he_thong/don_vi/don_vi')}}">Thông tin đơn vị</a></li>
-                                <li><a href="{{url('he_thong/don_vi/chung')}}">Thông tin chung</a></li>
-
-                            </ul>
-                        </li>
-                        @if(session('admin')->level != 'X')
-                            <li>
-                                <a href="javascript:;">
-                                    <i class="icon-book-open"></i> Đơn vị <span class="arrow"></span>
-                                </a>
-                                <ul class="sub-menu" style="margin-left: 15px;">
-                                    <li><a href="{{url('danh_muc/don_vi/maso=all')}}">Danh sách đơn vị</a></li>
-                                </ul>
-                            </li>
-                        @endif
-
-                        @if(session('admin')->level == 'SA' || session('admin')->level == 'SSA')
-                            <li><a href="{{url('danh_muc/tai_khoan/list_user?level=H')}}"><i class="icon-book-open"></i>Quản lý tài khoản</a></li>
-                            <li><a href="{{url('danh_muc/khu_vuc/ma_so=H')}}"><i class="icon-book-open"></i>Danh sách khu vực, địa bàn quản lý</a></li>
-                        @endif
-					</ul>
-				</li>
-			</ul>
-			<!-- END SIDEBAR MENU -->
+		<!--begin::Scrolltop-->
+		<div id="kt_scrolltop" class="scrolltop">
+			<span class="svg-icon">
+				<!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Up-2.svg-->
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+					<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+						<polygon points="0 0 24 0 24 24 0 24" />
+						<rect fill="#000000" opacity="0.3" x="11" y="10" width="2" height="10" rx="1" />
+						<path d="M6.70710678,12.7071068 C6.31658249,13.0976311 5.68341751,13.0976311 5.29289322,12.7071068 C4.90236893,12.3165825 4.90236893,11.6834175 5.29289322,11.2928932 L11.2928932,5.29289322 C11.6714722,4.91431428 12.2810586,4.90106866 12.6757246,5.26284586 L18.6757246,10.7628459 C19.0828436,11.1360383 19.1103465,11.7686056 18.7371541,12.1757246 C18.3639617,12.5828436 17.7313944,12.6103465 17.3242754,12.2371541 L12.0300757,7.38413782 L6.70710678,12.7071068 Z" fill="#000000" fill-rule="nonzero" />
+					</g>
+				</svg>
+				<!--end::Svg Icon-->
+			</span>
 		</div>
-	</div>
-	<!-- END SIDEBAR -->
+		<!--end::Scrolltop-->
 
-    <!-- BEGIN CONTENT -->
-	<div class="page-content-wrapper">
-        <div class="page-content"  style="padding-top: 0px;">
-            <!-- BEGIN PAGE BREADCRUMB -->
-            <!--div class="page-bar">
-                <ul class="page-breadcrumb breadcrumb">
-                    <li>
-                        <i class="fa fa-home"></i>
-                            <a href="{{url('')}}">Trang chủ</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        {{$pageTitle}}
-                    </li>
-                </ul>
-
-                <div class="page-toolbar">
-                    <div class="page-toolbar">
-                        <b><div id="clock"></div></b>
-                    </div>
-                </div>
-            </div-->
-            <!-- END PAGE BREADCRUMB -->
-            @yield('content')
-        </div>
-	</div>
-	<!-- END CONTENT -->
-</div>
-<!-- END CONTAINER -->
-<!-- BEGIN FOOTER -->
-<div class="page-footer">
-    <div class="page-footer-tools">
-        <2016 &copy; LifeSoft <a href="" >Tiện ích hơn - Hiệu quả hơn</a>>
-{{--        Số đăng ký bản quyền: 282/2015/QTG, Khai Thác và Phần Phối bởi H2SOFT--}}
-       </div>
-       <div class="scroll-to-top">
-           <i class="icon-arrow-up"></i>
-       </div>
-   </div>
-   <!-- END FOOTER -->
-<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-<!-- BEGIN CORE PLUGINS -->
-<!--[if lt IE 9]>
-<script src="{{url('assets/global/plugins/respond.min.js')}}"></script>
-<script src="{{url('assets/global/plugins/excanvas.min.js')}}"></script>
-<![endif]-->
-
-<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-<script src="{{ url('js/main.js') }}" type="text/javascript"></script>
-<script src="{{url('assets/global/plugins/jquery-ui/jquery-ui.min.js')}}" type="text/javascript"></script>
-<script src="{{url('assets/global/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
-<script src="{{url('assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js')}}" type="text/javascript"></script>
-<script src="{{url('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')}}" type="text/javascript"></script>
-<script src="{{url('assets/global/plugins/jquery.blockui.min.js')}}" type="text/javascript"></script>
-<script src="{{url('assets/global/plugins/jquery.cokie.min.js')}}" type="text/javascript"></script>
-<script src="{{url('assets/global/plugins/uniform/jquery.uniform.min.js')}}" type="text/javascript"></script>
-<script src="{{url('assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
-<!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="{{url('assets/global/plugins/jquery-validation/js/jquery.validate.min.js')}}" type="text/javascript"></script>
-<script src="{{url('assets/global/plugins/jquery-validation/js/additional-methods.min.js')}}" type="text/javascript"></script>
-<script src="{{url('assets/global/plugins/jquery.pulsate.min.js')}}" type="text/javascript"></script>
-<script src="{{url('assets/global/plugins/bootstrap-daterangepicker/moment.min.js')}}" type="text/javascript"></script>
-<script src="{{url('assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js')}}" type="text/javascript"></script>
-<!-- IMPORTANT! fullcalendar depends on jquery-ui.min.js for drag & drop support -->
-<script src="{{url('assets/global/plugins/fullcalendar/fullcalendar.min.js')}}" type="text/javascript"></script>
-<script src="{{url('assets/global/plugins/bootstrap-toastr/toastr.min.js')}}"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="{{url('assets/global/scripts/metronic.js')}}" type="text/javascript"></script>
-<script src="{{url('assets/admin/layout4/scripts/layout.js')}}" type="text/javascript"></script>
-<script src="{{url('assets/admin/layout4/scripts/demo.js')}}" type="text/javascript"></script>
-<script src="{{url('assets/admin/pages/scripts/tasks.js')}}" type="text/javascript"></script>
-
-@yield('custom-script')
-<!-- END PAGE LEVEL SCRIPTS -->
-<script>
-jQuery(document).ready(function() {
-    Metronic.init(); // init metronic core componets
-    Layout.init(); // init layout
-    Demo.init(); // init demo features
-});
-</script>
-<!-- END JAVASCRIPTS -->
-</body>
-<!-- END BODY -->
+		<script>var HOST_URL = "https://preview.keenthemes.com/metronic/theme/html/tools/preview";</script>
+		<!--begin::Global Config(global config for global JS scripts)-->
+		<script>var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1200 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#8950FC", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#6993FF", "warning": "#FFA800", "danger": "#F64E60", "light": "#F3F6F9", "dark": "#212121" }, "light": { "white": "#ffffff", "primary": "#EEE5FF", "secondary": "#ECF0F3", "success": "#C9F7F5", "info": "#E1E9FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#212121", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#ECF0F3", "gray-300": "#E5EAEE", "gray-400": "#D6D6E0", "gray-500": "#B5B5C3", "gray-600": "#80808F", "gray-700": "#464E5F", "gray-800": "#1B283F", "gray-900": "#212121" } }, "font-family": "Poppins" };</script>
+		<!--end::Global Config-->
+		<!--begin::Global Theme Bundle(used by all pages)-->
+		<script src="{{url('assets/plugins/global/plugins.bundle.js')}}"></script>
+		<script src="{{url('assets/plugins/custom/prismjs/prismjs.bundle.js')}}"></script>
+		<script src="{{url('assets/js/scripts.bundle.js')}}"></script>
+		<!--end::Global Theme Bundle-->
+		<!--begin::Page Vendors(used by this page)-->
+		<script src="{{url('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
+		<!--end::Page Vendors-->
+		<!--begin::Page Scripts(used by this page)-->
+		<script src="{{url('assets/js/pages/widgets.js')}}"></script>
+		<script src="{{url('js/main.js')}}"></script>
+		<!--end::Page Scripts-->
+		@yield('custom-script')
+	</body>
+	<!--end::Body-->
 </html>

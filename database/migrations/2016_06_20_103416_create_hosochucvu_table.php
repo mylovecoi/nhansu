@@ -15,12 +15,8 @@ class CreateHosochucvuTable extends Migration
         Schema::create('hosochucvu', function (Blueprint $table) {
             $table->increments('id');
             $table->string('macanbo', 50);
-            $table->foreign('macanbo')->references('macanbo')->on('hosocanbo')->onUpdate('cascade')->onDelete('cascade');
             $table->string('macvcq', 50)->nullable();
-            $table->foreign('macvcq')->references('macvcq')->on('dmchucvucq')->onUpdate('cascade')->onDelete('set null');
             $table->string('mapb', 50)->nullable();
-            $table->foreign('mapb')->references('mapb')->on('dmphongban')->onUpdate('cascade')->onDelete('set null');
-
             $table->date('ngaytu')->nullable();
             $table->date('ngayden')->nullable();
             $table->string('noidungqd', 255)->nullable();

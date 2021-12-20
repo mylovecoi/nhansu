@@ -15,7 +15,6 @@ class CreateHosotailieuTable extends Migration
         Schema::create('hosotailieu', function (Blueprint $table) {
             $table->increments('id');
             $table->string('macanbo', 50);
-            $table->foreign('macanbo')->references('macanbo')->on('hosocanbo')->onUpdate('cascade')->onDelete('cascade');
 
             $table->date('ngaybangiao')->nullable();
             $table->string('nguoinhan', 50)->nullable();

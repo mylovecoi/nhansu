@@ -16,6 +16,7 @@ class CreateDmdonviTable extends Migration
             $table->increments('id');
             $table->string('madv', 50)->unique();
             $table->string('tendv')->unique();
+            $table->string('madiaban')->nullable();
             $table->string('diachi')->nullable();
             $table->string('sodt')->nullable();
             $table->string('lanhdao')->nullable();
@@ -25,8 +26,7 @@ class CreateDmdonviTable extends Migration
             $table->string('cdlanhdao')->nullable();
             $table->string('nguoilapbieu')->nullable();
             $table->string('makhoipb')->nullable();
-            $table->string('level')->nullable();
-
+            $table->string('capdo')->nullable();
             $table->string('capdonvi')->nullable();//đơn vị cấp X, H, T
             $table->timestamps();
         });

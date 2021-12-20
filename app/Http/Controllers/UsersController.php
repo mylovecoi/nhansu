@@ -9,6 +9,8 @@ use App\DnDvLt;
 use App\DnDvLtReg;
 use App\DonViDvVt;
 use App\DonViDvVtReg;
+use App\GeneralConfigs;
+use App\Model\system\dsdonvi;
 use App\Register;
 use App\Users;
 use Illuminate\Foundation\Auth\User;
@@ -126,6 +128,7 @@ class UsersController extends Controller
             return redirect('');
         }
     }
+
     public function store(Request $request)
     {
         if (Session::has('admin')) {
@@ -149,39 +152,54 @@ class UsersController extends Controller
         if (Session::has('admin')) {
             Session::flush();
         }
-        return view('system.users.login')
+        //return view('system.users.login')
+        return view('login')
             ->with('pageTitle', 'Đăng nhập hệ thống');
     }
 
     public function signin(Request $request)
     {
         $input = $request->all();
-        $check = Users::where('username', $input['username'])->count();
-        if ($check == 0)
+        $ttuser = Users::where('username', $input['username'])->first();
+        if ($ttuser == null) {
             return view('errors.invalid-user');
-        else{
-            $ttuser = Users::where('username', $input['username'])->first();
-
-            $ttuser->macqcq='';
-            $ttuser->makhoipb='';
-            $ttuser->makhuvuc='';
-            $ttuser->madvbc='';
-            //kiểm tra xem user thuộc đơn vị nào, nếu ko thuộc đơn vị nào (trừ tài khoản quản trị) => đăng nhập ko thành công
         }
 
-
-        //thêm mã đơn vị báo cáo, mã khối phòng ban, mã cqcq
-        //dd($ttuser);
-        if (md5($input['password']) == $ttuser->password) {
-            if ($ttuser->status == "Kích hoạt") {
-                Session::put('admin', $ttuser);
-                return redirect('')
-                    ->with('pageTitle', 'Tổng quan');
-            } else
-                return view('errors.lockuser');
-
-        } else
+        if (md5($input['password']) != $ttuser->password) {
             return view('errors.invalid-pass');
+        }
+
+        if ($ttuser->status != "Kích hoạt") {
+            return view('errors.lockuser');
+        }
+
+        if ($ttuser->level != "SSA") {
+            $m_donvi = dmdonvi::where('madv', $ttuser->madv)->first();
+            $ttuser->madv = $m_donvi->madv;
+            $ttuser->madiaban = $m_donvi->madiaban;
+            $ttuser->tendv = $m_donvi->tendv;
+            $ttuser->diachi = $m_donvi->diachi;
+            $ttuser->lanhdao = $m_donvi->lanhdao;
+            $ttuser->songuoi = $m_donvi->songuoi;
+            $ttuser->macqcq = $m_donvi->macqcq;
+            $ttuser->diadanh = $m_donvi->diadanh;
+            $ttuser->cdlanhdao = $m_donvi->cdlanhdao;
+            $ttuser->nguoilapbieu = $m_donvi->nguoilapbieu;
+            $ttuser->makhoipb = $m_donvi->makhoipb;
+            $ttuser->capdo = $m_donvi->capdo;
+            $ttuser->madvbc = $m_donvi->madvbc;
+        }
+        $ttuser->phanquyen = json_decode($ttuser->permission, true);
+        $m_gen = GeneralConfigs::first();
+        $ttuser->ipf1 = $m_gen->ipf1;
+        $ttuser->ipf2 = $m_gen->ipf2;
+        $ttuser->ipf3 = $m_gen->ipf3;
+        $ttuser->ipf4 = $m_gen->ipf4;
+        $ttuser->ipf5 = $m_gen->ipf5;
+
+        Session::put('admin', $ttuser);
+        return redirect('')
+            ->with('pageTitle', 'Tổng quan');
     }
 
     public function cp()
@@ -243,7 +261,7 @@ class UsersController extends Controller
     {
         if (Session::has('admin')) {
             Session::flush();
-            return redirect('/login');
+            return redirect('/DangNhap');
         } else {
             return redirect('');
         }

@@ -15,12 +15,10 @@ class Users extends Model
         'email',
         'status',
         'madv',
-        'maxa',
-        'mahuyen',
-        'matinh',
-        'level',
-        'sadmin',
-        'permission',
-        'pldv'
+        //'level',
+        //'sadmin',
+        'phanquyen',
+        'chucnang',
+        'manhomtk'
     ];
 }

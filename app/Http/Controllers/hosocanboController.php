@@ -31,36 +31,27 @@ use Illuminate\Support\Str;
 
 class hosocanboController extends Controller
 {
-    function index(){
+    function index()
+    {
         if (Session::has('admin')) {
-            //$m_hs=hosocanbo::where('madv',session('admin')->maxa)->get();
-            /*
-            $m_hs=hosocanbo::join('dmchucvucq', 'hosocanbo.macvcq', '=', 'dmchucvucq.macvcq')
-                ->select('hosocanbo.*', 'dmchucvucq.sapxep')
-                ->where('hosocanbo.theodoi','1')
-                ->where('hosocanbo.madv',session('admin')->madv)
-                ->orderby('dmchucvucq.sapxep')
+            $m_hs = hosocanbo::where('madv', session('admin')->madv)
                 ->get();
-            */
-            $m_hs=hosocanbo::where('madv',session('admin')->madv)
-                ->get();
+            $a_phongban = array_column(dmphongban::all('mapb', 'tenpb')->toArray(),'tenpb','mapb');
+            $a_chucvud = array_column(dmchucvud::all('tencv', 'macvd')->toArray(),'tencv','macvd');
+            $a_chucvucq = array_column(dmchucvucq::all('tencv', 'macvcq')->toArray(),'tencv','macvcq');
 
-            $dmphongban=dmphongban::all('mapb','tenpb')->toArray();
-            $dmchucvud=dmchucvud::all('tencv', 'macvd')->toArray();
-            $dmchucvucq=dmchucvucq::all('tencv', 'macvcq')->toArray();
-
-            foreach($m_hs as $hs){
-                $hs->tenpb=getInfoPhongBan($hs,$dmphongban);
-                $hs->tencvd=getInfoChucVuD($hs,$dmchucvud);
-                $hs->tencvcq=getInfoChucVuCQ($hs,$dmchucvucq);
+            foreach ($m_hs as $hs) {
+                $hs->tenpb = $a_phongban[$hs->mapb] ?? '';
+                $hs->tencvd = $a_chucvud[$hs->macvd] ?? '';
+                $hs->tencvcq = $a_chucvucq[$hs->macvcq] ?? '';
             }
             //dd($m_hs);
 
             return view('manage.hosocanbo.index')
-                ->with('model',$m_hs)
-                ->with('url','/nghiep_vu/ho_so/')
-                ->with('tendv',getTenDV(session('admin')->madv))
-                ->with('pageTitle','Danh sách cán bộ');
+                ->with('model', $m_hs)
+                ->with('url', '/nghiep_vu/ho_so/')
+                ->with('tendv', getTenDV(session('admin')->madv))
+                ->with('pageTitle', 'Danh sách cán bộ');
         } else
             return view('errors.notlogin');
     }
@@ -255,23 +246,32 @@ class hosocanboController extends Controller
             return view('errors.notlogin');
     }
 
-    function show($id){
+    function show(Request $request)
+    {
         if (Session::has('admin')) {
-            $makhoipb=getMaKhoiPB(session('admin')->madv);
-            $model = hosocanbo::find($id);
+            $inputs = $request->all();
+            $makhoipb = getMaKhoiPB(session('admin')->madv);
+            $model = hosocanbo::find($inputs['id']);
             //$m_hosoct = hosotinhtrangct::where('macanbo',$model->macanbo)->where('hientai','1')->first();
 
-            $model_kieuct=dmphanloaict::select('kieuct')->distinct()->get();
-            $model_tenct=dmphanloaict::select('tenct','kieuct')->get();
-            $model_dt=array_column(dmdantoc::select(DB::raw('dantoc as maso'),'dantoc')->get()->toarray(),'dantoc','maso');
+            $a_phongban = array_column(dmphongban::all('mapb', 'tenpb')->toArray(), 'tenpb', 'mapb');
+            $a_chucvud = array_column(dmchucvud::all('tencv', 'macvd')->toArray(), 'tencv', 'macvd');
+            $a_chucvucq = array_column(dmchucvucq::all('tencv', 'macvcq')->toArray(), 'tencv', 'macvcq');
+
+            dd($model);
+
+
+            $model_kieuct = dmphanloaict::select('kieuct')->distinct()->get();
+            $model_tenct = dmphanloaict::select('tenct', 'kieuct')->get();
+            $model_dt = array_column(dmdantoc::select(DB::raw('dantoc as maso'), 'dantoc')->get()->toarray(), 'dantoc', 'maso');
             //$m_pb= dmphongban::where('madv',session('admin')->madv)->get();
-            $m_pb= dmphongban::all();
-            $m_cvcq= dmchucvucq::where('makhoipb',$makhoipb)->get();
-            $m_cvd= dmchucvud::all();
-            $m_plnb=ngachbac::select('plnb')->distinct()->get();
-            $m_pln=ngachbac::select('tennb','plnb','msngbac')->distinct()->get();
-            $m_bac=ngachbac::select('bac')->distinct()->get();
-            $m_pc=dmphucap::all('mapc','tenpc','hesopc')->toArray();
+            $m_pb = dmphongban::all();
+            $m_cvcq = dmchucvucq::where('makhoipb', $makhoipb)->get();
+            $m_cvd = dmchucvud::all();
+            $m_plnb = ngachbac::select('plnb')->distinct()->get();
+            $m_pln = ngachbac::select('tennb', 'plnb', 'msngbac')->distinct()->get();
+            $m_bac = ngachbac::select('bac')->distinct()->get();
+            $m_pc = dmphucap::all('mapc', 'tenpc', 'hesopc')->toArray();
 
             /*
             $model_phucap= phucapdanghuong::join('dmphucap','phucapdanghuong.mapc','dmphucap.mapc')
@@ -281,21 +281,21 @@ class hosocanboController extends Controller
 
             //dd($m_hosoct);
             return view('manage.hosocanbo.edit')
-                ->with(compact('model',$model))
+                ->with(compact('model', $model))
                 //->with(compact('m_hosoct',$m_hosoct))
-                ->with('type','edit')
-                ->with('model_dt',$model_dt)
-                ->with('m_pb',$m_pb)
-                ->with('m_cvcq',$m_cvcq)
-                ->with('m_cvd',$m_cvd)
-                ->with('model_kieuct',$model_kieuct)
-                ->with('model_tenct',$model_tenct)
-                ->with('m_plnb',$m_plnb)
-                ->with('m_pln',$m_pln)
-                ->with('m_bac',$m_bac)
-                ->with('m_pc',$m_pc)
+                ->with('type', 'edit')
+                ->with('model_dt', $model_dt)
+                ->with('m_pb', $m_pb)
+                ->with('m_cvcq', $m_cvcq)
+                ->with('m_cvd', $m_cvd)
+                ->with('model_kieuct', $model_kieuct)
+                ->with('model_tenct', $model_tenct)
+                ->with('m_plnb', $m_plnb)
+                ->with('m_pln', $m_pln)
+                ->with('m_bac', $m_bac)
+                ->with('m_pc', $m_pc)
                 //->with('model_phucap',$model_phucap)
-                ->with('pageTitle','Sửa thông tin hồ sơ cán bộ');
+                ->with('pageTitle', 'Sửa thông tin hồ sơ cán bộ');
         } else
             return view('errors.notlogin');
     }

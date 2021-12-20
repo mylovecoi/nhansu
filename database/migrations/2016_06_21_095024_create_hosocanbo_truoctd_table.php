@@ -15,7 +15,6 @@ class CreateHosocanboTruoctdTable extends Migration
         Schema::create('hosocanbo_truoctd', function (Blueprint $table) {
             $table->increments('id');
             $table->string('macanbo', 50);
-            $table->foreign('macanbo')->references('macanbo')->on('hosocanbo')->onUpdate('cascade')->onDelete('cascade');
 
             $table->date('ngaytu')->nullable();
             $table->date('ngayden')->nullable();

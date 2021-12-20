@@ -5,20 +5,19 @@
  * Date: 04/07/2016
  * Time: 3:50 CH
  */
-        ?>
+?>
 @extends('main')
 
 @section('custom-style')
-    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{url('assets/plugins/global/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
 @stop
 
 @section('custom-script')
-    <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/plugins/global/select2/select2.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/plugins/global/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/plugins/global/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
 
-    <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
+    <script src="{{url('assets/js/table-managed.js')}}"></script>
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
@@ -28,36 +27,37 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-12">
-            <div class="portlet light bordered">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="fa fa-list-alt"></i>DANH SÁCH HỒ SƠ CÁN BỘ - {{$tendv}}
+        <div class="col-lg-12">
+            <div class="card card-custom gutter-b">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="text-uppercase">DANH SÁCH HỒ SƠ CÁN BỘ - {{$tendv}}</span>
                     </div>
-                    <div class="actions">
-                        <a class="btn btn-default btn-xs" href="{{url($url.'create')}}"><i class="fa fa-plus"></i>&nbsp;Thêm mới hồ sơ</a>
+
+                    <div class="card-toolbar">
+                        <a class="btn btn-light-dark font-weight-bold mr-2" href="{{url($url.'create')}}"><i class="flaticon-user-add"></i>&nbsp;Thêm mới</a>
                     </div>
                 </div>
-                <div class="portlet-body">
-                    <table id="sample_3" class="table table-hover table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th class="text-center">STT</th>
-                            <th width="96">Ảnh</th>
-                            <th class="text-center">Họ tên</th>
-                            <th class="text-center">Ngày sinh</th>
-                            <th class="text-center">Giới tính</th>
-                            <th class="text-center">Phân loại</br>công tác</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <?php $stt =0;?>
-                    <tbody>
+                <div class="card-body">
+                    <table id="sample_4" class="table table-hover table-striped table-bordered">
+                        <thead>
+                            <tr class="text-center font-weight-bold">
+                                <th style="font-weight: bold;" class="font-weight-bold">STT</th>
+                                <th width="96">Ảnh</th>
+                                <th>Họ tên</th>
+                                <th>Ngày sinh</th>
+                                <th>Giới tính</th>
+                                <th>Phân loại<br>công tác</th>
+                                <th width="20%">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <?php $stt =0;?>
+                        <tbody>
                         @foreach($model as $hs)
                             <tr>
                                 <td class="text-center">{{++$stt}}</td>
                                 <td name="anh">
-                                    <a href="{{url($url.'maso='.$hs->id.'')}}">
+                                    <a href="{{url($url.'chi_tiet?id='.$hs->id.'')}}">
                                         @if($hs->anh != '')
                                             <img src="{{ url($hs->anh)}}" width="96">
                                         @else
@@ -66,27 +66,36 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{url($url.'maso='.$hs->id.'')}}"><b>{{$hs->tencanbo}}</b></a>
-                                    <p style="margin-top: 5px">Phòng ban: {{$hs->tenpb}}</p>
-                                    <p style="margin-top: 5px">Chức vụ: {{$hs->tencvcq}}</p>
+                                    <span><a href="{{url($url.'chi_tiet?id='.$hs->id.'')}}"><b>{{$hs->tencanbo}}</b></a></span>
+                                    <span><br>Phòng ban: {{$hs->tenpb}}</span>
+                                    <span><br>Chức vụ: {{$hs->tencvcq}}</span>
                                 </td>
-                                    <td class="text-center">{{getDayVn($hs->ngaysinh)}}</td>
-                                    <td class="text-center">{{$hs->gioitinh}}</td>
-                                    <td class="text-center">{{$hs->tenct}}</td>
+                                <td class="text-center">{{getDayVn($hs->ngaysinh)}}</td>
+                                <td class="text-center">{{$hs->gioitinh}}</td>
+                                <td class="text-center">{{$hs->tenct}}</td>
                                 <td>
-                                    <a href="{{url($url.'maso='.$hs->id.'')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Chỉnh sửa</a>
-                                    <a href="{{url($url.'syll/'.$hs->id)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-credit-card"></i>&nbsp; Sơ yếu lý lịch</a>
-                                    <a href="{{url($url.'ttts/'.$hs->id)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-file-text-o"></i>&nbsp; Tóm tắt tiểu sử</a>
+                                    <a href="{{url($url.'chi_tiet?id='.$hs->id)}}" class="btn btn-light text-uppercase btn-shadow btn-sm">
+                                        <i class="flaticon-edit-1"></i>&nbsp;Sửa</a>
 
-                                    <!--button type="button" onclick="cfChiTiet('{{$url.'bsll/'.$hs->id}}','{{$hs->id}}')" class="btn btn-default btn-xs mbs" data-target="#chitiet-modal" data-toggle="modal">
+                                <!--button type="button" onclick="cfChiTiet('{{$url.'bsll/'.$hs->id}}','{{$hs->id}}')" class="btn btn-default btn-xs mbs" data-target="#chitiet-modal" data-toggle="modal">
                                         <i class="fa fa-navicon"></i>&nbsp; Bổ sung lý lịch</button-->
-                                    <button type="button" onclick="cfDel('{{$url.'del/maso='.$hs->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
-                                        <i class="fa fa-times"></i>&nbsp; Xóa</button>
+                                    <button type="button" onclick="cfDel('{{$url.'del/maso='.$hs->id}}')" class="btn btn-danger text-uppercase btn-shadow btn-sm" data-target="#delete-modal-confirm" data-toggle="modal">
+                                        <i class="flaticon2-delete"></i>&nbsp;Xóa</button>
+
+                                    <div class="btn-group" role="group">
+                                        <button id="btnIn" type="button" class="btn btn-light btn-shadow btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="flaticon-technology"></i>&nbsp;IN
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="btnIn">
+                                            <a class="dropdown-item" href="{{url($url.'syll/'.$hs->id)}}" target="_blank">Sơ yếu lý lịch</a>
+                                            <a class="dropdown-item" href="{{url($url.'ttts/'.$hs->id)}}" target="_blank">Tóm tắt tiểu sử</a>
+                                        </div>
+                                    </div>
                                 </td>
-                        </tr>
+                            </tr>
                         @endforeach
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

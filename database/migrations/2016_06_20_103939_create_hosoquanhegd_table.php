@@ -15,7 +15,6 @@ class CreateHosoquanhegdTable extends Migration
         Schema::create('hosoquanhegd', function (Blueprint $table) {
             $table->increments('id');
             $table->string('macanbo', 50);
-            $table->foreign('macanbo')->references('macanbo')->on('hosocanbo')->onUpdate('cascade')->onDelete('cascade');
 
             $table->string('phanloai')->nullable();
             $table->string('quanhe', 30)->nullable();

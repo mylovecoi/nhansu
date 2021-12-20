@@ -14,15 +14,10 @@ class CreateHosocanboTable extends Migration
     {
         Schema::create('hosocanbo', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->string('mapb', 50)->nullable();
-            $table->foreign('mapb')->references('mapb')->on('dmphongban')->onUpdate('cascade')->onDelete('set null');
-            $table->string('macvcq', 50)->nullable();
-            $table->foreign('macvcq')->references('macvcq')->on('dmchucvucq')->onUpdate('cascade')->onDelete('set null');
-            $table->string('macvd', 50)->nullable();
-            $table->foreign('macvd')->references('macvd')->on('dmchucvud')->onUpdate('cascade')->onDelete('set null');
-
             $table->string('macanbo', 50)->unique();
+            $table->string('mapb', 50)->nullable();
+            $table->string('macvcq', 50)->nullable();
+            $table->string('macvd', 50)->nullable();
             $table->string('anh', 150)->nullable();
             $table->string('macongchuc', 50)->nullable();
             $table->string('sunghiep', 100)->nullable();

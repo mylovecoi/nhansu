@@ -15,15 +15,8 @@ class CreateBangluongctTable extends Migration
         Schema::create('bangluong_ct', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mabl', 50)->nullable();
-            $table->foreign('mabl')->references('mabl')->on('bangluong')->onUpdate('cascade')->onDelete('cascade');
             $table->string('macvcq', 50)->nullable();
-            $table->foreign('macvcq')->references('macvcq')->on('dmchucvucq')->onUpdate('cascade')->onDelete('set null');
             $table->string('mapb', 50)->nullable();
-            $table->foreign('mapb')->references('mapb')->on('dmphongban')->onUpdate('cascade')->onDelete('set null');
-           // $table->integer('id_nb', 50)->length(10)->unsigned();//tham chiếu bảng ngachbac lấy mã, bậc, hệ số,....
-            $table->integer('id_nb', false, true)->length(10)->nullable();//dung cái này do lỗi ->unsigned() tạo 2 khóa chính
-            $table->foreign('id_nb')->references('id')->on('ngachbac')->onUpdate('cascade')->onDelete('set null');
-
             $table->string('msngbac', 50)->nullable();
             $table->string('macanbo', 50)->nullable();
             $table->string('tencanbo', 50)->nullable();

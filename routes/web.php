@@ -2,7 +2,7 @@
 Route::get('', 'HomeController@index');
 Route::get('ajaxtest','ajaxController@test');
 Route::get('test', function(){
-    return view('test');
+    return view('index');
 });
 
 Route::get('/setting','HomeController@setting');
@@ -29,14 +29,15 @@ Route::get('cau_hinh_he_thong/{id}/edit','GeneralConfigsController@edit');
 Route::patch('cau_hinh_he_thong/{id}','GeneralConfigsController@update');
 
 //Users
-Route::get('login','UsersController@login');
-Route::post('signin','UsersController@signin');
-Route::get('/change-password','UsersController@cp');
-Route::post('/change-password','UsersController@cpw');
+Route::get('DangNhap','UsersController@login');
+Route::post('DangNhap','UsersController@signin');
+Route::get('DangXuat','UsersController@logout');
+Route::get('/DoiMatKhau','UsersController@cp');
+Route::post('/DoiMatKhau','UsersController@cpw');
 Route::get('/checkpass','UsersController@checkpass');
 Route::get('/checkuser','UsersController@checkuser');
 Route::get('/checkmasothue','UsersController@checkmasothue');
-Route::get('logout','UsersController@logout');
+
 Route::get('users/{id}/edit','UsersController@edit');
 Route::patch('users/{id}','UsersController@update');
 Route::get('users/{id}/phan-quyen','UsersController@permission');
@@ -53,6 +54,13 @@ Route::group(['prefix'=>'user'],function(){
 });
 
 Route::group(['prefix'=>'danh_muc'],function(){
+    Route::group(['prefix'=>'dia_ban'],function(){
+        Route::get('danh_sach','dmdiabanController@index');
+        Route::post('delete','dmdiabanController@destroy');
+        Route::post('store','dmdiabanController@store');
+        Route::get('chi_tiet','dmdiabanController@getinfo');
+    });
+
     Route::group(['prefix'=>'phong_ban'],function(){
         Route::get('index','dmphongbanController@index');
         Route::get('del/{id}','dmphongbanController@destroy');
@@ -154,7 +162,7 @@ Route::group(['prefix'=>'nghiep_vu'],function(){
         Route::get('danh_sach','hosocanboController@index');
         Route::patch('update/{id}','hosocanboController@update');
         Route::get('create','hosocanboController@create');
-        Route::get('maso={id}','hosocanboController@show');
+        Route::get('chi_tiet','hosocanboController@show');
         Route::get('del/maso={id}','hosocanboController@destroy');
         Route::post('store','hosocanboController@store');
 

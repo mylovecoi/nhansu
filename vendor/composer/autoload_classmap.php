@@ -15,6 +15,7 @@ return array(
     'CreateDmchucvucdTable' => $baseDir . '/database/migrations/2016_06_10_102650_create_dmchucvucd_table.php',
     'CreateDmchucvucqTable' => $baseDir . '/database/migrations/2016_06_10_102423_create_dmchucvucq_table.php',
     'CreateDmdantocTable' => $baseDir . '/database/migrations/2016_06_19_102728_create_dmdantoc_table.php',
+    'CreateDmdiabanTable' => $baseDir . '/database/migrations/2021_11_22_104033_create_dmdiaban_table.php',
     'CreateDmdonviTable' => $baseDir . '/database/migrations/2016_06_19_102806_create_dmdonvi_table.php',
     'CreateDmkhoipbTable' => $baseDir . '/database/migrations/2017_05_25_160123_create_dmkhoipb_table.php',
     'CreateDmngachccTable' => $baseDir . '/database/migrations/2016_06_20_102913_create_dmngachcc_table.php',

@@ -14,10 +14,7 @@ class CreateHosocongtacTable extends Migration
     {
         Schema::create('hosocongtac', function (Blueprint $table) {
             $table->increments('id');
-
             $table->string('macanbo', 50);
-            $table->foreign('macanbo')->references('macanbo')->on('hosocanbo')->onUpdate('cascade')->onDelete('cascade');
-
             $table->date('ngaytu');
             $table->date('ngayden');
             $table->string('noidung')->nullable();

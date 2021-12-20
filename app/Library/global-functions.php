@@ -55,53 +55,6 @@ function chkDbl($obj) {
     }
 }
 
-function can($module = null, $action = null)
-{
-    $permission = !empty(session('admin')->permission) ? session('admin')->permission : getPermissionDefault(session('admin')->level);
-    $permission = json_decode($permission, true);
-    //check permission
-    if(isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
-        return true;
-    }else{
-        return false;
-    }
-}
-
-function canGeneral($module = null, $action =null)
-{
-    $model = \App\GeneralConfigs::first();
-    $setting = json_decode($model->setting, true);
-
-    if(isset($setting[$module][$action]) && $setting[$module][$action] ==1 )
-        return true;
-    else
-        return false;
-}
-
-function canDvCc($module = null, $action = null)
-{
-    $permission = !empty(session('ttdnvt')->dvcc) ? session('ttdnvt')->dvcc : getDvCcDefault('T');
-    $permission = json_decode($permission, true);
-
-    //check permission
-    if(isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
-        return true;
-    }else
-        return false;
-}
-
-function canDV($perm=null,$module = null, $action = null){
-    if($perm == ''){
-        return false;
-    }else {
-        $permission = json_decode($perm,true);
-        if (isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
-            return true;
-        } else
-            return false;
-    }
-}
-
 function getGeneralConfigs() {
     return \App\GeneralConfigs::all()->first()->toArray();
 }
@@ -114,28 +67,6 @@ function getDouble($str)
     //if (is_double($str))
     $sKQ = $str;
     return floatval($sKQ);
-}
-
-function canDVVT($setting = null,$module = null, $action = null){
-    $setting = json_decode($setting, true);
-
-    //check permission
-    if(isset($setting[$module][$action]) && $setting[$module][$action] == 1) {
-        return true;
-    }else
-        return false;
-}
-
-function canshow($module = null, $action = null)
-{
-    $permission = !empty(session('admin')->dvvtcc) ? session('admin')->dvvtcc : '{"dvvt":{"vtxk":"1","vtxb":"1","vtxtx":"1","vtch":"1"}}';
-    $permission = json_decode($permission, true);
-
-    //check permission
-    if(isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
-        return true;
-    }else
-        return false;
 }
 
 function chuyenkhongdau($str)
@@ -288,5 +219,62 @@ function dinhdangsothapphan ($number , $decimals = 0) {
     //làm lại hàm chú ý đo khi các số thập phân nếu làm tròn thi ko bỏ dc số 0 đằng sau dấu ,
     // round(5.4,4) = 5,4000
 }
+
+
+function toAlpha($data){
+    $alphabet =   array('','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+    //$alpha_flip = array_flip($alphabet);
+    if($data <= 25){
+        return $alphabet[$data];
+    }
+    elseif($data > 25){
+        $dividend = ($data + 1);
+        $alpha = '';
+        while ($dividend > 0){
+            $modulo = ($dividend - 1) % 26;
+            $alpha = $alphabet[$modulo] . $alpha;
+            $dividend = floor((($dividend - $modulo) / 26));
+        }
+        return $alpha;
+    }
+}
+
+function toRoman($num)
+{
+    $n = intval($num);
+    $res = '';
+
+    /*** roman_numerals array  ***/
+    $roman_numerals = array(
+        'M'  => 1000,
+        'CM' => 900,
+        'D'  => 500,
+        'CD' => 400,
+        'C'  => 100,
+        'XC' => 90,
+        'L'  => 50,
+        'XL' => 40,
+        'X'  => 10,
+        'IX' => 9,
+        'V'  => 5,
+        'IV' => 4,
+        'I'  => 1);
+
+    foreach ($roman_numerals as $roman => $number)
+    {
+        /*** divide to get  matches ***/
+        $matches = intval($n / $number);
+
+        /*** assign the roman char * $matches ***/
+        $res .= str_repeat($roman, $matches);
+
+        /*** substract from the number ***/
+        $n = $n % $number;
+    }
+
+    /*** return the res ***/
+    return $res;
+}
+
 
 ?>

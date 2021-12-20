@@ -414,6 +414,7 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
         'CreateDmchucvucdTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_10_102650_create_dmchucvucd_table.php',
         'CreateDmchucvucqTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_10_102423_create_dmchucvucq_table.php',
         'CreateDmdantocTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_19_102728_create_dmdantoc_table.php',
+        'CreateDmdiabanTable' => __DIR__ . '/../..' . '/database/migrations/2021_11_22_104033_create_dmdiaban_table.php',
         'CreateDmdonviTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_19_102806_create_dmdonvi_table.php',
         'CreateDmkhoipbTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_25_160123_create_dmkhoipb_table.php',
         'CreateDmngachccTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_20_102913_create_dmngachcc_table.php',

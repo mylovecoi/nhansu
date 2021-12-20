@@ -15,7 +15,6 @@ class CreateHosothanhtraTable extends Migration
         Schema::create('hosothanhtra', function (Blueprint $table) {
             $table->increments('id');
             $table->string('macanbo', 50);
-            $table->foreign('macanbo')->references('macanbo')->on('hosocanbo')->onUpdate('cascade')->onDelete('cascade');
 
             $table->date('ngaythang')->nullable();
             $table->string('tenthanhtra', 50)->nullable();

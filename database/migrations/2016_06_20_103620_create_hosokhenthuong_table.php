@@ -15,7 +15,6 @@ class CreateHosokhenthuongTable extends Migration
         Schema::create('hosokhenthuong', function (Blueprint $table) {
             $table->increments('id');
             $table->string('macanbo', 50);
-            $table->foreign('macanbo')->references('macanbo')->on('hosocanbo')->onUpdate('cascade')->onDelete('cascade');
 
             $table->date('ngaythang')->nullable();
             $table->string('hinhthuc', 100)->nullable();
